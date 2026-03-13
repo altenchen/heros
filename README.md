@@ -21,6 +21,7 @@
 - ✅ 微信社交功能
 - ✅ UI系统框架
 - ✅ 成就与任务系统
+- ✅ 关卡副本系统
 
 ## 项目结构
 
@@ -70,6 +71,9 @@ heros/
 │   │   ├── achievement/      # 成就系统
 │   │   │   ├── AchievementManager.ts # 成就管理
 │   │   │   ├── TaskManager.ts # 任务管理
+│   │   │   └── index.ts      # 模块导出
+│   │   ├── level/           # 关卡系统
+│   │   │   ├── LevelManager.ts # 关卡管理
 │   │   │   └── index.ts      # 模块导出
 │   │   └── utils/            # 工具类
 │   │       ├── PlayerDataManager.ts
@@ -243,6 +247,14 @@ town.recruitUnit('castle_tier1_pikeman', 10, resources);
 - [x] 成就与任务UI面板
 - [x] 奖励发放系统
 
+### Phase 3.6: 关卡系统 ✅
+- [x] 关卡类型定义
+- [x] 章节与关卡配置
+- [x] 关卡管理器
+- [x] 关卡选择UI
+- [x] 星级评价系统
+- [x] 体力系统
+
 ### Phase 4: 编辑器集成 🚧
 - [ ] 绑定组件到预制体
 - [ ] 添加美术资源
@@ -265,5 +277,5 @@ MIT License
 
 ---
 
-**版本**: v1.2.0
+**版本**: v1.3.0
 **最后更新**: 2026-03-14
