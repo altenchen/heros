@@ -14,3 +14,4 @@ export { SettingsPanel } from './SettingsPanel';
 export { AchievementPanel } from './AchievementPanel';
 export { TaskPanel } from './TaskPanel';
 export { LevelPanel } from './LevelPanel';
+export { SocialPanel } from './SocialPanel';

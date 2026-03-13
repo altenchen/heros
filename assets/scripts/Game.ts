@@ -15,6 +15,7 @@ import { PoolInitializer } from './utils/pool/PoolExamples';
 import { achievementManager, taskManager } from './achievement';
 import { AchievementConditionType } from './config/AchievementTypes';
 import { levelManager } from './level';
+import { friendManager, guildManager, chatManager } from './social';
 
 const { ccclass, property } = _decorator;
 
@@ -102,6 +103,11 @@ export class Game extends Component {
         // 初始化关卡系统
         levelManager.init();
 
+        // 初始化社交系统
+        friendManager.init();
+        guildManager.init();
+        chatManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -158,6 +164,24 @@ export class Game extends Component {
         if (levelData) {
             levelManager.deserialize(levelData);
         }
+
+        // 加载好友数据
+        const friendData = localStorage.getItem('hmm_legacy_friends');
+        if (friendData) {
+            friendManager.deserialize(friendData);
+        }
+
+        // 加载公会数据
+        const guildData = localStorage.getItem('hmm_legacy_guild');
+        if (guildData) {
+            guildManager.deserialize(guildData);
+        }
+
+        // 加载聊天数据
+        const chatData = localStorage.getItem('hmm_legacy_chat');
+        if (chatData) {
+            chatManager.deserialize(chatData);
+        }
     }
 
     /**
@@ -185,6 +209,15 @@ export class Game extends Component {
 
         // 保存关卡数据
         localStorage.setItem('hmm_legacy_levels', levelManager.serialize());
+
+        // 保存好友数据
+        localStorage.setItem('hmm_legacy_friends', friendManager.serialize());
+
+        // 保存公会数据
+        localStorage.setItem('hmm_legacy_guild', guildManager.serialize());
+
+        // 保存聊天数据
+        localStorage.setItem('hmm_legacy_chat', chatManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -230,6 +263,27 @@ export class Game extends Component {
      */
     getLevelManager(): typeof levelManager {
         return levelManager;
+    }
+
+    /**
+     * 获取好友管理器
+     */
+    getFriendManager(): typeof friendManager {
+        return friendManager;
+    }
+
+    /**
+     * 获取公会管理器
+     */
+    getGuildManager(): typeof guildManager {
+        return guildManager;
+    }
+
+    /**
+     * 获取聊天管理器
+     */
+    getChatManager(): typeof chatManager {
+        return chatManager;
     }
 
     /**
