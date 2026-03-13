@@ -5,6 +5,7 @@
 
 import { _decorator, Component, Node, Button, Color, Sprite, Label, UIOpacity, tween, Vec3 } from 'cc';
 import { UIComponent } from './UIComponent';
+import { SoundManager } from '../../audio/SoundManager';
 
 const { ccclass, property } = _decorator;
 
@@ -252,8 +253,8 @@ export class UIButton extends UIComponent {
     protected _triggerClick(): void {
         // 播放音效
         if (this._buttonConfig.playSound) {
-            // TODO: 集成音效管理器
-            // SoundManager.getInstance().playSound(this._buttonConfig.soundName);
+            const soundName = this._buttonConfig.soundName || 'click';
+            SoundManager.getInstance().playUISound(soundName);
         }
 
         // 冷却处理

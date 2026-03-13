@@ -3,16 +3,17 @@
  * 显示英雄属性、技能、军队配置
  */
 
-import { _decorator, Node, Label, Sprite, SpriteFrame, Prefab, instantiate, ScrollView, Vec3, ProgressBar } from 'cc';
+import { _decorator, Node, Label, Sprite, SpriteFrame, Prefab, instantiate, ScrollView, Vec3, ProgressBar, resources, ImageAsset, Texture2D } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
 import { Game } from '../../Game';
 import { UIManager } from '../UIManager';
 import { EventCenter, GameEvent } from '../../utils/EventTarget';
 import { PlayerDataManager } from '../../utils/PlayerDataManager';
-import { HeroData, SkillInstance, ArmySlot, HeroConfig } from '../../config/GameTypes';
+import { HeroData, SkillInstance, ArmySlot, HeroConfig, UnitConfig } from '../../config/GameTypes';
 import { HeroConfigMap } from '../../../configs/heroes.json';
 import { SkillConfigMap } from '../../../configs/skills.json';
+import { UnitConfigMap } from '../../../configs/units.json';
 
 const { ccclass, property } = _decorator;
 
@@ -210,7 +211,34 @@ export class HeroPanel extends UIPanel {
             this.expLabel.string = `${this._currentHero.experience}/${expForNextLevel}`;
         }
 
-        // TODO: 加载头像
+        // 加载头像
+        this._loadHeroPortrait();
+    }
+
+    /**
+     * 加载英雄头像
+     */
+    private _loadHeroPortrait(): void {
+        if (!this.heroPortrait || !this._currentHeroConfig) return;
+
+        const portraitPath = this._currentHeroConfig.portrait;
+
+        // 尝试从 resources 目录加载头像
+        resources.load(`portraits/${portraitPath}/spriteFrame`, SpriteFrame, (err, spriteFrame) => {
+            if (err) {
+                console.warn(`[HeroPanel] 加载头像失败: ${portraitPath}`, err);
+                // 尝试从 ui 目录加载
+                resources.load(`ui/portraits/${portraitPath}/spriteFrame`, SpriteFrame, (err2, sf2) => {
+                    if (err2) {
+                        console.warn(`[HeroPanel] 备用路径加载头像也失败: ${portraitPath}`);
+                        return;
+                    }
+                    this.heroPortrait!.spriteFrame = sf2;
+                });
+                return;
+            }
+            this.heroPortrait!.spriteFrame = spriteFrame;
+        });
     }
 
     /**
@@ -326,10 +354,25 @@ export class HeroPanel extends UIPanel {
         const slotNode = this.armySlotPrefab ? instantiate(this.armySlotPrefab) : new Node(`ArmySlot_${index}`);
         slotNode.setParent(this.armySlotsContainer);
 
-        // TODO: 显示兵种图标和数量
+        // 获取兵种配置
+        const unitConfig = UnitConfigMap.get(slot.configId);
+
+        // 显示兵种名称
+        const nameLabel = slotNode.getChildByName('NameLabel')?.getComponent(Label);
+        if (nameLabel && unitConfig) {
+            nameLabel.string = unitConfig.name;
+        }
+
+        // 显示兵种数量
         const countLabel = slotNode.getChildByName('CountLabel')?.getComponent(Label);
         if (countLabel) {
             countLabel.string = `x${slot.count}`;
+        }
+
+        // 显示兵种图标
+        const iconSprite = slotNode.getChildByName('Icon')?.getComponent(Sprite);
+        if (iconSprite && unitConfig) {
+            this._loadUnitIcon(iconSprite, unitConfig);
         }
 
         // 点击显示兵种详情或编辑
@@ -339,11 +382,53 @@ export class HeroPanel extends UIPanel {
     }
 
     /**
+     * 加载兵种图标
+     */
+    private _loadUnitIcon(sprite: Sprite, config: UnitConfig): void {
+        // 尝试从 resources 目录加载兵种图标
+        const iconPath = `units/${config.id}/spriteFrame`;
+        resources.load(iconPath, SpriteFrame, (err, spriteFrame) => {
+            if (err) {
+                console.warn(`[HeroPanel] 加载兵种图标失败: ${config.id}`);
+                return;
+            }
+            sprite.spriteFrame = spriteFrame;
+        });
+    }
+
+    /**
      * 显示兵种详情
      */
     private _showUnitDetail(slot: ArmySlot): void {
-        // TODO: 显示兵种详情面板
-        console.log('Show unit detail:', slot);
+        const unitConfig = UnitConfigMap.get(slot.configId);
+        if (!unitConfig) {
+            console.warn(`[HeroPanel] 未找到兵种配置: ${slot.configId}`);
+            return;
+        }
+
+        // 构建详情信息
+        const details = [
+            `【${unitConfig.name}】`,
+            `等级: ${unitConfig.tier}阶`,
+            `攻击: ${unitConfig.attack}`,
+            `防御: ${unitConfig.defense}`,
+            `速度: ${unitConfig.speed}`,
+            `生命: ${unitConfig.hp}`,
+            `伤害: ${unitConfig.damage[0]}-${unitConfig.damage[1]}`,
+            ``,
+            `数量: ${slot.count}`,
+            `生命: ${slot.currentHp}/${slot.maxHp}`
+        ];
+
+        if (unitConfig.specialty) {
+            details.push(``, `特性: ${unitConfig.specialty.name}`, unitConfig.specialty.description);
+        }
+
+        this._uiManager.showConfirm(
+            unitConfig.name,
+            details.join('\n'),
+            () => {}
+        );
     }
 
     /**

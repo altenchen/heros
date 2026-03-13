@@ -24,7 +24,7 @@ export enum ShopItemType {
 /**
  * 货币类型
  */
-exportenum CurrencyType {
+export enum CurrencyType {
     /** 金币 */
     GOLD = 'gold',
     /** 钻石 */

@@ -302,9 +302,6 @@ export class BattlePanel extends UIPanel {
     private _updateUnitDisplay(cell: HexCellConfig, unit: BattleUnit): void {
         if (!cell.node) return;
 
-        // TODO: 显示单位图标、血量条、数量等
-        // 这里可以创建子节点来显示单位信息
-
         // 根据阵营设置背景色
         const color = unit.team === 'player'
             ? new Color(100, 150, 255, 200)
@@ -314,6 +311,80 @@ export class BattlePanel extends UIPanel {
         if (graphics) {
             this._drawHexagon(graphics, this.HEX_SIZE * 0.8, color);
         }
+
+        // 显示单位数量
+        let countLabel = cell.node.getChildByName('UnitCount')?.getComponent(Label);
+        if (!countLabel) {
+            const countNode = new Node('UnitCount');
+            countNode.setParent(cell.node);
+            countNode.setPosition(new Vec3(0, -20, 0));
+            countLabel = countNode.addComponent(Label);
+            countLabel.fontSize = 14;
+            countLabel.lineHeight = 14;
+            countLabel.color = Color.WHITE;
+        }
+        countLabel.string = `x${unit.count}`;
+
+        // 显示血量条
+        this._createOrUpdateHpBar(cell.node, unit);
+
+        // 显示单位图标（通过背景颜色区分）
+        const iconNode = cell.node.getChildByName('UnitIcon');
+        if (!iconNode) {
+            const newIconNode = new Node('UnitIcon');
+            newIconNode.setParent(cell.node);
+            newIconNode.setPosition(new Vec3(0, 0, 0));
+            const iconGraphics = newIconNode.addComponent(Graphics);
+            // 绘制一个小圆圈代表单位
+            iconGraphics.circle(0, 0, 15);
+            iconGraphics.fill();
+        }
+    }
+
+    /**
+     * 创建或更新血量条
+     */
+    private _createOrUpdateHpBar(parentNode: Node, unit: BattleUnit): void {
+        let hpBarNode = parentNode.getChildByName('HpBar');
+
+        if (!hpBarNode) {
+            hpBarNode = new Node('HpBar');
+            hpBarNode.setParent(parentNode);
+            hpBarNode.setPosition(new Vec3(0, 25, 0));
+        }
+
+        // 绘制血量条背景
+        let bgGraphics = hpBarNode.getChildByName('Bg')?.getComponent(Graphics);
+        if (!bgGraphics) {
+            const bgNode = new Node('Bg');
+            bgNode.setParent(hpBarNode);
+            bgGraphics = bgNode.addComponent(Graphics);
+        }
+        bgGraphics.clear();
+        bgGraphics.rect(-20, -2, 40, 4);
+        bgGraphics.fillColor = new Color(50, 50, 50, 200);
+        bgGraphics.fill();
+
+        // 绘制血量条前景
+        let fgGraphics = hpBarNode.getChildByName('Fg')?.getComponent(Graphics);
+        if (!fgGraphics) {
+            const fgNode = new Node('Fg');
+            fgNode.setParent(hpBarNode);
+            fgGraphics = fgNode.addComponent(Graphics);
+        }
+        fgGraphics.clear();
+        const hpPercent = Math.max(0, unit.currentHp / unit.maxHp);
+        const hpWidth = 40 * hpPercent;
+        fgGraphics.rect(-20, -2, hpWidth, 4);
+        // 根据血量百分比设置颜色
+        if (hpPercent > 0.6) {
+            fgGraphics.fillColor = new Color(100, 200, 100, 255);
+        } else if (hpPercent > 0.3) {
+            fgGraphics.fillColor = new Color(200, 200, 100, 255);
+        } else {
+            fgGraphics.fillColor = new Color(200, 100, 100, 255);
+        }
+        fgGraphics.fill();
     }
 
     /**
@@ -415,8 +486,29 @@ export class BattlePanel extends UIPanel {
 
         // 更新血量条
         if (this.hpBar) {
-            const hpPercent = unit.currentHp / unit.maxHp;
-            // TODO: 更新血量条显示
+            const hpPercent = Math.max(0, unit.currentHp / unit.maxHp);
+
+            // 尝试获取 ProgressBar 组件
+            const progressBar = this.hpBar.getComponent('cc.ProgressBar') as any;
+            if (progressBar && 'progress' in progressBar) {
+                progressBar.progress = hpPercent;
+            }
+
+            // 尝试更新血量条 Graphics
+            const fgGraphics = this.hpBar.getChildByName('Fg')?.getComponent(Graphics);
+            if (fgGraphics) {
+                fgGraphics.clear();
+                const hpWidth = 100 * hpPercent; // 假设宽度100
+                fgGraphics.rect(-50, -3, hpWidth, 6);
+                if (hpPercent > 0.6) {
+                    fgGraphics.fillColor = new Color(100, 200, 100, 255);
+                } else if (hpPercent > 0.3) {
+                    fgGraphics.fillColor = new Color(200, 200, 100, 255);
+                } else {
+                    fgGraphics.fillColor = new Color(200, 100, 100, 255);
+                }
+                fgGraphics.fill();
+            }
         }
     }
 
@@ -559,8 +651,22 @@ export class BattlePanel extends UIPanel {
      * 自动战斗
      */
     private _onAutoBattle(): void {
-        // TODO: 实现自动战斗
-        console.log('Auto battle');
+        if (!this._battleManager) {
+            this._uiManager.showToast('战斗尚未开始');
+            return;
+        }
+
+        const state = this._battleManager.getState();
+
+        // 切换自动战斗模式
+        if (state.phase === 'battle') {
+            // 开始自动战斗
+            this._addBattleLog('开始自动战斗...');
+            this._battleManager.startBattle();
+        } else if (state.phase === 'preparation') {
+            // 如果还在准备阶段，开始战斗
+            this._battleManager.startBattle();
+        }
     }
 
     /**

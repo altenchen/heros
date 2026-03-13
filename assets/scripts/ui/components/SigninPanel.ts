@@ -17,6 +17,7 @@ import {
 } from '../config/DailySigninTypes';
 import { soundManager } from '../audio';
 import { UISoundType } from '../config/AudioTypes';
+import { UIManager } from '../UIManager';
 
 const { ccclass, property } = _decorator;
 
@@ -437,16 +438,49 @@ export class SigninPanel extends UIPanel {
      * 显示奖励弹窗
      */
     private _showRewardPopup(rewards: any[], bonus?: any): void {
-        // TODO: 实现奖励弹窗显示
         console.log('[SigninPanel] 获得奖励:', rewards, bonus);
+
+        // 构建奖励描述
+        const rewardDescriptions: string[] = rewards.map(reward => {
+            switch (reward.type) {
+                case RewardType.GOLD:
+                    return `金币 x${reward.amount}`;
+                case RewardType.GEMS:
+                    return `宝石 x${reward.amount}`;
+                case RewardType.ITEM:
+                    return `${reward.itemId || '道具'} x${reward.amount}`;
+                case RewardType.HERO_SHARD:
+                    return `英雄碎片 x${reward.amount}`;
+                case RewardType.UNIT:
+                    return `兵种 x${reward.amount}`;
+                default:
+                    return `${reward.type} x${reward.amount}`;
+            }
+        });
+
+        let message = '恭喜获得：\n' + rewardDescriptions.join('\n');
+        if (bonus) {
+            message += `\n\n额外奖励：\n${bonus.type} x${bonus.amount}`;
+        }
+
+        // 使用 UIManager 显示确认弹窗
+        UIManager.getInstance().showConfirm(
+            '签到奖励',
+            message,
+            () => {
+                // 确认后关闭面板
+                this._closePanel();
+            }
+        );
     }
 
     /**
      * 显示错误提示
      */
     private _showError(message: string): void {
-        // TODO: 实现错误提示
         console.warn('[SigninPanel]', message);
+        // 使用 UIManager 显示 Toast 提示
+        UIManager.getInstance().showToast(message);
     }
 
     /**

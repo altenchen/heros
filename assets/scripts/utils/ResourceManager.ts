@@ -179,7 +179,7 @@ export class ResourceManager {
     private async loadText(path: string): Promise<string> {
         const response = await fetch(path);
         if (!response.ok) {
-            throw new Error(`Failed to load text: ${path}`));
+            throw new Error(`Failed to load text: ${path}`);
         }
         return response.text();
     }
