@@ -30,6 +30,7 @@
 | Buff系统 | ✅ 已完成 | 状态效果、属性修改、持续伤害 |
 | 地形系统 | ✅ 已完成 | 地形效果、移动消耗、特殊效果 |
 | 战斗准备界面 | ✅ 已完成 | 部队配置、敌人预览、战力计算 |
+| 战斗结果界面 | ✅ 已完成 | 胜利结算、星级评价、奖励显示 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -190,6 +191,7 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗准备 | `assets/scripts/ui/components/FormationPanel.ts` |
 | 战斗面板 | `assets/scripts/ui/components/BattlePanel.ts` |
+| 战斗结果 | `assets/scripts/ui/components/BattleResultPanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
 | Buff管理 | `assets/scripts/battle/BuffManager.ts` |
 | 地形效果 | `assets/scripts/battle/TerrainEffectManager.ts` |

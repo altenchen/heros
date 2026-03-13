@@ -684,16 +684,81 @@ export class BattlePanel extends UIPanel {
      * 战斗结束回调
      */
     private _onBattleEnd(data: { winner: 'player' | 'enemy' }): void {
-        // 显示战斗结果
+        // 添加日志
         const message = data.winner === 'player' ? '战斗胜利！' : '战斗失败...';
         this._addBattleLog(message);
 
-        // 延迟返回主城
+        // 获取战斗结果数据
+        const resultData = this._getBattleResultData(data.winner);
+
+        // 延迟显示结算界面
         this.scheduleOnce(() => {
+            // 结束战斗
             this._game.endBattle();
             this.hide();
-            this._uiManager.showUI('town_panel');
-        }, 2);
+
+            // 显示战斗结果面板
+            this._uiManager.showUI('battle_result_panel', resultData);
+        }, 1.5);
+    }
+
+    /**
+     * 获取战斗结果数据
+     */
+    private _getBattleResultData(winner: 'player' | 'enemy' | null): any {
+        if (!this._battleManager) {
+            return {
+                victory: winner === 'player',
+                stars: 0,
+                firstClear: false,
+                rewards: {},
+                statistics: {
+                    turns: 0,
+                    totalDamage: 0,
+                    totalHeal: 0,
+                    deathCount: 0,
+                    skillCount: 0
+                }
+            };
+        }
+
+        const state = this._battleManager.getState();
+        const events = this._battleManager.getEvents();
+
+        // 统计数据
+        let totalDamage = 0;
+        let totalHeal = 0;
+        let deathCount = 0;
+        let skillCount = 0;
+
+        events.forEach(event => {
+            if (event.type === 'unit_attack') {
+                totalDamage += event.data.damage || 0;
+            }
+            if (event.type === 'skill_cast') {
+                skillCount++;
+            }
+            if (event.type === 'unit_die') {
+                deathCount++;
+            }
+        });
+
+        return {
+            victory: winner === 'player',
+            stars: winner === 'player' ? 3 : 0, // 简化处理，实际应该根据条件计算
+            firstClear: false,
+            rewards: {
+                gold: winner === 'player' ? 1000 : 0,
+                experience: winner === 'player' ? 500 : 0
+            },
+            statistics: {
+                turns: state.turn,
+                totalDamage,
+                totalHeal,
+                deathCount,
+                skillCount
+            }
+        };
     }
 
     /**

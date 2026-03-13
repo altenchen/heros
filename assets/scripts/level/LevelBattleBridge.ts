@@ -18,6 +18,7 @@ import { playerDataManager } from '../utils/PlayerDataManager';
 import { inventoryManager } from '../inventory';
 import { ItemEffectType } from '../config/InventoryTypes';
 import { rewardManager, RewardConfig } from '../utils/RewardManager';
+import { UIManager } from '../ui/UIManager';
 
 /**
  * 关卡战斗事件类型
@@ -327,6 +328,9 @@ export class LevelBattleBridge {
             this._onBattleEndCallback(challengeResult);
         }
 
+        // 显示战斗结果界面
+        this._showBattleResultPanel(challengeResult, rewards);
+
         // 清理
         this._battleManager.cleanup();
         this._battleManager = null;
@@ -610,6 +614,31 @@ export class LevelBattleBridge {
         } as LevelBattleEventData);
 
         console.log('[LevelBattleBridge] 奖励发放完成:', rewards);
+    }
+
+    /**
+     * 显示战斗结果面板
+     */
+    private _showBattleResultPanel(challengeResult: LevelChallengeResult, rewards: any): void {
+        const uiManager = UIManager.getInstance();
+
+        const resultData = {
+            victory: challengeResult.victory,
+            levelId: this._currentLevelId || undefined,
+            levelName: this._currentLevelId ? LevelConfigMap.get(this._currentLevelId)?.name : undefined,
+            stars: challengeResult.stars,
+            firstClear: challengeResult.firstClear,
+            rewards: challengeResult.rewards,
+            statistics: {
+                turns: challengeResult.turns,
+                totalDamage: challengeResult.statistics.totalDamage,
+                totalHeal: challengeResult.statistics.totalHeal,
+                deathCount: challengeResult.statistics.deathCount,
+                skillCount: challengeResult.statistics.skillCount
+            }
+        };
+
+        uiManager.showUI('battle_result_panel', resultData);
     }
 
     /**

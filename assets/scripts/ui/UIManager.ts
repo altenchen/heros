@@ -166,6 +166,20 @@ export class UIManager {
             cache: true
         });
 
+        // 战斗结果面板
+        this.registerUI('battle_result_panel', {
+            prefab: 'prefabs/ui/BattleResultPanel',
+            layer: UILayer.POPUP,
+            cache: false
+        });
+
+        // 关卡面板
+        this.registerUI('level_panel', {
+            prefab: 'prefabs/ui/LevelPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
         // 商店面板
         this.registerUI('shop_panel', {
             prefab: 'prefabs/ui/ShopPanel',
