@@ -24,6 +24,7 @@ import { dailySigninManager } from './signin';
 import { shopManager } from './shop';
 import { inventoryManager } from './inventory';
 import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBridge';
+import { rewardManager } from './utils/RewardManager';
 
 const { ccclass, property } = _decorator;
 
@@ -133,6 +134,9 @@ export class Game extends Component {
 
         // 初始化背包系统
         inventoryManager.init();
+
+        // 初始化奖励系统
+        rewardManager.init();
 
         // 初始化UI管理器
         if (this.canvas) {
