@@ -20,6 +20,7 @@ import { tutorialManager } from './tutorial';
 import { TriggerType } from './config/TutorialTypes';
 import { soundManager } from './audio';
 import { BGMScene } from './config/AudioTypes';
+import { dailySigninManager } from './signin';
 
 const { ccclass, property } = _decorator;
 
@@ -118,6 +119,9 @@ export class Game extends Component {
         // 初始化音效系统
         soundManager.init();
 
+        // 初始化签到系统
+        dailySigninManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -210,6 +214,12 @@ export class Game extends Component {
         if (audioData) {
             soundManager.deserialize(audioData);
         }
+
+        // 加载签到数据
+        const signinData = localStorage.getItem('hmm_legacy_signin');
+        if (signinData) {
+            dailySigninManager.deserialize(signinData);
+        }
     }
 
     /**
@@ -252,6 +262,9 @@ export class Game extends Component {
 
         // 保存音频设置
         localStorage.setItem('hmm_legacy_audio', soundManager.serialize());
+
+        // 保存签到数据
+        localStorage.setItem('hmm_legacy_signin', dailySigninManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -332,6 +345,13 @@ export class Game extends Component {
      */
     getSoundManager(): typeof soundManager {
         return soundManager;
+    }
+
+    /**
+     * 获取签到管理器
+     */
+    getSigninManager(): typeof dailySigninManager {
+        return dailySigninManager;
     }
 
     /**

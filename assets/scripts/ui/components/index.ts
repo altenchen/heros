@@ -16,3 +16,4 @@ export { TaskPanel } from './TaskPanel';
 export { LevelPanel } from './LevelPanel';
 export { SocialPanel } from './SocialPanel';
 export { TutorialOverlay } from './TutorialOverlay';
+export { SigninPanel } from './SigninPanel';
