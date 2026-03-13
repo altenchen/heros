@@ -28,6 +28,7 @@
 | 奖励系统 | ✅ 已完成 | 统一发放、英雄碎片、皮肤 |
 | 皮肤系统 | ✅ 已完成 | 英雄皮肤、兵种皮肤、头像框 |
 | Buff系统 | ✅ 已完成 | 状态效果、属性修改、持续伤害 |
+| 地形系统 | ✅ 已完成 | 地形效果、移动消耗、特殊效果 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -115,6 +116,29 @@ buffManager.hasStatus(targetId, StatusEffect.STUN);
 buffManager.dispelBuffs(targetId, 2, true);
 ```
 
+### 地形系统
+
+```typescript
+import { TerrainEffectManager } from './battle/TerrainEffectManager';
+import { TerrainType } from './config/GameTypes';
+
+const terrainManager = TerrainEffectManager.getInstance();
+
+// 初始化地形
+terrainManager.init(grid);
+terrainManager.initBattlefieldTerrain({
+    '0,1': TerrainType.SWAMP,
+    '1,2': TerrainType.LAVA
+});
+
+// 生成随机地形
+terrainManager.generateRandomTerrain(5, 3);
+
+// 获取地形修正
+const attackMod = terrainManager.getAttackModifier(unitId);
+const speedMod = terrainManager.getSpeedModifier(unitId);
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -160,10 +184,12 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 类型定义 | `assets/scripts/config/GameTypes.ts` |
 | 皮肤类型 | `assets/scripts/config/SkinTypes.ts` |
 | Buff类型 | `assets/scripts/config/BuffTypes.ts` |
+| 地形类型 | `assets/scripts/config/TerrainTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
 | Buff管理 | `assets/scripts/battle/BuffManager.ts` |
+| 地形效果 | `assets/scripts/battle/TerrainEffectManager.ts` |
 | 六边形网格 | `assets/scripts/battle/HexGrid.ts` |
 | 玩家数据 | `assets/scripts/utils/PlayerDataManager.ts` |
 | 奖励管理 | `assets/scripts/utils/RewardManager.ts` |

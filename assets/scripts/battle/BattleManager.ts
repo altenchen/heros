@@ -19,6 +19,8 @@ import { SkillManager } from '../skill/SkillManager';
 import { battlePoolManager, PooledBuffData } from '../utils/pool';
 import { BuffManager, buffManager } from './BuffManager';
 import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffTypes';
+import { TerrainEffectManager, terrainEffectManager } from './TerrainEffectManager';
+import { TerrainType } from '../config/GameTypes';
 
 /**
  * 战斗事件类型
@@ -87,12 +89,14 @@ export class BattleManager {
     private events: BattleEvent[] = [];
     private skillManager: SkillManager;
     private buffManager: BuffManager;
+    private terrainEffectManager: TerrainEffectManager;
     private eventListeners: Map<BattleEventType, Function[]> = new Map();
 
     constructor() {
         this.grid = new HexGrid();
         this.skillManager = new SkillManager();
         this.buffManager = BuffManager.getInstance();
+        this.terrainEffectManager = TerrainEffectManager.getInstance();
         this.state = this.createInitialState();
     }
 
@@ -126,6 +130,9 @@ export class BattleManager {
         this.events = [];
         this.state = this.createInitialState();
 
+        // 初始化地形效果管理器
+        this.terrainEffectManager.init(this.grid);
+
         // 放置玩家单位
         playerUnits.forEach((unitData, index) => {
             const unit = new BattleUnit(
@@ -138,6 +145,12 @@ export class BattleManager {
             );
             this.grid.placeUnit(unitData.position, unit);
             this.state.units.push(unit);
+
+            // 检查初始位置的地形效果
+            const cell = this.grid.getCellByHex(unitData.position);
+            if (cell && cell.terrain !== TerrainType.GRASS) {
+                this.terrainEffectManager.onUnitEnterTerrain(unit, cell.terrain);
+            }
         });
 
         // 放置敌人单位
@@ -152,6 +165,12 @@ export class BattleManager {
             );
             this.grid.placeUnit(unitData.position, unit);
             this.state.units.push(unit);
+
+            // 检查初始位置的地形效果
+            const cell = this.grid.getCellByHex(unitData.position);
+            if (cell && cell.terrain !== TerrainType.GRASS) {
+                this.terrainEffectManager.onUnitEnterTerrain(unit, cell.terrain);
+            }
         });
 
         this.emit(BattleEventType.BATTLE_START, { state: this.state });
@@ -182,11 +201,16 @@ export class BattleManager {
             return;
         }
 
+        // 设置当前回合到地形效果管理器
+        this.terrainEffectManager.setTurn(this.state.turn);
+
         // 重置所有单位的回合状态
         for (const unit of this.state.units) {
             if (unit instanceof BattleUnit) {
                 // 回合开始时处理 Buff 效果
                 this.buffManager.processTurnStartBuffs(unit);
+                // 回合开始时处理地形效果
+                this.terrainEffectManager.processTurnStartTerrainEffects(unit);
                 unit.resetTurn();
             }
         }
@@ -365,6 +389,9 @@ export class BattleManager {
         this.grid.moveUnit(unit.position, target);
         unit.position = target;
 
+        // 处理地形效果变化
+        this.terrainEffectManager.onUnitMove(unit, oldPosition, target);
+
         this.emit(BattleEventType.UNIT_MOVE, {
             unitId: unit.id,
             from: oldPosition,
@@ -398,6 +425,26 @@ export class BattleManager {
 
         // 计算伤害
         let damage = attacker.calculateDamage(target, isRanged, distance);
+
+        // 应用地形攻击修正
+        const attackModifier = this.terrainEffectManager.getAttackModifier(attacker.id);
+        if (attackModifier !== 0) {
+            damage = damage * (1 + attackModifier / 100);
+        }
+
+        // 应用地形防御修正
+        const defenseModifier = this.terrainEffectManager.getDefenseModifier(target.id);
+        if (defenseModifier !== 0) {
+            damage = damage * (1 - defenseModifier / 200); // 防御修正效果减半
+        }
+
+        // 应用地形远程修正
+        if (isRanged) {
+            const rangedModifier = this.terrainEffectManager.getRangedModifier(attacker.id);
+            if (rangedModifier !== 0) {
+                damage = damage * (1 + rangedModifier / 100);
+            }
+        }
 
         // 祝福效果：伤害最大化
         if (this.buffManager.hasStatus(attacker.id, StatusEffect.BLESS)) {
@@ -695,6 +742,13 @@ export class BattleManager {
     }
 
     /**
+     * 获取地形效果管理器
+     */
+    getTerrainEffectManager(): TerrainEffectManager {
+        return this.terrainEffectManager;
+    }
+
+    /**
      * 清理战斗资源
      */
     cleanup(): void {
@@ -715,6 +769,9 @@ export class BattleManager {
 
         // 清理战斗池
         battlePoolManager.clear();
+
+        // 清理地形效果管理器
+        this.terrainEffectManager.clear();
 
         // 清空引用
         this.state.units = [];
