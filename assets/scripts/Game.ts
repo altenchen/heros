@@ -22,6 +22,7 @@ import { soundManager } from './audio';
 import { BGMScene } from './config/AudioTypes';
 import { dailySigninManager } from './signin';
 import { shopManager } from './shop';
+import { inventoryManager } from './inventory';
 
 const { ccclass, property } = _decorator;
 
@@ -125,6 +126,9 @@ export class Game extends Component {
 
         // 初始化商店系统
         shopManager.init();
+
+        // 初始化背包系统
+        inventoryManager.init();
 
         // 初始化UI管理器
         if (this.canvas) {
@@ -230,6 +234,12 @@ export class Game extends Component {
         if (shopData) {
             shopManager.deserialize(shopData);
         }
+
+        // 加载背包数据
+        const inventoryData = localStorage.getItem('hmm_legacy_inventory');
+        if (inventoryData) {
+            inventoryManager.deserialize(inventoryData);
+        }
     }
 
     /**
@@ -278,6 +288,9 @@ export class Game extends Component {
 
         // 保存商店数据
         localStorage.setItem('hmm_legacy_shop', shopManager.serialize());
+
+        // 保存背包数据
+        localStorage.setItem('hmm_legacy_inventory', inventoryManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -372,6 +385,13 @@ export class Game extends Component {
      */
     getShopManager(): typeof shopManager {
         return shopManager;
+    }
+
+    /**
+     * 获取背包管理器
+     */
+    getInventoryManager(): typeof inventoryManager {
+        return inventoryManager;
     }
 
     /**
