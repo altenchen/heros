@@ -26,6 +26,7 @@ import {
 } from '../config/shop.json';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
+import { rewardManager, RewardType, RewardConfig } from '../utils/RewardManager';
 
 /**
  * 商店管理器
@@ -363,35 +364,21 @@ export class ShopManager {
         contents.forEach(content => {
             const totalAmount = content.amount * quantity;
 
-            switch (content.type) {
-                case 'resource':
-                    if (content.itemId === 'gold') {
-                        playerDataManager.addResource('gold', totalAmount);
-                    } else if (content.itemId === 'gems') {
-                        playerDataManager.addResource('gems', totalAmount);
-                    } else if (content.itemId === 'stamina') {
-                        playerDataManager.addResource('stamina', totalAmount);
-                    }
-                    break;
-                case 'item':
-                    // TODO: 发放道具
-                    console.log(`[ShopManager] 发放道具: ${content.itemId} x${totalAmount}`);
-                    break;
-                case 'hero_shard':
-                    // TODO: 发放英雄碎片
-                    console.log(`[ShopManager] 发放英雄碎片: ${content.itemId} x${totalAmount}`);
-                    break;
-                case 'unit':
-                    // TODO: 发放兵种
-                    console.log(`[ShopManager] 发放兵种: ${content.itemId} x${totalAmount}`);
-                    break;
-                case 'skin':
-                    // TODO: 发放皮肤
-                    console.log(`[ShopManager] 发放皮肤: ${content.itemId}`);
-                    break;
-            }
+            // 构建奖励配置
+            const reward: RewardConfig = {
+                type: content.type,
+                itemId: content.itemId,
+                amount: totalAmount
+            };
 
-            granted.push({ ...content, amount: totalAmount });
+            // 使用统一奖励发放
+            const results = rewardManager.grantRewards([reward]);
+
+            if (results[0]?.success) {
+                granted.push({ ...content, amount: totalAmount });
+            } else {
+                console.warn(`[ShopManager] 发放奖励失败: ${content.type} ${content.itemId}`);
+            }
         });
 
         return granted;

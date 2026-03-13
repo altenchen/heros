@@ -25,6 +25,7 @@ import {
 } from '../config/signin.json';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
+import { rewardManager, RewardConfig } from '../utils/RewardManager';
 
 /**
  * 签到管理器
@@ -460,32 +461,19 @@ export class DailySigninManager {
      * 发放奖励
      */
     private _grantRewards(rewards: RewardConfig[]): void {
-        rewards.forEach(reward => {
-            switch (reward.type) {
-                case 'gold':
-                    playerDataManager.addResource('gold', reward.amount);
-                    break;
-                case 'gems':
-                    playerDataManager.addResource('gems', reward.amount);
-                    break;
-                case 'stamina':
-                    playerDataManager.addResource('stamina', reward.amount);
-                    break;
-                case 'exp':
-                    playerDataManager.addExperience(reward.amount);
-                    break;
-                case 'item':
-                    // TODO: 实现道具发放
-                    console.log(`[DailySigninManager] 发放道具: ${reward.itemId} x${reward.amount}`);
-                    break;
-                case 'hero_shard':
-                    // TODO: 实现英雄碎片发放
-                    console.log(`[DailySigninManager] 发放英雄碎片: ${reward.itemId} x${reward.amount}`);
-                    break;
-                case 'unit':
-                    // TODO: 实现兵种发放
-                    console.log(`[DailySigninManager] 发放兵种: ${reward.itemId} x${reward.amount}`);
-                    break;
+        // 转换为统一奖励配置格式
+        const rewardConfigs: RewardConfig[] = rewards.map(r => ({
+            type: r.type,
+            itemId: r.itemId,
+            amount: r.amount
+        }));
+
+        // 使用统一奖励发放
+        const results = rewardManager.grantRewards(rewardConfigs);
+
+        results.forEach((result, index) => {
+            if (!result.success) {
+                console.warn(`[DailySigninManager] 发放奖励失败: ${rewards[index].type} ${rewards[index].itemId}`);
             }
         });
     }

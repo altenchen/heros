@@ -17,6 +17,7 @@ import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
 import { inventoryManager } from '../inventory';
 import { ItemEffectType } from '../config/InventoryTypes';
+import { rewardManager, RewardConfig } from '../utils/RewardManager';
 
 /**
  * 关卡战斗事件类型
@@ -543,26 +544,33 @@ export class LevelBattleBridge {
             return;
         }
 
+        const rewardConfigs: RewardConfig[] = [];
+
         // 金币
         if (rewards.gold) {
-            playerDataManager.addResource('gold', rewards.gold);
+            rewardConfigs.push({ type: 'gold', amount: rewards.gold });
         }
 
         // 宝石
         if (rewards.gems) {
-            playerDataManager.addResource('gems', rewards.gems);
+            rewardConfigs.push({ type: 'gems', amount: rewards.gems });
+        }
+
+        // 体力
+        if (rewards.stamina) {
+            rewardConfigs.push({ type: 'stamina', amount: rewards.stamina });
         }
 
         // 经验
         if (rewards.experience) {
-            playerDataManager.addExperience(rewards.experience);
+            rewardConfigs.push({ type: 'exp', amount: rewards.experience });
         }
 
         // 物品
         if (rewards.items && Array.isArray(rewards.items)) {
             rewards.items.forEach((item: any) => {
                 if (item.id && item.count) {
-                    inventoryManager.addItem(item.id, item.count);
+                    rewardConfigs.push({ type: 'item', itemId: item.id, amount: item.count });
                 }
             });
         }
@@ -570,8 +578,28 @@ export class LevelBattleBridge {
         // 英雄碎片
         if (rewards.heroFragments && Array.isArray(rewards.heroFragments)) {
             rewards.heroFragments.forEach((fragment: any) => {
-                // TODO: 英雄碎片处理
-                console.log('[LevelBattleBridge] 获得英雄碎片:', fragment);
+                if (fragment.id && fragment.count) {
+                    rewardConfigs.push({ type: 'hero_shard', itemId: fragment.id, amount: fragment.count });
+                }
+            });
+        }
+
+        // 兵种
+        if (rewards.units && Array.isArray(rewards.units)) {
+            rewards.units.forEach((unit: any) => {
+                if (unit.id && unit.count) {
+                    rewardConfigs.push({ type: 'unit', itemId: unit.id, amount: unit.count });
+                }
+            });
+        }
+
+        // 使用统一奖励发放
+        if (rewardConfigs.length > 0) {
+            const results = rewardManager.grantRewards(rewardConfigs);
+            results.forEach(result => {
+                if (!result.success) {
+                    console.warn('[LevelBattleBridge] 发放奖励失败:', result);
+                }
             });
         }
 
