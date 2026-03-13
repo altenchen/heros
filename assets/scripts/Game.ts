@@ -18,6 +18,8 @@ import { levelManager } from './level';
 import { friendManager, guildManager, chatManager } from './social';
 import { tutorialManager } from './tutorial';
 import { TriggerType } from './config/TutorialTypes';
+import { soundManager } from './audio';
+import { BGMScene } from './config/AudioTypes';
 
 const { ccclass, property } = _decorator;
 
@@ -113,6 +115,9 @@ export class Game extends Component {
         // 初始化教程系统
         tutorialManager.init();
 
+        // 初始化音效系统
+        soundManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -133,6 +138,9 @@ export class Game extends Component {
         // 设置状态并显示主菜单
         this._state = GameState.MAIN_MENU;
         this.uiManager.showUI('main_menu');
+
+        // 播放主菜单BGM
+        soundManager.playBGM(BGMScene.MAIN_MENU);
 
         console.log('游戏初始化完成');
 
@@ -196,6 +204,12 @@ export class Game extends Component {
         if (tutorialData) {
             tutorialManager.deserialize(tutorialData);
         }
+
+        // 加载音频设置
+        const audioData = localStorage.getItem('hmm_legacy_audio');
+        if (audioData) {
+            soundManager.deserialize(audioData);
+        }
     }
 
     /**
@@ -235,6 +249,9 @@ export class Game extends Component {
 
         // 保存教程数据
         localStorage.setItem('hmm_legacy_tutorial', tutorialManager.serialize());
+
+        // 保存音频设置
+        localStorage.setItem('hmm_legacy_audio', soundManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -311,6 +328,13 @@ export class Game extends Component {
     }
 
     /**
+     * 获取音效管理器
+     */
+    getSoundManager(): typeof soundManager {
+        return soundManager;
+    }
+
+    /**
      * 切换到主菜单
      */
     goToMainMenu(): void {
@@ -327,6 +351,8 @@ export class Game extends Component {
         this._state = GameState.TOWN;
         director.loadScene('Town', () => {
             this.uiManager.showUI('town_panel');
+            // 播放主城BGM
+            soundManager.playBGM(BGMScene.TOWN, this.playerDataManager.getPlayerFaction());
             // 触发教程检查 - 进入主城场景
             tutorialManager.checkAndTrigger(TriggerType.ENTER_SCENE, { sceneName: 'Town' });
         });
@@ -388,6 +414,8 @@ export class Game extends Component {
         director.loadScene('Battle', () => {
             this.battleManager!.startBattle();
             this.uiManager.showUI('battle_panel');
+            // 播放战斗BGM
+            soundManager.playBGM(BGMScene.BATTLE);
             // 触发教程检查 - 进入战斗场景
             tutorialManager.checkAndTrigger(TriggerType.FIRST_ENTER, { sceneName: 'Battle' });
             EventCenter.emit(GameEvent.BATTLE_START);
@@ -410,6 +438,9 @@ export class Game extends Component {
             EventCenter.emit(GameEvent.BATTLE_END, { winner: state.winner });
 
             if (state.winner === 'player') {
+                // 播放胜利音乐
+                soundManager.playBGM(BGMScene.VICTORY);
+
                 // 奖励
                 this.playerDataManager.addResource('gold', 1000);
                 this.playerDataManager.addExperience(500);
@@ -426,6 +457,9 @@ export class Game extends Component {
                     value: 1
                 });
             } else {
+                // 播放失败音乐
+                soundManager.playBGM(BGMScene.DEFEAT);
+
                 // 战斗失败，重置连胜
                 achievementManager.resetStreak();
             }
