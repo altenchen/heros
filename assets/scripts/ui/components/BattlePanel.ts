@@ -516,8 +516,51 @@ export class BattlePanel extends UIPanel {
      * 移动单位
      */
     private _moveUnit(from: Hex, to: Hex): void {
-        // TODO: 调用战斗管理器进行移动
-        console.log(`Move unit from (${from.q},${from.r}) to (${to.q},${to.r})`);
+        if (!this._battleManager) return;
+
+        const state = this._battleManager.getState();
+        const grid = this._battleManager.getGrid();
+
+        // 获取当前选中的单位（玩家单位）
+        const currentUnit = state.currentUnit;
+        if (!currentUnit || currentUnit.team !== 'player') {
+            console.log('[BattlePanel] 当前没有可控制的玩家单位');
+            return;
+        }
+
+        // 检查是否可以移动到目标位置
+        const distance = grid.getDistance(from, to);
+        const moveRange = (currentUnit as any).getMoveRange?.() || currentUnit.config.speed;
+
+        if (distance > moveRange) {
+            this._addBattleLog(`目标位置超出移动范围 (${distance} > ${moveRange})`);
+            return;
+        }
+
+        // 检查路径是否可达
+        const path = grid.findPath(from, to);
+        if (path.length === 0) {
+            this._addBattleLog('无法到达目标位置');
+            return;
+        }
+
+        // 执行移动（通过修改单位位置）
+        const oldPosition = { ...currentUnit.position };
+        grid.moveUnit(currentUnit.position, to);
+        currentUnit.position = to;
+
+        // 更新显示
+        this._updateUnitsOnField();
+        this._addBattleLog(`${currentUnit.config.name} 移动到 (${to.q}, ${to.r})`);
+
+        // 发送事件
+        EventCenter.emit(GameEvent.UNIT_MOVED, {
+            unitId: currentUnit.id,
+            from: oldPosition,
+            to: to
+        });
+
+        console.log(`[BattlePanel] Move unit from (${from.q},${from.r}) to (${to.q},${to.r})`);
     }
 
     /**
@@ -526,8 +569,30 @@ export class BattlePanel extends UIPanel {
     private _useSkillOnTarget(q: number, r: number): void {
         if (!this._selectedSkill || !this._battleManager) return;
 
-        // TODO: 调用技能管理器使用技能
-        console.log(`Use skill ${this._selectedSkill.configId} on (${q},${r})`);
+        const target: Hex = { q, r };
+
+        // 检查是否有目标单位
+        const state = this._battleManager.getState();
+        const grid = this._battleManager.getGrid();
+
+        // 尝试施放技能
+        const skillId = this._selectedSkill.configId;
+        const success = this._battleManager.castSkill(skillId, target);
+
+        if (success) {
+            this._addBattleLog(`使用了技能 ${skillId}`);
+            this._updateBattleState();
+
+            // 发送事件
+            EventCenter.emit(GameEvent.SKILL_USED, {
+                skillId,
+                target
+            });
+        } else {
+            this._addBattleLog(`技能 ${skillId} 使用失败`);
+        }
+
+        console.log(`[BattlePanel] Use skill ${this._selectedSkill.configId} on (${q},${r})`);
 
         this._selectedSkill = null;
     }

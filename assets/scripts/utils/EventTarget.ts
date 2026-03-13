@@ -149,6 +149,8 @@ export enum GameEvent {
     BATTLE_END = 'battle_end',
     BATTLE_TURN = 'battle_turn',
     UNIT_DIED = 'unit_died',
+    UNIT_MOVED = 'unit_moved',
+    SKILL_USED = 'skill_used',
 
     // UI事件
     UI_SHOW = 'ui_show',

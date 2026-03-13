@@ -29,6 +29,7 @@
 | 皮肤系统 | ✅ 已完成 | 英雄皮肤、兵种皮肤、头像框 |
 | Buff系统 | ✅ 已完成 | 状态效果、属性修改、持续伤害 |
 | 地形系统 | ✅ 已完成 | 地形效果、移动消耗、特殊效果 |
+| 战斗准备界面 | ✅ 已完成 | 部队配置、敌人预览、战力计算 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -187,6 +188,8 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 地形类型 | `assets/scripts/config/TerrainTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
+| 战斗准备 | `assets/scripts/ui/components/FormationPanel.ts` |
+| 战斗面板 | `assets/scripts/ui/components/BattlePanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
 | Buff管理 | `assets/scripts/battle/BuffManager.ts` |
 | 地形效果 | `assets/scripts/battle/TerrainEffectManager.ts` |
