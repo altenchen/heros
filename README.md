@@ -22,6 +22,7 @@
 - ✅ UI系统框架
 - ✅ 成就与任务系统
 - ✅ 关卡副本系统
+- ✅ 好友与公会系统
 
 ## 项目结构
 
@@ -74,6 +75,11 @@ heros/
 │   │   │   └── index.ts      # 模块导出
 │   │   ├── level/           # 关卡系统
 │   │   │   ├── LevelManager.ts # 关卡管理
+│   │   │   └── index.ts      # 模块导出
+│   │   ├── social/          # 社交系统
+│   │   │   ├── FriendManager.ts # 好友管理
+│   │   │   ├── GuildManager.ts # 公会管理
+│   │   │   ├── ChatManager.ts # 聊天管理
 │   │   │   └── index.ts      # 模块导出
 │   │   └── utils/            # 工具类
 │   │       ├── PlayerDataManager.ts
@@ -255,6 +261,14 @@ town.recruitUnit('castle_tier1_pikeman', 10, resources);
 - [x] 星级评价系统
 - [x] 体力系统
 
+### Phase 3.7: 社交系统 ✅
+- [x] 社交类型定义
+- [x] 好友管理器
+- [x] 公会管理器
+- [x] 聊天管理器
+- [x] 社交UI面板
+- [x] 体力赠送/领取
+
 ### Phase 4: 编辑器集成 🚧
 - [ ] 绑定组件到预制体
 - [ ] 添加美术资源
@@ -277,5 +291,5 @@ MIT License
 
 ---
 
-**版本**: v1.3.0
+**版本**: v1.4.0
 **最后更新**: 2026-03-14
