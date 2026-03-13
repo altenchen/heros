@@ -21,6 +21,7 @@ import { TriggerType } from './config/TutorialTypes';
 import { soundManager } from './audio';
 import { BGMScene } from './config/AudioTypes';
 import { dailySigninManager } from './signin';
+import { shopManager } from './shop';
 
 const { ccclass, property } = _decorator;
 
@@ -122,6 +123,9 @@ export class Game extends Component {
         // 初始化签到系统
         dailySigninManager.init();
 
+        // 初始化商店系统
+        shopManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -220,6 +224,12 @@ export class Game extends Component {
         if (signinData) {
             dailySigninManager.deserialize(signinData);
         }
+
+        // 加载商店数据
+        const shopData = localStorage.getItem('hmm_legacy_shop');
+        if (shopData) {
+            shopManager.deserialize(shopData);
+        }
     }
 
     /**
@@ -265,6 +275,9 @@ export class Game extends Component {
 
         // 保存签到数据
         localStorage.setItem('hmm_legacy_signin', dailySigninManager.serialize());
+
+        // 保存商店数据
+        localStorage.setItem('hmm_legacy_shop', shopManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -352,6 +365,13 @@ export class Game extends Component {
      */
     getSigninManager(): typeof dailySigninManager {
         return dailySigninManager;
+    }
+
+    /**
+     * 获取商店管理器
+     */
+    getShopManager(): typeof shopManager {
+        return shopManager;
     }
 
     /**
