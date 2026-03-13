@@ -1,0 +1,13 @@
+{
+  "wechatgame": {
+    "appid": "your-wechat-appid",
+    "orientation": "landscape",
+    "subContext": "",
+    "deviceOrientation": "landscape",
+    "separateEngine": false,
+    "subpackages": [],
+    "wasmSubpackage": false,
+    "useCustomManifest": false,
+    "customManifestPath": ""
+  }
+}

@@ -1,0 +1,47 @@
+# Cocos Creator
+library/
+temp/
+local/
+build/
+native/
+*-backup/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Test
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Cocos Creator meta files (keep these)
+# *.meta
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Claude Code
+.claude/

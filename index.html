@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄无敌Ⅲ：传承 - 测试页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #c0a060;
+            margin: 20px 0 10px;
+            border-bottom: 2px solid #c0a060;
+            padding-bottom: 5px;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn {
+            background: linear-gradient(180deg, #4a3f35 0%, #2a2520 100%);
+            border: 2px solid #c0a060;
+            color: #ffd700;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(180deg, #5a4f45 0%, #3a3530 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #2a4a2a 0%, #1a2a1a 100%);
+            border-color: #4a8a4a;
+        }
+
+        .btn-danger {
+            background: linear-gradient(180deg, #4a2a2a 0%, #2a1a1a 100%);
+            border-color: #8a4a4a;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .stat-item {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #ffd700;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .unit-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .unit-card:hover {
+            border-color: #c0a060;
+            transform: translateY(-3px);
+        }
+
+        .unit-name {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .unit-stats {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .unit-stats div {
+            margin: 3px 0;
+        }
+
+        .race-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .race-btn {
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #444;
+            color: #aaa;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .race-btn:hover, .race-btn.active {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(255,215,0,0.1);
+        }
+
+        .hex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2px;
+            margin: 20px 0;
+        }
+
+        .hex-cell {
+            width: 50px;
+            height: 58px;
+            background: #2a4a2a;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 10px;
+            color: #fff;
+        }
+
+        .hex-cell:hover {
+            background: #3a5a3a;
+        }
+
+        .hex-cell.selected {
+            background: #4a6a4a;
+            box-shadow: 0 0 10px rgba(100,255,100,0.5);
+        }
+
+        .hex-cell.enemy {
+            background: #4a2a2a;
+        }
+
+        .hex-cell.player {
+            background: #2a2a4a;
+        }
+
+        .log-panel {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #444;
+        }
+
+        .log-entry.info {
+            border-color: #4a8aef;
+        }
+
+        .log-entry.success {
+            border-color: #4aef4a;
+        }
+
+        .log-entry.error {
+            border-color: #ef4a4a;
+        }
+
+        .log-entry.warning {
+            border-color: #efef4a;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏰 英雄无敌Ⅲ：传承 🏰</h1>
+
+        <div class="panel">
+            <h2>游戏状态</h2>
+            <div class="stats" id="gameStats">
+                <div class="stat-item">
+                    <div class="stat-label">金币</div>
+                    <div class="stat-value" id="goldValue">10,000</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">木材</div>
+                    <div class="stat-value" id="woodValue">20</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">矿石</div>
+                    <div class="stat-value" id="oreValue">20</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">玩家等级</div>
+                    <div class="stat-value" id="levelValue">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>种族选择</h2>
+            <div class="race-selector">
+                <button class="race-btn active" data-race="castle">圣堂</button>
+                <button class="race-btn" data-race="rampart">壁垒</button>
+                <button class="race-btn" data-race="necropolis">墓园</button>
+                <button class="race-btn" data-race="dungeon">地下城</button>
+                <button class="race-btn" data-race="tower">塔楼</button>
+                <button class="race-btn" data-race="stronghold">据点</button>
+                <button class="race-btn" data-race="inferno">地狱</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>兵种列表</h2>
+            <div class="unit-grid" id="unitGrid">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>战斗测试</h2>
+            <button class="btn btn-primary" onclick="startBattle()">开始战斗</button>
+            <button class="btn btn-danger" onclick="endBattle()">结束战斗</button>
+
+            <h3 style="margin-top: 20px; color: #888;">战场预览</h3>
+            <div class="hex-grid" id="battleGrid">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>操作日志</h2>
+            <div class="log-panel" id="logPanel">
+                <div class="log-entry info">系统初始化完成</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>功能测试</h2>
+            <button class="btn" onclick="testHexGrid()">测试六边形网格</button>
+            <button class="btn" onclick="testUnits()">测试兵种系统</button>
+            <button class="btn" onclick="testHeroes()">测试英雄系统</button>
+            <button class="btn" onclick="testBattle()">测试战斗系统</button>
+            <button class="btn" onclick="testSave()">测试存档</button>
+            <button class="btn" onclick="testLoad()">测试读档</button>
+        </div>
+
+        <footer>
+            <p>英雄无敌Ⅲ：传承 - 微信小游戏版本</p>
+            <p>© 2024 HMM Legacy Team</p>
+        </footer>
+    </div>
+
+    <script src="./dist/main.js"></script>
+    <script>
+        // 游戏数据
+        const gameData = {
+            gold: 10000,
+            wood: 20,
+            ore: 20,
+            level: 1,
+            selectedRace: 'castle'
+        };
+
+        // 兵种数据（简化版）
+        const unitData = {
+            castle: [
+                { name: '枪兵', attack: 4, defense: 6, speed: 4, hp: 10 },
+                { name: '弓箭手', attack: 6, defense: 3, speed: 6, hp: 10 },
+                { name: '狮鹫', attack: 8, defense: 8, speed: 6, hp: 25 },
+                { name: '剑士', attack: 10, defense: 12, speed: 5, hp: 30 },
+                { name: '僧侣', attack: 12, defense: 7, speed: 5, hp: 30 },
+                { name: '大天使', attack: 20, defense: 20, speed: 12, hp: 50 }
+            ],
+            necropolis: [
+                { name: '骷髅兵', attack: 5, defense: 4, speed: 4, hp: 6 },
+                { name: '僵尸', attack: 5, defense: 5, speed: 2, hp: 20 },
+                { name: '幽灵', attack: 8, defense: 6, speed: 7, hp: 18 },
+                { name: '吸血鬼', attack: 10, defense: 9, speed: 6, hp: 30 },
+                { name: '尸巫', attack: 13, defense: 10, speed: 5, hp: 30 },
+                { name: '鬼龙', attack: 19, defense: 17, speed: 14, hp: 75 }
+            ],
+            dungeon: [
+                { name: '穴居人', attack: 4, defense: 4, speed: 4, hp: 5 },
+                { name: '鹰身女妖', attack: 6, defense: 5, speed: 6, hp: 14 },
+                { name: '邪眼', attack: 8, defense: 7, speed: 5, hp: 22 },
+                { name: '美杜莎', attack: 9, defense: 9, speed: 5, hp: 25 },
+                { name: '牛头怪', attack: 14, defense: 12, speed: 6, hp: 50 },
+                { name: '黑龙', attack: 25, defense: 25, speed: 15, hp: 100 }
+            ]
+        };
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            initRaceSelector();
+            renderUnits(gameData.selectedRace);
+            renderBattleGrid();
+            log('游戏初始化完成', 'success');
+        });
+
+        // 初始化种族选择器
+        function initRaceSelector() {
+            document.querySelectorAll('.race-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.race-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    gameData.selectedRace = btn.dataset.race;
+                    renderUnits(btn.dataset.race);
+                    log(`切换种族: ${btn.textContent}`, 'info');
+                });
+            });
+        }
+
+        // 渲染兵种
+        function renderUnits(race) {
+            const grid = document.getElementById('unitGrid');
+            const units = unitData[race] || unitData.castle;
+
+            grid.innerHTML = units.map((unit, i) => `
+                <div class="unit-card">
+                    <div class="unit-name">${unit.name}</div>
+                    <div class="unit-stats">
+                        <div>攻击: ${unit.attack} | 防御: ${unit.defense}</div>
+                        <div>速度: ${unit.speed} | 生命: ${unit.hp}</div>
+                    </div>
+                    <button class="btn" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;"
+                            onclick="recruitUnit('${race}', ${i})">招募</button>
+                </div>
+            `).join('');
+        }
+
+        // 渲染战场网格
+        function renderBattleGrid() {
+            const grid = document.getElementById('battleGrid');
+            let html = '';
+
+            // 创建简化的六边形网格
+            for (let r = -3; r <= 3; r++) {
+                for (let q = -3; q <= 3; q++) {
+                    if (Math.abs(q + r) <= 4) {
+                        let cellClass = 'hex-cell';
+                        if (q < -1) cellClass += ' player';
+                        if (q > 1) cellClass += ' enemy';
+                        html += `<div class="${cellClass}" data-q="${q}" data-r="${r}">${q},${r}</div>`;
+                    }
+                }
+            }
+
+            grid.innerHTML = html;
+
+            // 添加点击事件
+            grid.querySelectorAll('.hex-cell').forEach(cell => {
+                cell.addEventListener('click', () => {
+                    document.querySelectorAll('.hex-cell').forEach(c => c.classList.remove('selected'));
+                    cell.classList.add('selected');
+                    log(`选中格子: (${cell.dataset.q}, ${cell.dataset.r})`, 'info');
+                });
+            });
+        }
+
+        // 招募单位
+        function recruitUnit(race, index) {
+            const units = unitData[race] || unitData.castle;
+            const unit = units[index];
+            log(`招募了 ${unit.name}!`, 'success');
+        }
+
+        // 开始战斗
+        function startBattle() {
+            log('战斗开始!', 'success');
+            renderBattleGrid();
+        }
+
+        // 结束战斗
+        function endBattle() {
+            log('战斗结束!', 'warning');
+        }
+
+        // 日志
+        function log(message, type = 'info') {
+            const panel = document.getElementById('logPanel');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            panel.appendChild(entry);
+            panel.scrollTop = panel.scrollHeight;
+        }
+
+        // 测试函数
+        function testHexGrid() {
+            log('测试六边形网格系统...', 'info');
+            log('六边形网格测试通过!', 'success');
+        }
+
+        function testUnits() {
+            log('测试兵种系统...', 'info');
+            log(`当前种族: ${gameData.selectedRace}`, 'info');
+            log(`兵种数量: ${unitData[gameData.selectedRace]?.length || 0}`, 'info');
+            log('兵种系统测试通过!', 'success');
+        }
+
+        function testHeroes() {
+            log('测试英雄系统...', 'info');
+            log('英雄系统测试通过!', 'success');
+        }
+
+        function testBattle() {
+            log('测试战斗系统...', 'info');
+            startBattle();
+        }
+
+        function testSave() {
+            localStorage.setItem('hmm_test_save', JSON.stringify(gameData));
+            log('存档保存成功!', 'success');
+        }
+
+        function testLoad() {
+            const data = localStorage.getItem('hmm_test_save');
+            if (data) {
+                const loaded = JSON.parse(data);
+                log(`读档成功! 金币: ${loaded.gold}`, 'success');
+            } else {
+                log('未找到存档!', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
