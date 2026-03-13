@@ -12,6 +12,8 @@ import { EventCenter, GameEvent } from '../../utils/EventTarget';
 import { BattleManager } from '../../battle/BattleManager';
 import { Hex, BattleUnit, BattleState, UnitState, StatusEffect, SkillInstance } from '../../config/GameTypes';
 import { BATTLEFIELD_RADIUS, MAX_FOCUS_POINTS } from '../../config/GameTypes';
+import { effectManager } from '../../utils/EffectManager';
+import { battleEffectBridge } from '../../utils/BattleEffectBridge';
 
 const { ccclass, property } = _decorator;
 
@@ -169,6 +171,17 @@ export class BattlePanel extends UIPanel {
         super.onShow(data);
 
         this._battleManager = this._game.getBattleManager();
+
+        // 初始化特效管理器
+        if (this.battlefieldContainer) {
+            effectManager.init(this.battlefieldContainer);
+        }
+
+        // 绑定战斗特效桥接
+        if (this._battleManager) {
+            battleEffectBridge.bindToBattle(this._battleManager);
+        }
+
         this._setupBattlefield();
         this._setupButtons();
         this._bindEvents();
@@ -826,6 +839,13 @@ export class BattlePanel extends UIPanel {
      */
     protected onHide(): void {
         super.onHide();
+
+        // 解绑战斗特效桥接
+        battleEffectBridge.unbind();
+
+        // 清理特效
+        effectManager.clear();
+
         this._unbindEvents();
         this._selectedHex = null;
         this._selectedSkill = null;

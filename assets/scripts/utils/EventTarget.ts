@@ -139,6 +139,8 @@ export enum GameEvent {
     // 单位事件
     UNIT_RECRUITED = 'unit_recruited',
     UNIT_UPGRADED = 'unit_upgraded',
+    UNIT_DAMAGED = 'unit_damaged',
+    UNIT_HEALED = 'unit_healed',
 
     // 建筑事件
     BUILDING_STARTED = 'building_started',
@@ -151,6 +153,9 @@ export enum GameEvent {
     UNIT_DIED = 'unit_died',
     UNIT_MOVED = 'unit_moved',
     SKILL_USED = 'skill_used',
+    BUFF_APPLIED = 'buff_applied',
+    BUFF_REMOVED = 'buff_removed',
+    CRITICAL_HIT = 'critical_hit',
 
     // UI事件
     UI_SHOW = 'ui_show',

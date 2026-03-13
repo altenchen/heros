@@ -32,6 +32,7 @@
 | 战斗准备界面 | ✅ 已完成 | 部队配置、敌人预览、战力计算 |
 | 战斗结果界面 | ✅ 已完成 | 胜利结算、星级评价、奖励显示 |
 | 音频系统 | ✅ 已完成 | BGM切换、音效池、音量控制 |
+| 战斗特效系统 | ✅ 已完成 | 伤害飘字、技能特效、Buff图标 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -176,6 +177,45 @@ audioManager.toggleSFX();
 const settings = audioManager.getSettings();
 ```
 
+### 战斗特效系统
+
+```typescript
+import { EffectManager, effectManager } from './utils/EffectManager';
+import { BattleEffectBridge, battleEffectBridge } from './utils/BattleEffectBridge';
+import { DamageNumberConfig, SkillEffectConfig, SkillEffectType } from './config/EffectTypes';
+
+// 初始化特效管理器
+effectManager.init(containerNode);
+
+// 显示伤害飘字
+effectManager.showDamageNumber({
+    value: 100,
+    isCritical: true
+}, position);
+
+// 播放技能特效
+const config: SkillEffectConfig = {
+    skillId: 'fireball',
+    skillType: SkillEffectType.PROJECTILE,
+    targets: [{ x: 100, y: 200 }],
+    caster: { x: 0, y: 0 }
+};
+effectManager.playSkillEffect(config);
+
+// 绑定到战斗管理器（自动处理战斗事件）
+battleEffectBridge.bindToBattle(battleManager);
+
+// 显示 Buff 特效
+effectManager.playPresetEffect('skill_bless', position);
+
+// 创建 Buff 图标
+const iconNode = effectManager.createBuffIcon({
+    id: 'buff_1',
+    status: 1,
+    duration: 3
+}, parentNode);
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -222,6 +262,7 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 皮肤类型 | `assets/scripts/config/SkinTypes.ts` |
 | Buff类型 | `assets/scripts/config/BuffTypes.ts` |
 | 地形类型 | `assets/scripts/config/TerrainTypes.ts` |
+| 特效类型 | `assets/scripts/config/EffectTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗准备 | `assets/scripts/ui/components/FormationPanel.ts` |
@@ -238,6 +279,8 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 音频管理 | `assets/scripts/utils/AudioManager.ts` |
 | 音频类型 | `assets/scripts/config/AudioTypes.ts` |
 | 音频配置 | `assets/scripts/config/audio.json.ts` |
+| 特效管理 | `assets/scripts/utils/EffectManager.ts` |
+| 特效桥接 | `assets/scripts/utils/BattleEffectBridge.ts` |
 
 ## 开发命令
 

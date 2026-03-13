@@ -21,6 +21,7 @@ import { BuffManager, buffManager } from './BuffManager';
 import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffTypes';
 import { TerrainEffectManager, terrainEffectManager } from './TerrainEffectManager';
 import { TerrainType } from '../config/GameTypes';
+import { EventCenter, GameEvent } from '../utils/EventTarget';
 
 /**
  * 战斗事件类型
@@ -469,6 +470,13 @@ export class BattleManager {
             targetId: target.id,
             damage: actualDamage,
             isRanged
+        });
+
+        // 触发特效事件：单位受伤
+        EventCenter.emit(GameEvent.UNIT_DAMAGED, {
+            unitId: target.id,
+            damage: actualDamage,
+            isCritical: false // 可以根据伤害值判断是否暴击
         });
 
         // 积累专注点
