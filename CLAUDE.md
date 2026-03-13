@@ -27,6 +27,7 @@
 | 社交系统 | ✅ 已完成 | 好友、公会、聊天 |
 | 奖励系统 | ✅ 已完成 | 统一发放、英雄碎片、皮肤 |
 | 皮肤系统 | ✅ 已完成 | 英雄皮肤、兵种皮肤、头像框 |
+| Buff系统 | ✅ 已完成 | 状态效果、属性修改、持续伤害 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -96,6 +97,24 @@ battle.initBattle(playerUnits, enemyUnits, playerHero, enemyHero);
 battle.startBattle();
 ```
 
+### Buff系统
+
+```typescript
+import { BuffManager } from './battle/BuffManager';
+import { StatusEffect } from './config/GameTypes';
+
+const buffManager = BuffManager.getInstance();
+
+// 应用Buff
+buffManager.applyStatusBuff(targetId, StatusEffect.HASTE, sourceId, 3, 2);
+
+// 检查状态
+buffManager.hasStatus(targetId, StatusEffect.STUN);
+
+// 驱散Buff
+buffManager.dispelBuffs(targetId, 2, true);
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -140,9 +159,11 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 游戏入口 | `assets/scripts/Game.ts` |
 | 类型定义 | `assets/scripts/config/GameTypes.ts` |
 | 皮肤类型 | `assets/scripts/config/SkinTypes.ts` |
+| Buff类型 | `assets/scripts/config/BuffTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
+| Buff管理 | `assets/scripts/battle/BuffManager.ts` |
 | 六边形网格 | `assets/scripts/battle/HexGrid.ts` |
 | 玩家数据 | `assets/scripts/utils/PlayerDataManager.ts` |
 | 奖励管理 | `assets/scripts/utils/RewardManager.ts` |

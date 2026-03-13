@@ -17,6 +17,8 @@ import { HexGrid, HexCell } from './HexGrid';
 import { BattleUnit } from './BattleUnit';
 import { SkillManager } from '../skill/SkillManager';
 import { battlePoolManager, PooledBuffData } from '../utils/pool';
+import { BuffManager, buffManager } from './BuffManager';
+import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffTypes';
 
 /**
  * 战斗事件类型
@@ -84,11 +86,13 @@ export class BattleManager {
     private state: BattleState;
     private events: BattleEvent[] = [];
     private skillManager: SkillManager;
+    private buffManager: BuffManager;
     private eventListeners: Map<BattleEventType, Function[]> = new Map();
 
     constructor() {
         this.grid = new HexGrid();
         this.skillManager = new SkillManager();
+        this.buffManager = BuffManager.getInstance();
         this.state = this.createInitialState();
     }
 
@@ -181,6 +185,8 @@ export class BattleManager {
         // 重置所有单位的回合状态
         for (const unit of this.state.units) {
             if (unit instanceof BattleUnit) {
+                // 回合开始时处理 Buff 效果
+                this.buffManager.processTurnStartBuffs(unit);
                 unit.resetTurn();
             }
         }
@@ -191,6 +197,13 @@ export class BattleManager {
         // 执行每个单位的行动
         for (const unit of sortedUnits) {
             if (!unit.isAlive()) continue;
+
+            // 检查是否被眩晕或石化
+            if (this.buffManager.hasStatus(unit.id, StatusEffect.STUN) ||
+                this.buffManager.hasStatus(unit.id, StatusEffect.STONE)) {
+                console.log(`[BattleManager] ${unit.id} 被控制，跳过行动`);
+                continue;
+            }
 
             this.state.currentUnit = unit;
 
@@ -207,6 +220,13 @@ export class BattleManager {
             // 检查战斗是否结束
             if (this.checkBattleEnd()) {
                 return;
+            }
+        }
+
+        // 回合结束时处理所有单位的 Buff
+        for (const unit of this.state.units) {
+            if (unit instanceof BattleUnit && unit.isAlive()) {
+                this.buffManager.processTurnEndBuffs(unit);
             }
         }
 
@@ -359,8 +379,37 @@ export class BattleManager {
         const distance = this.grid.getDistance(attacker.position, target.position);
         const isRanged = attacker.isRanged && distance > 1;
 
+        // 检查失明效果
+        if (this.buffManager.hasStatus(attacker.id, StatusEffect.BLIND)) {
+            // 失明有50%概率攻击失误
+            if (Math.random() < 0.5) {
+                console.log(`[BattleManager] ${attacker.id} 因失明攻击失误`);
+                this.emit(BattleEventType.UNIT_ATTACK, {
+                    attackerId: attacker.id,
+                    targetId: target.id,
+                    damage: 0,
+                    isRanged,
+                    missed: true
+                });
+                attacker.hasActed = true;
+                return;
+            }
+        }
+
         // 计算伤害
         let damage = attacker.calculateDamage(target, isRanged, distance);
+
+        // 祝福效果：伤害最大化
+        if (this.buffManager.hasStatus(attacker.id, StatusEffect.BLESS)) {
+            damage = attacker.config.damage[1] * attacker.count;
+            console.log(`[BattleManager] ${attacker.id} 祝福效果，伤害最大化`);
+        }
+
+        // 诅咒效果：伤害最小化
+        if (this.buffManager.hasStatus(attacker.id, StatusEffect.CURSE)) {
+            damage = attacker.config.damage[0] * attacker.count;
+            console.log(`[BattleManager] ${attacker.id} 诅咒效果，伤害最小化`);
+        }
 
         // 应用特技
         this.applySpecialtyOnAttack(attacker, target, damage);
@@ -382,16 +431,25 @@ export class BattleManager {
         if (!target.isAlive()) {
             this.emit(BattleEventType.UNIT_DIE, { unitId: target.id });
             this.grid.removeUnit(target.position);
+            // 清除目标的所有Buff
+            this.buffManager.clearBuffs(target.id);
         } else {
             // 目标反击
             if (!isRanged || distance === 1) {
-                const counterDamage = target.counterAttack(attacker);
-                if (counterDamage > 0) {
-                    attacker.takeDamage(counterDamage);
+                // 检查目标是否被眩晕或石化
+                if (this.buffManager.hasStatus(target.id, StatusEffect.STUN) ||
+                    this.buffManager.hasStatus(target.id, StatusEffect.STONE)) {
+                    console.log(`[BattleManager] ${target.id} 被控制，无法反击`);
+                } else {
+                    const counterDamage = target.counterAttack(attacker);
+                    if (counterDamage > 0) {
+                        attacker.takeDamage(counterDamage);
 
-                    if (!attacker.isAlive()) {
-                        this.emit(BattleEventType.UNIT_DIE, { unitId: attacker.id });
-                        this.grid.removeUnit(attacker.position);
+                        if (!attacker.isAlive()) {
+                            this.emit(BattleEventType.UNIT_DIE, { unitId: attacker.id });
+                            this.grid.removeUnit(attacker.position);
+                            this.buffManager.clearBuffs(attacker.id);
+                        }
                     }
                 }
             }
@@ -418,7 +476,15 @@ export class BattleManager {
 
             case 'wraith_aging':
             case 'ghost_dragon_aging':
-                // 幽灵/鬼龙衰老
+                // 幽灵/鬼龙衰老 - 使用BuffManager
+                this.buffManager.applyStatusBuff(
+                    target.id,
+                    StatusEffect.AGING,
+                    attacker.id,
+                    3,
+                    specialty.effect.value as number
+                );
+                // 同步到BattleUnit（兼容）
                 target.addBuff({
                     id: 'aging',
                     status: specialty.effect.status!,
@@ -434,7 +500,14 @@ export class BattleManager {
                 break;
 
             case 'medusa_stone':
-                // 美杜莎石化
+                // 美杜莎石化 - 使用BuffManager
+                this.buffManager.applyStatusBuff(
+                    target.id,
+                    StatusEffect.STONE,
+                    attacker.id,
+                    specialty.effect.duration!
+                );
+                // 同步到BattleUnit（兼容）
                 target.addBuff({
                     id: 'stone',
                     status: specialty.effect.status!,
@@ -615,6 +688,13 @@ export class BattleManager {
     }
 
     /**
+     * 获取Buff管理器
+     */
+    getBuffManager(): BuffManager {
+        return this.buffManager;
+    }
+
+    /**
      * 清理战斗资源
      */
     cleanup(): void {
@@ -628,6 +708,8 @@ export class BattleManager {
                         battlePoolManager.returnBuff(buff as PooledBuffData);
                     }
                 });
+                // 清除BuffManager中的buff
+                this.buffManager.clearBuffs(unit.id);
             }
         }
 

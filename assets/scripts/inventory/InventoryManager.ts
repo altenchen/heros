@@ -20,6 +20,8 @@ import {
 import { getItemConfig, giftItems } from '../config/items.json';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
+import { BuffManager } from '../battle/BuffManager';
+import { StatusEffect } from '../config/GameTypes';
 
 /**
  * 背包管理器
@@ -365,8 +367,24 @@ export class InventoryManager {
                     break;
 
                 case 'add_buff':
-                    // 添加 Buff 效果（TODO: 后续实现完整的 Buff 系统）
-                    console.log(`[InventoryManager] 添加 Buff: ${effect.params?.buffType}, 值：${effect.value}, 持续：${effect.duration}秒`);
+                    // 添加 Buff 效果
+                    const buffManager = BuffManager.getInstance();
+                    const buffType = effect.params?.buffType as StatusEffect;
+                    const buffDuration = effect.duration ? Math.ceil(effect.duration / 60) : 3; // 秒转回合
+                    const buffValue = effect.value || 0;
+
+                    // 获取玩家英雄ID作为目标
+                    const heroes = playerDataManager.getAllHeroes();
+                    if (heroes.length > 0 && buffType) {
+                        buffManager.applyStatusBuff(
+                            heroes[0].data.id,
+                            buffType,
+                            'item',
+                            buffDuration,
+                            buffValue
+                        );
+                        console.log(`[InventoryManager] 添加 Buff: ${buffType}, 值：${buffValue}, 持续：${buffDuration}回合`);
+                    }
                     results.push(effect);
                     break;
 

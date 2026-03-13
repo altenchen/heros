@@ -14,6 +14,7 @@ import {
 import { SkillConfigs, SkillConfigMap } from '../../configs/skills.json';
 import { BattleUnit } from '../battle/BattleUnit';
 import { HexGrid } from '../battle/HexGrid';
+import { BuffManager } from '../battle/BuffManager';
 
 /**
  * 技能类
@@ -255,6 +256,7 @@ export class SkillManager {
         effectConfig: { type: EffectType; value: number | string; duration?: number; status?: StatusEffect }
     ): void {
         const value = this.calculateEffectValue(effectConfig.value, caster);
+        const buffManager = BuffManager.getInstance();
 
         switch (effectConfig.type) {
             case EffectType.DAMAGE:
@@ -266,6 +268,15 @@ export class SkillManager {
                 break;
 
             case EffectType.BUFF:
+                // 使用新的BuffManager
+                buffManager.applyStatusBuff(
+                    target.id,
+                    effectConfig.status!,
+                    caster.id,
+                    effectConfig.duration || 3,
+                    typeof value === 'number' ? value : 0
+                );
+                // 同步到BattleUnit（兼容）
                 target.addBuff({
                     id: `${skill.config.id}_${Date.now()}`,
                     status: effectConfig.status!,
@@ -276,6 +287,15 @@ export class SkillManager {
                 break;
 
             case EffectType.DEBUFF:
+                // 使用新的BuffManager
+                buffManager.applyStatusBuff(
+                    target.id,
+                    effectConfig.status!,
+                    caster.id,
+                    effectConfig.duration || 3,
+                    typeof value === 'number' ? value : 0
+                );
+                // 同步到BattleUnit（兼容）
                 target.addBuff({
                     id: `${skill.config.id}_${Date.now()}`,
                     status: effectConfig.status!,
@@ -290,6 +310,8 @@ export class SkillManager {
                 break;
 
             case EffectType.DISPEL:
+                // 使用新的BuffManager驱散
+                buffManager.dispelBuffs(target.id, 99, true);
                 target.clearBuffs();
                 break;
         }
