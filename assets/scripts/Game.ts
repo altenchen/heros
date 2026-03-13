@@ -16,6 +16,8 @@ import { achievementManager, taskManager } from './achievement';
 import { AchievementConditionType } from './config/AchievementTypes';
 import { levelManager } from './level';
 import { friendManager, guildManager, chatManager } from './social';
+import { tutorialManager } from './tutorial';
+import { TriggerType } from './config/TutorialTypes';
 
 const { ccclass, property } = _decorator;
 
@@ -108,6 +110,9 @@ export class Game extends Component {
         guildManager.init();
         chatManager.init();
 
+        // 初始化教程系统
+        tutorialManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -130,6 +135,9 @@ export class Game extends Component {
         this.uiManager.showUI('main_menu');
 
         console.log('游戏初始化完成');
+
+        // 触发教程检查 - 游戏启动
+        tutorialManager.checkAndTrigger(TriggerType.GAME_START);
 
         // 触发事件
         EventCenter.emit(GameEvent.GAME_LOADED);
@@ -182,6 +190,12 @@ export class Game extends Component {
         if (chatData) {
             chatManager.deserialize(chatData);
         }
+
+        // 加载教程数据
+        const tutorialData = localStorage.getItem('hmm_legacy_tutorial');
+        if (tutorialData) {
+            tutorialManager.deserialize(tutorialData);
+        }
     }
 
     /**
@@ -218,6 +232,9 @@ export class Game extends Component {
 
         // 保存聊天数据
         localStorage.setItem('hmm_legacy_chat', chatManager.serialize());
+
+        // 保存教程数据
+        localStorage.setItem('hmm_legacy_tutorial', tutorialManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -287,6 +304,13 @@ export class Game extends Component {
     }
 
     /**
+     * 获取教程管理器
+     */
+    getTutorialManager(): typeof tutorialManager {
+        return tutorialManager;
+    }
+
+    /**
      * 切换到主菜单
      */
     goToMainMenu(): void {
@@ -303,6 +327,8 @@ export class Game extends Component {
         this._state = GameState.TOWN;
         director.loadScene('Town', () => {
             this.uiManager.showUI('town_panel');
+            // 触发教程检查 - 进入主城场景
+            tutorialManager.checkAndTrigger(TriggerType.ENTER_SCENE, { sceneName: 'Town' });
         });
     }
 
@@ -362,6 +388,8 @@ export class Game extends Component {
         director.loadScene('Battle', () => {
             this.battleManager!.startBattle();
             this.uiManager.showUI('battle_panel');
+            // 触发教程检查 - 进入战斗场景
+            tutorialManager.checkAndTrigger(TriggerType.FIRST_ENTER, { sceneName: 'Battle' });
             EventCenter.emit(GameEvent.BATTLE_START);
         });
     }

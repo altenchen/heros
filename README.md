@@ -23,6 +23,7 @@
 - ✅ 成就与任务系统
 - ✅ 关卡副本系统
 - ✅ 好友与公会系统
+- ✅ 新手引导系统
 
 ## 项目结构
 
@@ -80,6 +81,9 @@ heros/
 │   │   │   ├── FriendManager.ts # 好友管理
 │   │   │   ├── GuildManager.ts # 公会管理
 │   │   │   ├── ChatManager.ts # 聊天管理
+│   │   │   └── index.ts      # 模块导出
+│   │   ├── tutorial/        # 新手引导系统
+│   │   │   ├── TutorialManager.ts # 引导管理
 │   │   │   └── index.ts      # 模块导出
 │   │   └── utils/            # 工具类
 │   │       ├── PlayerDataManager.ts
@@ -269,6 +273,14 @@ town.recruitUnit('castle_tier1_pikeman', 10, resources);
 - [x] 社交UI面板
 - [x] 体力赠送/领取
 
+### Phase 3.8: 新手引导系统 ✅
+- [x] 引导类型定义
+- [x] 引导步骤配置
+- [x] 引导管理器
+- [x] UI覆盖层组件
+- [x] 触发条件系统
+- [x] 奖励发放
+
 ### Phase 4: 编辑器集成 🚧
 - [ ] 绑定组件到预制体
 - [ ] 添加美术资源
@@ -291,5 +303,5 @@ MIT License
 
 ---
 
-**版本**: v1.4.0
+**版本**: v1.5.0
 **最后更新**: 2026-03-14
