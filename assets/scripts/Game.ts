@@ -14,6 +14,7 @@ import { HeroConfigMap } from './configs/heroes.json';
 import { PoolInitializer } from './utils/pool/PoolExamples';
 import { achievementManager, taskManager } from './achievement';
 import { AchievementConditionType } from './config/AchievementTypes';
+import { levelManager } from './level';
 
 const { ccclass, property } = _decorator;
 
@@ -98,6 +99,9 @@ export class Game extends Component {
         // 初始化任务系统
         taskManager.init();
 
+        // 初始化关卡系统
+        levelManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -148,6 +152,12 @@ export class Game extends Component {
         if (taskData) {
             taskManager.deserialize(taskData);
         }
+
+        // 加载关卡数据
+        const levelData = localStorage.getItem('hmm_legacy_levels');
+        if (levelData) {
+            levelManager.deserialize(levelData);
+        }
     }
 
     /**
@@ -172,6 +182,9 @@ export class Game extends Component {
 
         // 保存任务数据
         localStorage.setItem('hmm_legacy_tasks', taskManager.serialize());
+
+        // 保存关卡数据
+        localStorage.setItem('hmm_legacy_levels', levelManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -210,6 +223,13 @@ export class Game extends Component {
      */
     getTaskManager(): typeof taskManager {
         return taskManager;
+    }
+
+    /**
+     * 获取关卡管理器
+     */
+    getLevelManager(): typeof levelManager {
+        return levelManager;
     }
 
     /**
