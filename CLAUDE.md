@@ -156,6 +156,71 @@ npm run build:wechat
 npm run build:web
 ```
 
+## Git 开发流程规范
+
+### 分支管理
+
+```
+master (主分支)
+  │
+  ├── feature/xxx  (功能分支)
+  ├── fix/xxx       (修复分支)
+  └── refactor/xxx  (重构分支)
+```
+
+### 开发流程
+
+1. **创建分支**: 从 `master` 拉取新分支
+   ```bash
+   git checkout master
+   git pull origin master
+   git checkout -b feature/功能名称
+   ```
+
+2. **开发阶段**: 在功能分支上进行开发
+   ```bash
+   git add .
+   git commit -m "feat: 功能描述"
+   ```
+
+3. **验证阶段**: 确保功能正常，无报错
+
+4. **合并分支**: 验证通过后合并到 `master`
+   ```bash
+   git checkout master
+   git merge feature/功能名称
+   git push origin master
+   ```
+
+5. **更新文档**: 合并后更新相关文档
+   - `CLAUDE.md` - 项目上下文
+   - `README.md` - 项目说明
+   - 项目记忆文件
+
+6. **删除分支**: 合并完成后删除功能分支
+   ```bash
+   git branch -d feature/功能名称
+   git push origin --delete feature/功能名称
+   ```
+
+### Commit 规范 (遵循阿里规范)
+
+| 类型 | 说明 | 示例 |
+|------|------|------|
+| feat | 新功能 | `feat: 添加音效系统` |
+| fix | 修复bug | `fix: 修复战斗单位死亡后未移除的问题` |
+| docs | 文档更新 | `docs: 更新README` |
+| style | 代码格式 | `style: 格式化代码` |
+| refactor | 重构 | `refactor: 优化对象池性能` |
+| test | 测试 | `test: 添加战斗系统单元测试` |
+| chore | 构建/工具 | `chore: 更新构建配置` |
+
+### 分支命名规范
+
+- **功能分支**: `feature/功能名称` (如 `feature/audio-system`)
+- **修复分支**: `fix/问题描述` (如 `fix/battle-unit-dead`)
+- **重构分支**: `refactor/重构内容` (如 `refactor/pool-optimization`)
+
 ## 下一步工作
 
 1. **在Cocos Creator中打开项目**
