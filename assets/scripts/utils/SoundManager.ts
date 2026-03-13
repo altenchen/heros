@@ -1,10 +1,14 @@
 /**
- * 音效管理器
- * 管理游戏背景音乐和音效
+ * 音效管理器（兼容层）
+ * 兼容旧版 API，内部使用 AudioManager 实现
+ * 遵循阿里巴巴开发者手册规范
  */
 
+import { AudioManager, audioManager } from './AudioManager';
+import { BGMScene, SoundCategory } from '../config/AudioTypes';
+
 /**
- * 音效配置
+ * 音效配置（兼容旧版）
  */
 interface SoundConfig {
     id: string;
@@ -14,22 +18,17 @@ interface SoundConfig {
 }
 
 /**
- * 音效管理器
+ * 音效管理器（兼容层）
+ * @deprecated 请使用 AudioManager 替代
  */
 export class SoundManager {
     private static instance: SoundManager | null = null;
 
     private sounds: Map<string, SoundConfig> = new Map();
-    private audioElements: Map<string, HTMLAudioElement> = new Map();
-    private bgmPlayer: HTMLAudioElement | null = null;
-    private currentBgm: string = '';
-
-    private musicVolume: number = 0.5;
-    private sfxVolume: number = 0.8;
-    private musicMuted: boolean = false;
-    private sfxMuted: boolean = false;
+    private audioManager: AudioManager;
 
     private constructor() {
+        this.audioManager = AudioManager.getInstance();
         this.registerDefaultSounds();
     }
 
@@ -129,253 +128,182 @@ export class SoundManager {
      * 播放背景音乐
      */
     async playBGM(soundId: string): Promise<void> {
-        if (this.musicMuted) return;
-
-        const config = this.sounds.get(soundId);
-        if (!config) {
-            console.error(`Sound not found: ${soundId}`);
-            return;
-        }
-
-        // 停止当前BGM
-        this.stopBGM();
-
-        try {
-            // 创建音频元素
-            const audio = new Audio(config.path);
-            audio.volume = config.volume * this.musicVolume;
-            audio.loop = config.loop;
-
-            this.bgmPlayer = audio;
-            this.currentBgm = soundId;
-
-            await audio.play();
-        } catch (e) {
-            console.error(`Failed to play BGM: ${soundId}`, e);
-        }
+        // 尝试使用新版 AudioManager
+        const bgmId = this._convertToNewId(soundId);
+        await this.audioManager.playBGM(bgmId);
     }
 
     /**
      * 停止背景音乐
      */
     stopBGM(): void {
-        if (this.bgmPlayer) {
-            this.bgmPlayer.pause();
-            this.bgmPlayer.currentTime = 0;
-            this.bgmPlayer = null;
-            this.currentBgm = '';
-        }
+        this.audioManager.stopBGM(0);
     }
 
     /**
      * 暂停背景音乐
      */
     pauseBGM(): void {
-        if (this.bgmPlayer) {
-            this.bgmPlayer.pause();
-        }
+        this.audioManager.pauseBGM();
     }
 
     /**
      * 恢复背景音乐
      */
     resumeBGM(): void {
-        if (this.bgmPlayer && !this.musicMuted) {
-            this.bgmPlayer.play();
-        }
+        this.audioManager.resumeBGM();
     }
 
     /**
      * 播放音效
      */
     async playSFX(soundId: string, volume?: number): Promise<void> {
-        if (this.sfxMuted) return;
-
-        const config = this.sounds.get(soundId);
-        if (!config) {
-            console.error(`Sound not found: ${soundId}`);
-            return;
-        }
-
-        try {
-            // 检查是否有缓存的音频元素
-            let audio = this.audioElements.get(soundId);
-
-            if (!audio) {
-                audio = new Audio(config.path);
-                if (config.loop) {
-                    this.audioElements.set(soundId, audio);
-                }
-            } else {
-                audio.currentTime = 0;
-            }
-
-            audio.volume = (volume ?? config.volume) * this.sfxVolume;
-            await audio.play();
-
-            // 非循环音效播放后移除
-            if (!config.loop) {
-                audio.onended = () => {
-                    this.audioElements.delete(soundId);
-                };
-            }
-        } catch (e) {
-            console.error(`Failed to play SFX: ${soundId}`, e);
-        }
+        const sfxId = this._convertToNewId(soundId);
+        this.audioManager.playSFX(sfxId, { volume });
     }
 
     /**
      * 停止音效
      */
     stopSFX(soundId: string): void {
-        const audio = this.audioElements.get(soundId);
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-            this.audioElements.delete(soundId);
-        }
+        const sfxId = this._convertToNewId(soundId);
+        this.audioManager.stopSFX(sfxId);
     }
 
     /**
      * 设置音乐音量
      */
     setMusicVolume(volume: number): void {
-        this.musicVolume = Math.max(0, Math.min(1, volume));
-        if (this.bgmPlayer) {
-            this.bgmPlayer.volume = this.musicVolume * 0.5;
-        }
+        this.audioManager.setBGMVolume(volume);
     }
 
     /**
      * 设置音效音量
      */
     setSFXVolume(volume: number): void {
-        this.sfxVolume = Math.max(0, Math.min(1, volume));
+        this.audioManager.setSFXVolume(volume);
     }
 
     /**
      * 静音音乐
      */
     muteMusic(): void {
-        this.musicMuted = true;
-        this.pauseBGM();
+        const settings = this.audioManager.getSettings();
+        if (settings.bgmEnabled) {
+            this.audioManager.toggleBGM();
+        }
     }
 
     /**
      * 取消静音音乐
      */
     unmuteMusic(): void {
-        this.musicMuted = false;
-        this.resumeBGM();
+        const settings = this.audioManager.getSettings();
+        if (!settings.bgmEnabled) {
+            this.audioManager.toggleBGM();
+        }
     }
 
     /**
      * 静音音效
      */
     muteSFX(): void {
-        this.sfxMuted = true;
+        const settings = this.audioManager.getSettings();
+        if (settings.sfxEnabled) {
+            this.audioManager.toggleSFX();
+        }
     }
 
     /**
      * 取消静音音效
      */
     unmuteSFX(): void {
-        this.sfxMuted = false;
+        const settings = this.audioManager.getSettings();
+        if (!settings.sfxEnabled) {
+            this.audioManager.toggleSFX();
+        }
     }
 
     /**
      * 切换音乐静音状态
      */
     toggleMusicMute(): boolean {
-        if (this.musicMuted) {
-            this.unmuteMusic();
-        } else {
-            this.muteMusic();
-        }
-        return this.musicMuted;
+        return !this.audioManager.toggleBGM();
     }
 
     /**
      * 切换音效静音状态
      */
     toggleSFXMute(): boolean {
-        if (this.sfxMuted) {
-            this.unmuteSFX();
-        } else {
-            this.muteSFX();
-        }
-        return this.sfxMuted;
+        return !this.audioManager.toggleSFX();
     }
 
     /**
      * 获取音乐音量
      */
     getMusicVolume(): number {
-        return this.musicVolume;
+        return this.audioManager.getSettings().bgmVolume;
     }
 
     /**
      * 获取音效音量
      */
     getSFXVolume(): number {
-        return this.sfxVolume;
+        return this.audioManager.getSettings().sfxVolume;
     }
 
     /**
      * 音乐是否静音
      */
     isMusicMuted(): boolean {
-        return this.musicMuted;
+        return !this.audioManager.getSettings().bgmEnabled;
     }
 
     /**
      * 音效是否静音
      */
     isSFXMuted(): boolean {
-        return this.sfxMuted;
+        return !this.audioManager.getSettings().sfxEnabled;
     }
 
     /**
      * 保存音量设置
      */
     saveSettings(): void {
-        const settings = {
-            musicVolume: this.musicVolume,
-            sfxVolume: this.sfxVolume,
-            musicMuted: this.musicMuted,
-            sfxMuted: this.sfxMuted
-        };
-        localStorage.setItem('hmm_sound_settings', JSON.stringify(settings));
+        // AudioManager 自动保存
     }
 
     /**
      * 加载音量设置
      */
     loadSettings(): void {
-        const saved = localStorage.getItem('hmm_sound_settings');
-        if (saved) {
-            try {
-                const settings = JSON.parse(saved);
-                this.musicVolume = settings.musicVolume ?? 0.5;
-                this.sfxVolume = settings.sfxVolume ?? 0.8;
-                this.musicMuted = settings.musicMuted ?? false;
-                this.sfxMuted = settings.sfxMuted ?? false;
-            } catch (e) {
-                console.error('Failed to load sound settings', e);
-            }
-        }
+        // AudioManager 自动加载
     }
 
     /**
      * 停止所有音效
      */
     stopAll(): void {
-        this.stopBGM();
-        this.audioElements.forEach((audio, id) => {
-            audio.pause();
-            audio.currentTime = 0;
-        });
-        this.audioElements.clear();
+        this.audioManager.stopAll();
+    }
+
+    /**
+     * 转换旧版 ID 到新版 ID
+     */
+    private _convertToNewId(oldId: string): string {
+        const mapping: Record<string, string> = {
+            'bgm_main': BGMScene.MAIN_MENU,
+            'bgm_battle': BGMScene.BATTLE,
+            'bgm_town': BGMScene.TOWN,
+            'sfx_click': 'sfx_ui_button_click',
+            'sfx_close': 'sfx_ui_panel_close',
+            'sfx_attack': 'sfx_battle_attack_melee',
+            'sfx_hit': 'sfx_battle_hit',
+            'sfx_spell': 'sfx_skill_fireball',
+            'sfx_victory': 'sfx_battle_victory',
+            'sfx_defeat': 'sfx_battle_defeat'
+        };
+        return mapping[oldId] || oldId;
     }
 }
 

@@ -31,6 +31,7 @@
 | 地形系统 | ✅ 已完成 | 地形效果、移动消耗、特殊效果 |
 | 战斗准备界面 | ✅ 已完成 | 部队配置、敌人预览、战力计算 |
 | 战斗结果界面 | ✅ 已完成 | 胜利结算、星级评价、奖励显示 |
+| 音频系统 | ✅ 已完成 | BGM切换、音效池、音量控制 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -141,6 +142,40 @@ const attackMod = terrainManager.getAttackModifier(unitId);
 const speedMod = terrainManager.getSpeedModifier(unitId);
 ```
 
+### 音频系统
+
+```typescript
+import { AudioManager, audioManager } from './utils/AudioManager';
+import { BGMScene, SoundCategory } from './config/AudioTypes';
+
+// 初始化
+audioManager.init();
+
+// 播放 BGM（支持场景类型或音频ID）
+await audioManager.playBGM(BGMScene.BATTLE);
+await audioManager.playBGM('bgm_town_castle');
+
+// 停止 BGM（带淡出）
+await audioManager.stopBGM(1.0);
+
+// 播放音效
+audioManager.playSFX('sfx_ui_button_click');
+audioManager.playBattleSound('attack');
+audioManager.playSkillSound('fireball');
+
+// 音量控制
+audioManager.setMasterVolume(1.0);
+audioManager.setBGMVolume(0.8);
+audioManager.setSFXVolume(1.0);
+
+// 开关
+audioManager.toggleBGM();
+audioManager.toggleSFX();
+
+// 获取设置
+const settings = audioManager.getSettings();
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -200,6 +235,9 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 奖励管理 | `assets/scripts/utils/RewardManager.ts` |
 | 皮肤管理 | `assets/scripts/utils/SkinManager.ts` |
 | 事件系统 | `assets/scripts/utils/EventTarget.ts` |
+| 音频管理 | `assets/scripts/utils/AudioManager.ts` |
+| 音频类型 | `assets/scripts/config/AudioTypes.ts` |
+| 音频配置 | `assets/scripts/config/audio.json.ts` |
 
 ## 开发命令
 
