@@ -20,7 +20,7 @@ import {
     ChapterConfigMap,
     AllLevels,
     Chapters
-} from '../configs/levels.json';
+} from '../config/levels.json';
 import { EventCenter } from '../utils/EventTarget';
 
 /**

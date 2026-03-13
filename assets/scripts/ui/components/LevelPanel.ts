@@ -9,7 +9,7 @@ import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
 import { levelManager, LevelEventType } from '../../level/LevelManager';
 import { LevelConfig, ChapterConfig, LevelStatus, StarRating, LevelDifficulty } from '../../config/LevelTypes';
-import { ChapterConfigMap, LevelConfigMap } from '../../../configs/levels.json';
+import { ChapterConfigMap, LevelConfigMap } from '../../config/levels.json';
 import { EventCenter } from '../../utils/EventTarget';
 import { Game } from '../../Game';
 

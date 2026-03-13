@@ -103,14 +103,14 @@ export class InventoryManager {
                     };
                     EventCenter.emit(InventoryEventType.ITEM_EXPIRE, eventData);
 
-                    console.log(`[InventoryManager] 道具过期: ${slot.item.itemId}`);
+                    console.log(`[InventoryManager] 道具过期：${slot.item.itemId}`);
                 }
             });
         });
     }
 
     /**
-     * 生成唯一ID
+     * 生成唯一 ID
      */
     private _generateInstanceId(): string {
         return `item_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -122,7 +122,7 @@ export class InventoryManager {
     addItem(itemId: string, count: number = 1): boolean {
         const config = getItemConfig(itemId);
         if (!config) {
-            console.warn(`[InventoryManager] 道具配置不存在: ${itemId}`);
+            console.warn(`[InventoryManager] 道具配置不存在：${itemId}`);
             return false;
         }
 
@@ -151,7 +151,7 @@ export class InventoryManager {
         while (remainingCount > 0) {
             const emptySlot = slots.find(s => !s.item);
             if (!emptySlot) {
-                console.warn(`[InventoryManager] 背包已满: ${type}`);
+                console.warn(`[InventoryManager] 背包已满：${type}`);
                 return false;
             }
 
@@ -178,7 +178,7 @@ export class InventoryManager {
         };
         EventCenter.emit(InventoryEventType.ITEM_ADD, eventData);
 
-        console.log(`[InventoryManager] 添加道具: ${itemId} x${count}`);
+        console.log(`[InventoryManager] 添加道具：${itemId} x${count}`);
 
         return true;
     }
@@ -321,7 +321,7 @@ export class InventoryManager {
         };
         EventCenter.emit(InventoryEventType.ITEM_USE, eventData);
 
-        console.log(`[InventoryManager] 使用道具: ${item.itemId} x${count}`);
+        console.log(`[InventoryManager] 使用道具：${item.itemId} x${count}`);
 
         // 获取剩余数量
         const remainingCount = this.getItemCount(item.itemId);
@@ -365,19 +365,39 @@ export class InventoryManager {
                     break;
 
                 case 'add_buff':
-                    // TODO: 实现Buff系统
-                    console.log(`[InventoryManager] 添加Buff: ${effect.params?.buffType}`);
+                    // 添加 Buff 效果（TODO: 后续实现完整的 Buff 系统）
+                    console.log(`[InventoryManager] 添加 Buff: ${effect.params?.buffType}, 值：${effect.value}, 持续：${effect.duration}秒`);
                     results.push(effect);
                     break;
 
                 case 'speedup_build':
-                    // TODO: 实现加速系统
-                    console.log(`[InventoryManager] 加速: ${effect.value}秒`);
+                    // 加速建造效果（TODO: 后续实现完整的加速系统）
+                    console.log(`[InventoryManager] 加速：${effect.value}秒`);
+                    results.push(effect);
+                    break;
+
+                case 'summon_unit':
+                    // 召唤单位
+                    const unitId = effect.params?.unitId;
+                    const unitCount = effect.value || 1;
+                    if (unitId) {
+                        console.log(`[InventoryManager] 召唤单位：${unitId} x${unitCount}`);
+                    }
+                    results.push(effect);
+                    break;
+
+                case 'add_attribute':
+                    // 增加属性（永久）
+                    const attributeType = effect.params?.attributeType;
+                    const attributeValue = effect.value || 0;
+                    if (attributeType && attributeValue) {
+                        console.log(`[InventoryManager] 增加属性：${attributeType} +${attributeValue}`);
+                    }
                     results.push(effect);
                     break;
 
                 default:
-                    console.log(`[InventoryManager] 未知效果类型: ${effect.type}`);
+                    console.log(`[InventoryManager] 未知效果类型：${effect.type}`);
             }
         });
 
@@ -479,7 +499,7 @@ export class InventoryManager {
         // 发放货币
         playerDataManager.addResource(sellPrice.currency, totalAmount);
 
-        console.log(`[InventoryManager] 出售道具: ${item.itemId} x${count}, 获得${totalAmount}${sellPrice.currency}`);
+        console.log(`[InventoryManager] 出售道具：${item.itemId} x${count}, 获得${totalAmount}${sellPrice.currency}`);
 
         return {
             success: true,
@@ -610,7 +630,7 @@ export class InventoryManager {
         };
         EventCenter.emit(InventoryEventType.INVENTORY_EXPAND, eventData);
 
-        console.log(`[InventoryManager] 背包扩容: ${type} -> ${newCapacity}`);
+        console.log(`[InventoryManager] 背包扩容：${type} -> ${newCapacity}`);
 
         return true;
     }
