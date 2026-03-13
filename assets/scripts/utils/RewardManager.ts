@@ -11,6 +11,7 @@ import {
 import { InventoryManager } from './inventory/InventoryManager';
 import { playerDataManager } from './utils/PlayerDataManager';
 import { EventCenter } from './utils/EventTarget';
+import { skinManager } from './utils/SkinManager';
 
 /**
  * 奖励类型
@@ -356,10 +357,15 @@ export class RewardManager {
             return { success: false, type: RewardType.SKIN, amount: 0, reason: '缺少皮肤ID' };
         }
 
-        // TODO: 实现皮肤系统
-        console.log(`[RewardManager] 发放皮肤: ${skinId}`);
+        // 使用皮肤管理器解锁皮肤
+        const success = skinManager.unlockSkin(skinId);
 
-        return { success: true, type: RewardType.SKIN, itemId: skinId, amount: 1 };
+        if (success) {
+            console.log(`[RewardManager] 发放皮肤: ${skinId}`);
+            return { success: true, type: RewardType.SKIN, itemId: skinId, amount: 1 };
+        } else {
+            return { success: false, type: RewardType.SKIN, itemId: skinId, amount: 0, reason: '皮肤解锁失败' };
+        }
     }
 
     /**

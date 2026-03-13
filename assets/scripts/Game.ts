@@ -25,6 +25,7 @@ import { shopManager } from './shop';
 import { inventoryManager } from './inventory';
 import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBridge';
 import { rewardManager } from './utils/RewardManager';
+import { skinManager } from './utils/SkinManager';
 
 const { ccclass, property } = _decorator;
 
@@ -138,6 +139,9 @@ export class Game extends Component {
         // 初始化奖励系统
         rewardManager.init();
 
+        // 初始化皮肤系统
+        skinManager.init();
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -248,6 +252,12 @@ export class Game extends Component {
         if (inventoryData) {
             inventoryManager.deserialize(inventoryData);
         }
+
+        // 加载皮肤数据
+        const skinData = localStorage.getItem('hmm_legacy_skins');
+        if (skinData) {
+            skinManager.deserialize(skinData);
+        }
     }
 
     /**
@@ -299,6 +309,9 @@ export class Game extends Component {
 
         // 保存背包数据
         localStorage.setItem('hmm_legacy_inventory', inventoryManager.serialize());
+
+        // 保存皮肤数据
+        localStorage.setItem('hmm_legacy_skins', skinManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -400,6 +413,13 @@ export class Game extends Component {
      */
     getInventoryManager(): typeof inventoryManager {
         return inventoryManager;
+    }
+
+    /**
+     * 获取皮肤管理器
+     */
+    getSkinManager(): typeof skinManager {
+        return skinManager;
     }
 
     /**

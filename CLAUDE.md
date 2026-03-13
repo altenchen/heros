@@ -25,6 +25,8 @@
 | 成就任务 | ✅ 已完成 | 33个成就、12个任务 |
 | 关卡系统 | ✅ 已完成 | 2章节9关卡、精英副本 |
 | 社交系统 | ✅ 已完成 | 好友、公会、聊天 |
+| 奖励系统 | ✅ 已完成 | 统一发放、英雄碎片、皮肤 |
+| 皮肤系统 | ✅ 已完成 | 英雄皮肤、兵种皮肤、头像框 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -137,11 +139,14 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 |------|----------|
 | 游戏入口 | `assets/scripts/Game.ts` |
 | 类型定义 | `assets/scripts/config/GameTypes.ts` |
+| 皮肤类型 | `assets/scripts/config/SkinTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
 | 六边形网格 | `assets/scripts/battle/HexGrid.ts` |
 | 玩家数据 | `assets/scripts/utils/PlayerDataManager.ts` |
+| 奖励管理 | `assets/scripts/utils/RewardManager.ts` |
+| 皮肤管理 | `assets/scripts/utils/SkinManager.ts` |
 | 事件系统 | `assets/scripts/utils/EventTarget.ts` |
 
 ## 开发命令
