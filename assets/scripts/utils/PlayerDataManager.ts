@@ -109,6 +109,13 @@ export class PlayerDataManager {
     }
 
     /**
+     * 获取玩家阵营
+     */
+    getPlayerFaction(): Faction {
+        return this.playerData?.faction || Faction.LIGHT;
+    }
+
+    /**
      * 计算离线奖励
      */
     private calculateOfflineRewards(): void {
@@ -370,3 +377,6 @@ export class PlayerDataManager {
         }
     }
 }
+
+/** 玩家数据管理器单例 */
+export const playerDataManager = new PlayerDataManager();

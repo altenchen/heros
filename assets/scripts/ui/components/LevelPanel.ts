@@ -493,21 +493,26 @@ export class LevelPanel extends UIPanel {
             return;
         }
 
-        // 开始挑战
-        if (levelManager.startChallenge(this._selectedLevelId)) {
-            // 隐藏面板
-            this.hide();
+        // 获取关卡配置
+        const config = LevelConfigMap.get(this._selectedLevelId);
+        if (!config) {
+            console.warn('[LevelPanel] 关卡配置不存在:', this._selectedLevelId);
+            return;
+        }
 
-            // 触发战斗
-            const config = LevelConfigMap.get(this._selectedLevelId);
-            if (config) {
-                // TODO: 跳转到战斗场景
-                console.log('[LevelPanel] 开始战斗:', config.name);
+        // 隐藏面板
+        this.hide();
 
-                // 调用游戏实例开始战斗
-                const game = Game.getInstance();
-                // game.startLevelBattle(config);
-            }
+        // 调用游戏实例开始关卡战斗
+        const game = Game.getInstance();
+        const success = game.startLevelBattle(this._selectedLevelId);
+
+        if (!success) {
+            console.warn('[LevelPanel] 启动关卡战斗失败');
+            // 重新显示面板
+            this.show();
+        } else {
+            console.log('[LevelPanel] 开始战斗:', config.name);
         }
     }
 

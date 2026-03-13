@@ -23,6 +23,7 @@ import { BGMScene } from './config/AudioTypes';
 import { dailySigninManager } from './signin';
 import { shopManager } from './shop';
 import { inventoryManager } from './inventory';
+import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBridge';
 
 const { ccclass, property } = _decorator;
 
@@ -109,6 +110,9 @@ export class Game extends Component {
 
         // 初始化关卡系统
         levelManager.init();
+
+        // 初始化关卡战斗桥接器
+        levelBattleBridge.init();
 
         // 初始化社交系统
         friendManager.init();
@@ -480,6 +484,111 @@ export class Game extends Component {
             tutorialManager.checkAndTrigger(TriggerType.FIRST_ENTER, { sceneName: 'Battle' });
             EventCenter.emit(GameEvent.BATTLE_START);
         });
+    }
+
+    /**
+     * 开始关卡战斗
+     * 使用关卡战斗桥接器进行完整的关卡挑战流程
+     * @param levelId 关卡 ID
+     * @returns 是否成功开始战斗
+     */
+    startLevelBattle(levelId: string): boolean {
+        console.log('[Game] 开始关卡战斗:', levelId);
+
+        // 准备战斗
+        if (!levelBattleBridge.prepareBattle(levelId)) {
+            console.warn('[Game] 无法准备关卡战斗');
+            return false;
+        }
+
+        // 设置战斗结束回调
+        levelBattleBridge.setOnBattleEndCallback((result) => {
+            console.log('[Game] 关卡战斗结束:', result.victory ? '胜利' : '失败');
+            this._onLevelBattleEnd(result);
+        });
+
+        // 监听关卡战斗事件
+        EventCenter.on(LevelBattleEventType.BATTLE_VICTORY, this._onLevelBattleVictory, this);
+        EventCenter.on(LevelBattleEventType.BATTLE_DEFEAT, this._onLevelBattleDefeat, this);
+
+        // 更新状态
+        this._state = GameState.BATTLE;
+        this.battleManager = levelBattleBridge.getBattleManager();
+
+        // 加载战斗场景
+        director.loadScene('Battle', () => {
+            // 开始战斗
+            levelBattleBridge.startBattle();
+
+            // 显示战斗面板
+            this.uiManager.showUI('battle_panel');
+
+            // 播放战斗BGM
+            soundManager.playBGM(BGMScene.BATTLE);
+
+            // 触发教程检查
+            tutorialManager.checkAndTrigger(TriggerType.FIRST_ENTER, { sceneName: 'Battle' });
+
+            EventCenter.emit(GameEvent.BATTLE_START);
+        });
+
+        return true;
+    }
+
+    /**
+     * 关卡战斗结束处理
+     */
+    private _onLevelBattleEnd(result: any): void {
+        // 清理事件监听
+        EventCenter.off(LevelBattleEventType.BATTLE_VICTORY, this._onLevelBattleVictory, this);
+        EventCenter.off(LevelBattleEventType.BATTLE_DEFEAT, this._onLevelBattleDefeat, this);
+
+        // 更新状态
+        this._state = GameState.TOWN;
+
+        // 保存游戏
+        this.saveGame();
+    }
+
+    /**
+     * 关卡战斗胜利处理
+     */
+    private _onLevelBattleVictory(data: any): void {
+        console.log('[Game] 关卡战斗胜利:', data);
+
+        // 播放胜利音乐
+        soundManager.playBGM(BGMScene.VICTORY);
+
+        // 触发成就事件
+        achievementManager.triggerEvent({
+            type: AchievementConditionType.WIN_BATTLES,
+            value: 1
+        });
+
+        // 触发任务事件
+        taskManager.triggerEvent({
+            type: AchievementConditionType.WIN_BATTLES,
+            value: 1
+        });
+
+        // 触发关卡完成事件
+        achievementManager.triggerEvent({
+            type: AchievementConditionType.CLEAR_LEVELS,
+            value: 1
+        });
+    }
+
+    /**
+     * 关卡战斗失败处理
+     */
+    private _onLevelBattleDefeat(data: any): void {
+        console.log('[Game] 关卡战斗失败:', data);
+
+        // 播放失败音乐
+        soundManager.playBGM(BGMScene.DEFEAT);
+
+        // 重置连胜
+        achievementManager.resetStreak();
     }
 
     /**

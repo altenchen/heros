@@ -6,6 +6,7 @@
 
 import { BattleManager } from '../battle/BattleManager';
 import { BattleEventType, BattleResult } from '../battle/BattleManager';
+import { BattleUnit } from '../battle/BattleUnit';
 import { levelManager, LevelEventType } from './LevelManager';
 import { LevelConfigMap, ChapterConfigMap } from '../config/levels.json';
 import { LevelChallengeResult, StarRating } from '../config/LevelTypes';
@@ -83,6 +84,9 @@ export class LevelBattleBridge {
     /** 玩家单位 */
     private _playerUnits: PlayerBattleUnit[] = [];
 
+    /** 初始玩家单位状态（用于计算伤亡） */
+    private _initialPlayerUnits: Map<string, { count: number; totalHP: number }> = new Map();
+
     /** 是否使用自动战斗 */
     private _useAutoBattle: boolean = true;
 
@@ -158,6 +162,18 @@ export class LevelBattleBridge {
             count: u.count,
             position: u.position
         }));
+
+        // 记录玩家初始单位状态（用于计算伤亡）
+        this._initialPlayerUnits.clear();
+        playerBattleUnits.forEach((u, index) => {
+            if (u.config) {
+                const totalHP = u.config.hp * u.count;
+                this._initialPlayerUnits.set(`player_unit_${index}`, {
+                    count: u.count,
+                    totalHP
+                });
+            }
+        });
 
         const enemyBattleUnits = enemyUnits.map(u => ({
             config: UnitConfigMap.get(u.configId)!,
@@ -256,14 +272,26 @@ export class LevelBattleBridge {
         const stars = this._calculateStars(result);
 
         // 创建挑战结果
+        const deathCount = this._calculateDeathCount(result);
+        const remainingHP = this._calculateRemainingHP(result, 'player');
+        const totalHP = this._calculateTotalHP('player');
+
         const challengeResult: LevelChallengeResult = {
             victory: result.winner === 'player',
             firstClear: this._isFirstClear(this._currentLevelId),
             stars,
             turns: result.turns,
-            deathCount: this._calculateDeathCount(result),
-            remainingHP: this._calculateRemainingHP(result, 'player'),
-            totalHP: this._calculateTotalHP('player')
+            rewards: {
+                gold: 0,
+                experience: 0,
+                items: []
+            },
+            statistics: {
+                totalDamage: 0,
+                totalHeal: 0,
+                skillCount: 0,
+                deathCount
+            }
         };
 
         // 完成关卡挑战，获取奖励
@@ -326,8 +354,48 @@ export class LevelBattleBridge {
      * 获取默认玩家单位（从玩家数据中获取）
      */
     private _getDefaultPlayerUnits(): PlayerBattleUnit[] {
-        // TODO: 从玩家数据中获取当前部队
-        // 这里先返回测试数据
+        // 从玩家英雄数据中获取部队
+        const heroes = playerDataManager.getAllHeroes();
+        if (heroes.length === 0) {
+            console.warn('[LevelBattleBridge] 玩家没有英雄，使用默认部队');
+            return this._getFallbackPlayerUnits();
+        }
+
+        // 获取第一个英雄的军队
+        const hero = heroes[0];
+        const army = hero.data.army;
+
+        if (!army || army.length === 0) {
+            console.warn('[LevelBattleBridge] 英雄没有军队，使用默认部队');
+            return this._getFallbackPlayerUnits();
+        }
+
+        // 预设玩家起始位置（左侧区域）
+        const playerStartPositions: Hex[] = [
+            { q: -3, r: -1 },
+            { q: -3, r: 0 },
+            { q: -3, r: 1 },
+            { q: -2, r: -1 },
+            { q: -2, r: 0 },
+            { q: -2, r: 1 },
+            { q: -1, r: 0 }
+        ];
+
+        // 将军队转换为战斗单位配置
+        const units: PlayerBattleUnit[] = army.map((slot, index) => ({
+            configId: slot.configId,
+            count: slot.count,
+            position: playerStartPositions[index] || { q: -2, r: 0 }
+        }));
+
+        console.log('[LevelBattleBridge] 获取玩家部队:', units.length, '支');
+        return units;
+    }
+
+    /**
+     * 获取后备玩家单位（默认部队）
+     */
+    private _getFallbackPlayerUnits(): PlayerBattleUnit[] {
         return [
             { configId: 'castle_tier1_pikeman', count: 10, position: { q: -2, r: 0 } },
             { configId: 'castle_tier2_archer', count: 6, position: { q: -2, r: 1 } },
@@ -411,9 +479,25 @@ export class LevelBattleBridge {
      * 计算死亡数量
      */
     private _calculateDeathCount(battleResult: BattleResult): number {
-        // TODO: 根据战斗事件计算实际死亡数量
-        // 目前简单返回 0
-        return 0;
+        let deathCount = 0;
+
+        // 计算初始总数
+        let initialCount = 0;
+        this._initialPlayerUnits.forEach(unit => {
+            initialCount += unit.count;
+        });
+
+        // 计算存活总数
+        let survivedCount = 0;
+        battleResult.survivedUnits.forEach(unit => {
+            if (unit.team === 'player') {
+                // 使用类型断言获取 count 属性
+                survivedCount += (unit as any).count || 1;
+            }
+        });
+
+        deathCount = initialCount - survivedCount;
+        return Math.max(0, deathCount);
     }
 
     /**
@@ -423,7 +507,7 @@ export class LevelBattleBridge {
         let remainingHP = 0;
         battleResult.survivedUnits.forEach(unit => {
             if (unit.team === team) {
-                remainingHP += unit.hp || 0;
+                remainingHP += unit.currentHp || 0;
             }
         });
         return remainingHP;
@@ -433,8 +517,14 @@ export class LevelBattleBridge {
      * 计算总 HP
      */
     private _calculateTotalHP(team: string): number {
-        // TODO: 计算初始总 HP
-        return 1000;
+        if (team === 'player') {
+            let totalHP = 0;
+            this._initialPlayerUnits.forEach(unit => {
+                totalHP += unit.totalHP;
+            });
+            return totalHP;
+        }
+        return 0;
     }
 
     /**
@@ -518,12 +608,10 @@ export class LevelBattleBridge {
         }
         this._currentLevelId = null;
         this._playerUnits = [];
+        this._initialPlayerUnits.clear();
         this._onBattleEndCallback = null;
     }
 }
-
-// 导入需要的类型
-import { BattleUnit } from '../battle/BattleUnit';
 
 // 导出单例
 export const levelBattleBridge = LevelBattleBridge.getInstance();
