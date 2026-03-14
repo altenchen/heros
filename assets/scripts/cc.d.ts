@@ -6,9 +6,9 @@
 declare module 'cc' {
     // ==================== 核心装饰器 ====================
     export const ccclass: (name?: string) => ClassDecorator;
-    export const property: PropertyDecorator & {
-        (options?: PropertyOptions): PropertyDecorator;
-        (type: any): PropertyDecorator;
+    export const property: PropertyDecorator & MethodDecorator & {
+        (options?: PropertyOptions): PropertyDecorator & MethodDecorator;
+        (type: any): PropertyDecorator & MethodDecorator;
     };
 
     export interface PropertyOptions {
@@ -79,6 +79,11 @@ declare module 'cc' {
         getComponents<T extends Component>(type: Constructor<T>): T[];
         getComponents(type: string | Function): Component[];
 
+        getComponentInChildren<T extends Component>(type: Constructor<T>): T | null;
+        getComponentInChildren(type: string | Function): Component | null;
+        getComponentsInChildren<T extends Component>(type: Constructor<T>): T[];
+        getComponentsInChildren(type: string | Function): Component[];
+
         addChild(child: Node): void;
         removeChild(child: Node): void;
         removeFromParent(): void;
@@ -101,6 +106,20 @@ declare module 'cc' {
 
         getSiblingIndex(): number;
         setSiblingIndex(index: number): void;
+
+        removeAllChildren(): void;
+        destroyAllChildren(): void;
+
+        static EventType: {
+            TRANSFORM_CHANGED: string;
+            SIZE_CHANGED: string;
+            ANCHOR_CHANGED: string;
+            ACTIVE_IN_HIERARCHY_CHANGED: string;
+            CHILD_ADDED: string;
+            CHILD_REMOVED: string;
+            CHILD_REORDER: string;
+            GROUP_CHANGED: string;
+        };
     }
 
     // ==================== 数学类型 ====================

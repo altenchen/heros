@@ -3,6 +3,8 @@
  * 遵循阿里巴巴开发者手册规范
  */
 
+import { ResourceType } from './GameTypes';
+
 /**
  * 道具类型
  */
@@ -145,7 +147,7 @@ export interface ItemConfig {
     expireTime?: number;
     /** 出售价格 */
     sellPrice?: {
-        currency: string;
+        currency: ResourceType;
         amount: number;
     };
     /** 是否可出售 */

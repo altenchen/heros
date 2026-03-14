@@ -7,7 +7,7 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { vipManager } from '../../vip';
-import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, VIPPurchaseItem } from '../../config/VIPTypes';
+import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, PaymentProductConfig } from '../../config/VIPTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
@@ -142,8 +142,8 @@ export class VIPPanel extends UIPanel {
      * 绑定事件
      */
     private _bindEvents(): void {
-        EventCenter.on(VIPEventType.VIP_LEVEL_UP, this._onVIPLevelUp, this);
-        EventCenter.on(VIPEventType.PURCHASE_SUCCESS, this._onPurchaseSuccess, this);
+        EventCenter.on(VIPEventType.VIP_LEVEL_CHANGED, this._onVIPLevelUp, this);
+        EventCenter.on(VIPEventType.PAYMENT_SUCCESS, this._onPurchaseSuccess, this);
         EventCenter.on(VIPEventType.MONTHLY_CARD_CLAIMED, this._onMonthlyCardClaimed, this);
 
         this.claimMonthlyCardButton?.node.on(Button.EventType.CLICK, this._onClaimMonthlyCardClick, this);
@@ -154,8 +154,8 @@ export class VIPPanel extends UIPanel {
      * 解绑事件
      */
     private _unbindEvents(): void {
-        EventCenter.off(VIPEventType.VIP_LEVEL_UP, this._onVIPLevelUp, this);
-        EventCenter.off(VIPEventType.PURCHASE_SUCCESS, this._onPurchaseSuccess, this);
+        EventCenter.off(VIPEventType.VIP_LEVEL_CHANGED, this._onVIPLevelUp, this);
+        EventCenter.off(VIPEventType.PAYMENT_SUCCESS, this._onPurchaseSuccess, this);
         EventCenter.off(VIPEventType.MONTHLY_CARD_CLAIMED, this._onMonthlyCardClaimed, this);
     }
 
