@@ -1314,6 +1314,99 @@ EventCenter.on(MagicBookEventType.MASTERY_UPGRADED, (data) => {
 });
 ```
 
+### 战斗魔法集成
+
+```typescript
+import { BattleMagicBridge, battleMagicBridge, SpellTarget } from './magicbook/BattleMagicBridge';
+import { BattleManager } from './battle/BattleManager';
+import { BattleUnit } from './battle/BattleUnit';
+
+// 绑定到战斗管理器
+battleMagicBridge.bindToBattle(battleManager, 'hero_1');
+
+// 获取可用魔法列表
+const spells = battleMagicBridge.getAvailableSpells();
+
+// 检查是否可以施放魔法
+const check = battleMagicBridge.canCastSpell('spell_fireball');
+if (check.canCast) {
+    // 施放魔法 - 单体目标
+    const target: SpellTarget = {
+        type: 'unit',
+        unit: enemyUnit
+    };
+    const result = battleMagicBridge.castSpell('spell_fireball', target);
+
+    if (result.success) {
+        console.log(`施放成功，伤害: ${result.damage}`);
+    }
+}
+
+// AI选择施法目标
+const aiTarget = battleMagicBridge.getAISpellTarget('spell_heal');
+if (aiTarget) {
+    battleMagicBridge.castSpell('spell_heal', aiTarget);
+}
+
+// 获取魔法值
+const currentMana = battleMagicBridge.getCurrentMana();
+const maxMana = battleMagicBridge.getMaxMana();
+
+// 监听战斗魔法事件
+battleMagicBridge.on(BattleMagicEventType.SPELL_CAST_COMPLETE, (data) => {
+    console.log(`施放魔法: ${data.spellName}, 伤害: ${data.damage}`);
+});
+
+// 清理
+battleMagicBridge.cleanup();
+```
+
+### 战争机器战斗集成
+
+```typescript
+import { BattleWarMachineBridge, battleWarMachineBridge, WarMachineBattleEventType } from './warmachine/BattleWarMachineBridge';
+import { WarMachineType } from './config/WarMachineTypes';
+
+// 绑定到战斗管理器
+battleWarMachineBridge.bindToBattle(battleManager, 'hero_1');
+
+// 获取战斗中的战争机器
+const machines = battleWarMachineBridge.getBattleMachines();
+
+// 检查是否有弩车/医疗帐篷
+const hasBallista = battleWarMachineBridge.hasBallista();
+const hasTent = battleWarMachineBridge.hasFirstAidTent();
+
+// 获取弹药车加成
+const ammoBonus = battleWarMachineBridge.getAmmoCartBonus();
+
+// 执行弩车攻击
+const attackResult = battleWarMachineBridge.executeBallistaAttack(enemyUnit, heroAttack);
+if (attackResult) {
+    console.log(`弩车攻击，伤害: ${attackResult.damage}`);
+}
+
+// 执行医疗帐篷治疗
+const healResult = battleWarMachineBridge.executeFirstAidHeal(allyUnit, heroSpellPower);
+if (healResult) {
+    console.log(`治疗，恢复: ${healResult.heal}`);
+}
+
+// AI自动执行战争机器行动
+const aiResult = battleWarMachineBridge.executeAIAction(heroAttack, heroSpellPower);
+
+// 重置回合状态
+battleWarMachineBridge.resetTurn();
+
+// 监听战争机器事件
+battleWarMachineBridge.on(WarMachineBattleEventType.MACHINE_ATTACK, (data) => {
+    console.log(`战争机器攻击: ${data.type}, 伤害: ${data.damage}`);
+});
+
+// 清理
+battleWarMachineBridge.cleanup();
+```
+
 ### 随机事件系统
 
 ```typescript

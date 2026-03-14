@@ -231,10 +231,10 @@ export class InventoryManager {
      */
     useItem(instanceId: string, count: number = 1, target?: any): UseItemResult {
         // 查找道具
-        let item: InventoryItem | null = null;
-        let itemType: InventoryType | null = null;
+        let item: InventoryItem | undefined;
+        let itemType: InventoryType | undefined;
 
-        this._slots.forEach((slots, type) => {
+        for (const [type, slots] of this._slots) {
             for (const slot of slots) {
                 if (slot.item && slot.item.instanceId === instanceId) {
                     item = slot.item;
@@ -242,7 +242,8 @@ export class InventoryManager {
                     break;
                 }
             }
-        });
+            if (item) break;
+        }
 
         if (!item || !itemType) {
             return {
