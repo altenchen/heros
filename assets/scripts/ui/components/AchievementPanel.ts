@@ -6,7 +6,7 @@
 import { _decorator, Node, Label, Sprite, SpriteFrame, Prefab, instantiate, ScrollView, Vec3, ProgressBar, Color } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
-import { achievementManager, AchievementEventType, AchievementProgress } from '../../achievement';
+import { achievementManager, AchievementEventType, AchievementProgress } from '../../achievement/AchievementManager';
 import { AchievementConfig, AchievementType, AchievementRarity } from '../../config/AchievementTypes';
 import { AchievementConfigMap, AllAchievements } from '../../config/achievements.json';
 import { EventCenter } from '../../utils/EventTarget';

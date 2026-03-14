@@ -4,7 +4,7 @@
  */
 
 import { EventCenter } from '../utils/EventTarget';
-import { inventoryManager } from '../inventory';
+import { inventoryManager } from '../inventory/InventoryManager';
 import {
     SpeedUpType,
     SpeedUpConfig,

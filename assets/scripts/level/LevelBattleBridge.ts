@@ -15,7 +15,7 @@ import { HeroConfigMap } from '../../configs/heroes.json';
 import { Hex, BattleUnit as IBattleUnit, Faction } from '../config/GameTypes';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
-import { inventoryManager } from '../inventory';
+import { inventoryManager } from '../inventory/InventoryManager';
 import { ItemEffectType } from '../config/InventoryTypes';
 import { rewardManager, RewardConfig } from '../utils/RewardManager';
 import { UIManager } from '../ui/UIManager';

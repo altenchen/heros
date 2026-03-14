@@ -6,7 +6,7 @@
 import { _decorator, Node, Label, Sprite, SpriteFrame, Prefab, instantiate, ScrollView, Vec3, ProgressBar, Color } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
-import { taskManager, TaskEventType, TaskProgress } from '../../achievement';
+import { taskManager, TaskEventType, TaskProgress } from '../../achievement/AchievementManager';
 import { TaskConfig, TaskType, TaskStatus } from '../../config/AchievementTypes';
 import { TaskConfigMap, DailyTaskTemplates, WeeklyTaskTemplates, MainTasks } from '../../config/achievements.json';
 import { EventCenter } from '../../utils/EventTarget';

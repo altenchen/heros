@@ -8,7 +8,7 @@ import { UIPanel } from './UIPanel';
 import { onlineRewardManager, OnlineRewardManager } from '../../onlinereward/OnlineRewardManager';
 import { OnlineRewardEventType, OnlineRewardPreview, OnlineRewardConfig } from '../../config/OnlineRewardTypes';
 import { EventCenter } from '../../utils/EventTarget';
-import { vipManager } from '../../vip';
+import { vipManager } from '../../vip/VIPManager';
 
 const { ccclass, property } = _decorator;
 

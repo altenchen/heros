@@ -7,7 +7,7 @@
 import { _decorator, Node, Label, Sprite, SpriteFrame, Prefab, instantiate, ScrollView, Vec3, Color } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
-import { rankManager, RankEventType } from '../../rank';
+import { rankManager, RankEventType } from '../../rank/RankManager';
 import { RankType, RankPeriod, RankEntry, RankConfig } from '../../config/RankTypes';
 import { rankConfigs, getRankReward } from '../../config/rank.json';
 import { EventCenter } from '../../utils/EventTarget';

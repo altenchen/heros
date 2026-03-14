@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { vipManager } from '../../vip';
+import { vipManager } from '../../vip/VIPManager';
 import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, PaymentProductConfig, MonthlyCardStatus } from '../../config/VIPTypes';
 import { paymentProducts } from '../../config/vip.json';
 import { EventCenter } from '../../utils/EventTarget';

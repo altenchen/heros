@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { inventoryManager } from '../../inventory';
+import { inventoryManager } from '../../inventory/InventoryManager';
 import { InventoryType, InventoryEventType, InventoryItem, ItemRarity } from '../../config/InventoryTypes';
 import { EventCenter } from '../../utils/EventTarget';
 

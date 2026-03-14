@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { mailManager } from '../../mail';
+import { mailManager } from '../../mail/MailManager';
 import { MailType, MailState, MailEventType, MailData, MailAttachment } from '../../config/MailTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
