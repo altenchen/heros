@@ -20,11 +20,14 @@
     ],
     "_active": true,
     "_components": [],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 7
+    },
     "autoReleaseAssets": false,
     "_globals": {
       "__id__": 6
-    }
+    },
+    "_id": "f2a3b4c5-d6e7-8901-bcde-23456789cdef"
   },
   {
     "__type__": "cc.Node",
@@ -202,5 +205,8 @@
       "_fogTop": 1.5,
       "_fogRange": 1.2
     }
+  },
+  {
+    "__type__": "cc.PrefabInfo"
   }
 ]

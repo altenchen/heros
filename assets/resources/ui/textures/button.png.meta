@@ -2,7 +2,7 @@
   "ver": "1.0.26",
   "importer": "image",
   "imported": true,
-  "uuid": "ui-texture-button",
+  "uuid": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091",
   "files": [
     ".json",
     ".png"
@@ -10,7 +10,7 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "ui-texture-button-6c48a",
+      "uuid": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091@6c48a",
       "displayName": "button",
       "id": "6c48a",
       "name": "texture",
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ui-texture-button",
+        "imageUuidOrDatabaseUri": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091",
         "visible": false
       },
       "ver": "1.0.22",
@@ -34,7 +34,7 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "ui-texture-button-f9941",
+      "uuid": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091@f9941",
       "displayName": "button",
       "id": "f9941",
       "name": "spriteFrame",
@@ -46,22 +46,76 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 200,
-        "height": 50,
-        "rawWidth": 200,
-        "rawHeight": 50,
-        "borderTop": 10,
-        "borderBottom": 10,
-        "borderLeft": 15,
-        "borderRight": 15,
+        "width": 1,
+        "height": 1,
+        "rawWidth": 1,
+        "rawHeight": 1,
+        "borderTop": 1,
+        "borderBottom": 0,
+        "borderLeft": 1,
+        "borderRight": 0,
         "packable": true,
         "pixelsToUnit": 100,
         "pivotX": 0.5,
         "pivotY": 0.5,
         "meshType": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ui-texture-button-6c48a",
-        "atlasUuid": ""
+        "imageUuidOrDatabaseUri": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -0.5,
+            -0.5,
+            0,
+            0.5,
+            -0.5,
+            0,
+            -0.5,
+            0.5,
+            0,
+            0.5,
+            0.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -0.5,
+            -0.5,
+            0
+          ],
+          "maxPos": [
+            0.5,
+            0.5,
+            0
+          ]
+        }
       },
       "ver": "1.0.12",
       "imported": true,
@@ -75,6 +129,6 @@
     "hasAlpha": true,
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": false,
-    "redirect": "ui-texture-button-6c48a"
+    "redirect": "581ee1c1-f72d-4c3a-b4c0-b4b1e4f81091@f9941"
   }
 }

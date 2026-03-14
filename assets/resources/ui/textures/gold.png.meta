@@ -2,7 +2,7 @@
   "ver": "1.0.26",
   "importer": "image",
   "imported": true,
-  "uuid": "ui-texture-gold",
+  "uuid": "a300df75-53c5-49f6-beb0-142e4f37b644",
   "files": [
     ".json",
     ".png"
@@ -10,7 +10,7 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "ui-texture-gold-6c48a",
+      "uuid": "a300df75-53c5-49f6-beb0-142e4f37b644@6c48a",
       "displayName": "gold",
       "id": "6c48a",
       "name": "texture",
@@ -22,7 +22,7 @@
         "mipfilter": "none",
         "anisotropy": 0,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ui-texture-gold",
+        "imageUuidOrDatabaseUri": "a300df75-53c5-49f6-beb0-142e4f37b644",
         "visible": false
       },
       "ver": "1.0.22",
@@ -34,7 +34,7 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "ui-texture-gold-f9941",
+      "uuid": "a300df75-53c5-49f6-beb0-142e4f37b644@f9941",
       "displayName": "gold",
       "id": "f9941",
       "name": "spriteFrame",
@@ -46,10 +46,10 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 32,
-        "height": 32,
-        "rawWidth": 32,
-        "rawHeight": 32,
+        "width": 1,
+        "height": 1,
+        "rawWidth": 1,
+        "rawHeight": 1,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
@@ -61,17 +61,17 @@
         "meshType": 0,
         "vertices": {
           "rawPosition": [
-            -16,
-            -16,
+            -0.5,
+            -0.5,
             0,
-            16,
-            -16,
+            0.5,
+            -0.5,
             0,
-            -16,
-            16,
+            -0.5,
+            0.5,
             0,
-            16,
-            16,
+            0.5,
+            0.5,
             0
           ],
           "indexes": [
@@ -84,6 +84,26 @@
           ],
           "uv": [
             0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "minPos": [
+            -0.5,
+            -0.5,
+            0
+          ],
+          "maxPos": [
+            0.5,
+            0.5,
+            0
+          ],
+          "nuv": [
+            0,
             0,
             1,
             0,
@@ -91,20 +111,10 @@
             1,
             1,
             1
-          ],
-          "minPos": [
-            -16,
-            -16,
-            0
-          ],
-          "maxPos": [
-            16,
-            16,
-            0
           ]
         },
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "ui-texture-gold-6c48a",
+        "imageUuidOrDatabaseUri": "a300df75-53c5-49f6-beb0-142e4f37b644@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.12",
@@ -119,6 +129,6 @@
     "hasAlpha": true,
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": false,
-    "redirect": "ui-texture-gold-6c48a"
+    "redirect": "a300df75-53c5-49f6-beb0-142e4f37b644@f9941"
   }
 }

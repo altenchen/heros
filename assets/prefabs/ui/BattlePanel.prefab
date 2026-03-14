@@ -6,7 +6,8 @@
     "_native": "",
     "data": {
       "__id__": 1
-    }
+    },
+    "persistent": false
   },
   {
     "__type__": "cc.Node",

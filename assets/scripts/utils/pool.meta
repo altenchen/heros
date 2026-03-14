@@ -1,8 +1,9 @@
 {
-  "ver": "1.1.0",
+  "ver": "1.2.0",
   "importer": "directory",
   "imported": true,
-  "uuid": "pool-dir-meta",
+  "uuid": "6215c675-7b2c-4244-8a48-5596c1b114d6",
   "files": [],
-  "subMetas": {}
+  "subMetas": {},
+  "userData": {}
 }

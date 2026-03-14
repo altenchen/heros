@@ -27,5 +27,5 @@
     "maxSubSteps": 1,
     "defaultMaterial": null
   },
-  "__version__": "1.2.0"
+  "__version__": "1.0.5"
 }
