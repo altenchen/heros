@@ -172,11 +172,11 @@ export class VIPPanel extends UIPanel {
         }
 
         if (this.vipExpProgressBar) {
-            this.vipExpProgressBar.progress = progress.current / progress.required;
+            this.vipExpProgressBar.progress = progress.progress;
         }
 
         if (this.vipExpLabel) {
-            this.vipExpLabel.string = `${progress.current}/${progress.required}`;
+            this.vipExpLabel.string = `${progress.exp}/${progress.nextLevelExp}`;
         }
     }
 
@@ -208,12 +208,10 @@ export class VIPPanel extends UIPanel {
         const privilegeTypes = [
             VIPPrivilegeType.RESOURCE_BONUS,
             VIPPrivilegeType.EXP_BONUS,
-            VIPPrivilegeType.ATTACK_BONUS,
-            VIPPrivilegeType.DEFENSE_BONUS,
-            VIPPrivilegeType.EXTRA_CHALLENGE,
-            VIPPrivilegeType.AUTO_SKIP,
-            VIPPrivilegeType.BATTLE_SPEED,
-            VIPPrivilegeType.DAILY_REWARD
+            VIPPrivilegeType.BUILD_SPEEDUP,
+            VIPPrivilegeType.SIGNIN_BONUS,
+            VIPPrivilegeType.FREE_STAMINA,
+            VIPPrivilegeType.FREE_GACHA
         ];
 
         privilegeTypes.forEach(type => {
