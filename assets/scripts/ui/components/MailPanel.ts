@@ -338,16 +338,17 @@ export class MailPanel extends UIPanel {
      * 更新附件列表
      */
     private _updateAttachments(mail: MailData): void {
-        if (!this.attachmentContainer) return;
+        const container = this.attachmentContainer;
+        if (!container) return;
 
-        this.attachmentContainer.removeAllChildren();
+        container.removeAllChildren();
 
         if (!mail.attachments || mail.attachments.length === 0) {
-            this.attachmentContainer.active = false;
+            container.active = false;
             return;
         }
 
-        this.attachmentContainer.active = true;
+        container.active = true;
 
         mail.attachments.forEach((attachment, index) => {
             const attachNode = this.attachmentPrefab
@@ -370,7 +371,7 @@ export class MailPanel extends UIPanel {
                 if (countLabel) countLabel.color = new Color(150, 150, 150);
             }
 
-            this.attachmentContainer.addChild(attachNode);
+            container.addChild(attachNode);
         });
     }
 
