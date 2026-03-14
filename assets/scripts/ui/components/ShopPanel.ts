@@ -262,24 +262,25 @@ export class ShopPanel extends UIPanel {
 
             // 商品价格
             const priceLabel = itemNode.getChildByName('Price')?.getComponent(Label);
-            if (priceLabel) {
-                const currencyName = CURRENCY_NAMES[item.price.currency] || item.price.currency;
-                priceLabel.string = `${item.price.amount} ${currencyName}`;
+            if (priceLabel && item.prices && item.prices.length > 0) {
+                const firstPrice = item.prices[0];
+                const currencyName = CURRENCY_NAMES[firstPrice.currency] || firstPrice.currency;
+                priceLabel.string = `${firstPrice.originalPrice} ${currencyName}`;
             }
 
             // 原价（如果有折扣）
             const originalLabel = itemNode.getChildByName('OriginalPrice')?.getComponent(Label);
-            if (originalLabel && item.originalPrice) {
-                originalLabel.string = `${item.originalPrice.amount}`;
+            if (originalLabel && item.prices && item.prices.length > 0 && item.prices[0].discountedPrice) {
+                originalLabel.string = `${item.prices[0].originalPrice}`;
                 originalLabel.color = new Color(150, 150, 150);
             }
 
             // 剩余购买次数
             const remainingLabel = itemNode.getChildByName('Remaining')?.getComponent(Label);
             if (remainingLabel) {
-                const remaining = shopManager.getRemainingPurchaseCount(item.id);
-                if (item.limit > 0) {
-                    remainingLabel.string = `剩余 ${remaining}/${item.limit}`;
+                const remaining = shopManager.getRemainingPurchaseCount(item.itemId);
+                if ((item.buyLimit ?? item.limit ?? 0) > 0) {
+                    remainingLabel.string = `剩余 ${remaining}/${item.buyLimit ?? item.limit}`;
                 } else {
                     remainingLabel.string = '';
                 }
@@ -288,7 +289,7 @@ export class ShopPanel extends UIPanel {
             // 购买按钮
             const buyBtn = itemNode.getChildByName('BuyBtn')?.getComponent(Button);
             if (buyBtn) {
-                const canBuy = shopManager.getRemainingPurchaseCount(item.id) > 0;
+                const canBuy = shopManager.getRemainingPurchaseCount(item.itemId) > 0;
                 buyBtn.interactable = canBuy;
 
                 buyBtn.node.on(Button.EventType.CLICK, () => {

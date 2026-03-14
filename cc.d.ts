@@ -185,14 +185,21 @@ declare module 'cc' {
         isValid: boolean;
 
         on(type: string, callback: EventCallback, target?: unknown, useCapture?: boolean): unknown;
-        on(type: 'toggle', callback: (toggle: Toggle) => void, target?: unknown): unknown;
-        on(type: 'slide', callback: (slider: Slider) => void, target?: unknown): unknown;
+        on(type: string, callback: (...args: any[]) => void, target?: unknown): unknown;
         once(type: string, callback: EventCallback, target?: unknown, useCapture?: boolean): unknown;
         off(type: string, callback?: EventCallback, target?: unknown, useCapture?: boolean): void;
 
         emit(type: string, ...args: unknown[]): void;
 
         walk(callback: (node: Node) => void): void;
+
+        getWorldPosition(): Vec3;
+        setWorldPosition(pos: Vec3): void;
+        getWorldRotation(): Quat;
+        inverseTransformPoint(out: Vec3, p: Vec3): Vec3;
+
+        position: Vec3;
+        rotation: Quat;
     }
 
     // ============ Component ============
