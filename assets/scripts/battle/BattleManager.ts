@@ -37,6 +37,8 @@ export enum BattleEventType {
     UNIT_ATTACK = 'unit_attack',
     UNIT_DIE = 'unit_die',
     SKILL_CAST = 'skill_cast',
+    SPELL_CAST = 'spell_cast',
+    WAR_MACHINE_ACTION = 'war_machine_action',
     FOCUS_CHANGE = 'focus_change',
     BATTLE_END = 'battle_end'
 }
@@ -95,6 +97,12 @@ export class BattleManager {
     private buffManager: BuffManager;
     private terrainEffectManager: TerrainEffectManager;
     private eventListeners: Map<BattleEventType, Function[]> = new Map();
+
+    /** 玩家英雄数据 */
+    private playerHero: any = null;
+
+    /** 敌人英雄数据 */
+    private enemyHero: any = null;
 
     constructor() {
         this.grid = new HexGrid();

@@ -521,7 +521,7 @@ export const EarthSpells: SpellConfig[] = [
         ],
         upgradeBonus: {
             damageBonus: 20,
-            areaRadius: 1
+            areaRadiusBonus: 1
         },
         requirements: {
             heroLevel: 15,
