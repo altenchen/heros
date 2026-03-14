@@ -112,7 +112,6 @@
       "a": 255
     },
     "_enableOutline": true,
-    "_outlineWidth": 2,
     "_outlineColor": {
       "__type__": "cc.Color",
       "r": 0,
