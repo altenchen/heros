@@ -555,6 +555,8 @@ declare module 'cc' {
 
     export class Prefab extends Asset {
         data: Node;
+
+        instantiate(): Node;
     }
 
     // ==================== 工具类 ====================
@@ -799,7 +801,9 @@ declare module 'cc' {
     // ==================== 查找和实例化 ====================
     export function find(path: string): Node | null;
 
-    export function instantiate<T extends Node | Asset>(original: T): T;
+    export function instantiate<T extends Node>(original: T): T;
+    export function instantiate(original: Prefab): Node;
+    export function instantiate<T extends Asset>(original: T): T;
 
     // ==================== 其他工具 ====================
     export class sys {

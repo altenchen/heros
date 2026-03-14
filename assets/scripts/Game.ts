@@ -3,7 +3,7 @@
  * 初始化游戏系统，管理场景和UI
  */
 
-import { _decorator, Component, Node, director, resources, assetManager, game } from 'cc';
+import { _decorator, Component, Node, director, resources, assetManager, game as ccGame } from 'cc';
 import { PlayerDataManager } from './utils/PlayerDataManager';
 import { BattleManager } from './battle/BattleManager';
 import { UIManager } from './ui/UIManager';
