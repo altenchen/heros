@@ -56,6 +56,8 @@
 | 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
 | 战争机器系统 | ✅ 已完成 | 弩车、医疗帐篷、弹药车、投石车 |
 | 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
+| 魔法书系统 | 📋 待开发 | 类型定义已完成，需实现管理器 |
+| 市场系统 | 📋 待开发 | 类型定义已完成，需实现管理器 |
 | 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
 
 ## 项目结构
@@ -1382,7 +1384,7 @@ master (主分支)
 - `BattlePanel.prefab` - 战斗面板
 - `HeroPanel.prefab` - 英雄面板
 
-**需要创建的预制体** (28个):
+**需要创建的预制体** (29个):
 
 | 预制体名称 | 组件脚本 | 层级 | 描述 |
 |-----------|---------|------|------|
@@ -1411,6 +1413,7 @@ master (主分支)
 | ExpeditionPanel | ExpeditionPanel.ts | PANEL | 远征面板 |
 | OnlineRewardPanel | OnlineRewardPanel.ts | PANEL | 在线奖励面板 |
 | ArtifactPanel | ArtifactPanel.ts | PANEL | 宝物面板 |
+| WarMachinePanel | WarMachinePanel.ts | PANEL | 战争机器面板 |
 | TutorialOverlay | TutorialOverlay.ts | TIPS | 教程遮罩 |
 | Toast | UIComponent.ts | TIPS | Toast提示 |
 
