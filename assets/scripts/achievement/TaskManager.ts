@@ -8,7 +8,7 @@ import {
     TaskProgress,
     TaskStatus,
     TaskType,
-    TaskConditionType,
+    AchievementConditionType,
     TaskReward,
     TaskEvent
 } from '../config/AchievementTypes';
@@ -17,7 +17,7 @@ import {
     WeeklyTaskTemplates,
     MainTasks,
     TaskConfigMap
-} from '../configs/achievements.json';
+} from '../config/achievements.json';
 import { EventCenter } from '../utils/EventTarget';
 
 /** 任务事件类型 */

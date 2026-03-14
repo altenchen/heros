@@ -142,8 +142,22 @@ export class BattleManager {
         this.events = [];
         this.state = this.createInitialState();
 
+        // 存储英雄数据
+        this.playerHero = playerHero;
+        this.enemyHero = enemyHero;
+
         // 初始化地形效果管理器
         this.terrainEffectManager.init(this.grid);
+
+        // 初始化魔法书桥接器
+        if (playerHero && playerHero.id) {
+            battleMagicBridge.bindToBattle(this, playerHero.id);
+        }
+
+        // 初始化战争机器桥接器
+        if (playerHero && playerHero.id) {
+            battleWarMachineBridge.bindToBattle(this, playerHero.id);
+        }
 
         // 放置玩家单位
         playerUnits.forEach((unitData, index) => {
