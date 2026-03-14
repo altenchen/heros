@@ -40,6 +40,9 @@
     "_components": [
       {
         "__id__": 20
+      },
+      {
+        "__id__": 21
       }
     ],
     "_prefab": null,
@@ -670,5 +673,16 @@
       "x": 0.5,
       "y": 0.5
     }
+  },
+  {
+    "__type__": "e8f90123-4567-89ab-cdef-123456789bcd",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": ""
   }
 ]

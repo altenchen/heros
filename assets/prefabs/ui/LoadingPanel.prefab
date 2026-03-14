@@ -25,6 +25,9 @@
     "_components": [
       {
         "__id__": 8
+      },
+      {
+        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -163,5 +166,16 @@
       "width": 960,
       "height": 640
     }
+  },
+  {
+    "__type__": "aebc0ee8-6d9c-4c77-91f2-cd3cf3c3b7b2",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": ""
   }
 ]

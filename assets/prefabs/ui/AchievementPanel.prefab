@@ -31,6 +31,9 @@
       },
       {
         "__id__": 12
+      },
+      {
+        "__id__": 13
       }
     ],
     "_prefab": null,
@@ -241,5 +244,16 @@
       "b": 35,
       "a": 240
     }
+  },
+  {
+    "__type__": "cfdf160c-95ff-4419-8a9c-9e92ae8b934e",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": ""
   }
 ]

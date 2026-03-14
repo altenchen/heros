@@ -34,6 +34,9 @@
     "_components": [
       {
         "__id__": 42
+      },
+      {
+        "__id__": 30
       }
     ],
     "_prefab": null,
@@ -971,5 +974,16 @@
       "x": 0.5,
       "y": 0.5
     }
+  },
+  {
+    "__type__": "f9012345-6789-abcd-ef01-23456789cde0",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": ""
   }
 ]
