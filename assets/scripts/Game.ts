@@ -26,6 +26,7 @@ import { inventoryManager } from './inventory';
 import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBridge';
 import { rewardManager } from './utils/RewardManager';
 import { skinManager } from './utils/SkinManager';
+import { vipManager } from './vip';
 
 const { ccclass, property } = _decorator;
 
@@ -141,6 +142,9 @@ export class Game extends Component {
 
         // 初始化皮肤系统
         skinManager.init();
+
+        // 初始化VIP系统
+        vipManager.init();
 
         // 初始化UI管理器
         if (this.canvas) {
@@ -258,6 +262,12 @@ export class Game extends Component {
         if (skinData) {
             skinManager.deserialize(skinData);
         }
+
+        // 加载VIP数据
+        const vipData = localStorage.getItem('hmm_legacy_vip');
+        if (vipData) {
+            vipManager.deserialize(vipData);
+        }
     }
 
     /**
@@ -312,6 +322,9 @@ export class Game extends Component {
 
         // 保存皮肤数据
         localStorage.setItem('hmm_legacy_skins', skinManager.serialize());
+
+        // 保存VIP数据
+        localStorage.setItem('hmm_legacy_vip', vipManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -420,6 +433,13 @@ export class Game extends Component {
      */
     getSkinManager(): typeof skinManager {
         return skinManager;
+    }
+
+    /**
+     * 获取VIP管理器
+     */
+    getVIPManager(): typeof vipManager {
+        return vipManager;
     }
 
     /**
