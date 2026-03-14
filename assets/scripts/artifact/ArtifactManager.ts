@@ -188,7 +188,7 @@ export class ArtifactManager {
         }
 
         const equipment = this.heroEquipments.get(heroId)!;
-        const slot = config.slot;
+        let slot = config.slot;
 
         // 检查槽位是否已有装备
         const currentEquip = equipment.slots.get(slot);

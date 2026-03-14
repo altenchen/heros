@@ -122,10 +122,32 @@ export class ArenaManager {
      */
     private _initPlayerData(): void {
         const playerInfo = playerDataManager.getPlayerInfo();
+        if (!playerInfo) {
+            // 如果没有玩家信息，使用默认值
+            this._playerData = {
+                playerId: 'default',
+                playerName: 'Player',
+                avatar: 'default',
+                score: 1000,
+                tier: ArenaTier.SILVER,
+                stars: 0,
+                wins: 0,
+                losses: 0,
+                totalBattles: 0,
+                winRate: 0,
+                winStreak: 0,
+                maxWinStreak: 0,
+                highestTier: ArenaTier.SILVER,
+                highestScore: 1000,
+                lastBattleTime: 0,
+                protectedStars: 0
+            };
+            return;
+        }
         this._playerData = {
             playerId: playerInfo.id,
             playerName: playerInfo.name,
-            avatar: playerInfo.avatar || 'default',
+            avatar: 'default',
             score: 1000,
             tier: ArenaTier.SILVER,
             stars: 0,

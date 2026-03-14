@@ -120,8 +120,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -20,
+      "x": -200,
+      "y": 0,
       "z": 0
     },
     "_layer": 33554432
@@ -136,8 +136,8 @@
     "_enabled": true,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 850,
-      "height": 450
+      "width": 350,
+      "height": 500
     }
   },
   {
@@ -150,15 +150,15 @@
     "_enabled": true,
     "_color": {
       "__type__": "cc.Color",
-      "r": 30,
-      "g": 30,
-      "b": 40,
+      "r": 40,
+      "g": 40,
+      "b": 50,
       "a": 200
     }
   },
   {
     "__type__": "cc.Node",
-    "_name": "ActionBar",
+    "_name": "ExpeditionDetail",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -176,8 +176,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -270,
+      "x": 200,
+      "y": 0,
       "z": 0
     },
     "_layer": 33554432
@@ -192,8 +192,8 @@
     "_enabled": true,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 850,
-      "height": 60
+      "width": 450,
+      "height": 500
     }
   },
   {
@@ -203,7 +203,14 @@
     "node": {
       "__id__": 8
     },
-    "_enabled": false
+    "_enabled": true,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 30,
+      "g": 30,
+      "b": 40,
+      "a": 200
+    }
   },
   {
     "__type__": "cc.UITransform",

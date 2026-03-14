@@ -36,7 +36,7 @@ export interface MarketLevelConfig {
     /** 建造费用 */
     buildCost: Partial<Record<ResourceType, number>>;
     /** 汇率优惠百分比 */
-    rateBonus: number;
+    rateBonus?: number;
     /** 每日交易次数上限 */
     dailyTradeLimit: number;
     /** 解锁的资源类型 */
@@ -143,7 +143,7 @@ export interface RatePreview {
     /** 当前卖出单价 */
     sellPrice: number;
     /** 汇率优惠百分比 */
-    rateBonus: number;
+    rateBonus?: number;
     /** 是否可用 */
     available: boolean;
 }

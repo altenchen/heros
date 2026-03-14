@@ -410,11 +410,11 @@ export const SkillConfigMap: Map<string, SkillConfig> = new Map(
 );
 
 // 按魔法派系分组的技能
-export const SkillsByMagicSchool: Map<MagicSchool | 'passive' | 'unit', SkillConfig[]> = new Map([
+export const SkillsByMagicSchool = new Map<MagicSchool | 'passive' | 'unit', SkillConfig[]>([
     [MagicSchool.FIRE, SkillConfigs.filter(s => s.magicSchool === MagicSchool.FIRE)],
     [MagicSchool.WATER, SkillConfigs.filter(s => s.magicSchool === MagicSchool.WATER)],
     [MagicSchool.EARTH, SkillConfigs.filter(s => s.magicSchool === MagicSchool.EARTH)],
     [MagicSchool.AIR, SkillConfigs.filter(s => s.magicSchool === MagicSchool.AIR)],
     ['passive', SkillConfigs.filter(s => s.type === SkillType.HERO && !s.magicSchool)],
     ['unit', SkillConfigs.filter(s => s.type === SkillType.UNIT)]
-]);
+]) as Map<MagicSchool | 'passive' | 'unit', SkillConfig[]>;

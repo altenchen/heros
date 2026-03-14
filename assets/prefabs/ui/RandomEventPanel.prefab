@@ -3,9 +3,7 @@
     "__type__": "cc.Prefab",
     "_name": "RandomEventPanel",
     "_objFlags": 0,
-    "data": {
-      "__id__": 1
-    },
+    "data": { "__id__": 1 },
     "persistent": false
   },
   {
@@ -20,10 +18,7 @@
       { "__id__": 11 }
     ],
     "_active": true,
-    "_components": [
-      { "__id__": 14 },
-      { "__id__": 15 }
-    ],
+    "_components": [ { "__id__": 14 }, { "__id__": 15 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 0, "z": 0 },
     "_layer": 33554432
@@ -35,41 +30,59 @@
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 3 }, { "__id__": 4 }],
+    "_components": [ { "__id__": 3 }, { "__id__": 4 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 200, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 120, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 300, "height": 40 } },
-  { "__type__": "cc.Label", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_string": "随机事件", "_fontSize": 32, "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 } },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 300, "height": 40 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_string": "随机事件",
+    "_fontSize": 28,
+    "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 }
+  },
   {
     "__type__": "cc.Node",
-    "_name": "EventIcon",
+    "_name": "Description",
     "_objFlags": 0,
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 6 }, { "__id__": 7 }],
+    "_components": [ { "__id__": 6 }, { "__id__": 7 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 100, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 60, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 80, "height": 80 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 100, "g": 100, "b": 120, "a": 255 } },
   {
-    "__type__": "cc.Node",
-    "_name": "EventDesc",
+    "__type__": "cc.UITransform",
+    "_name": "",
     "_objFlags": 0,
-    "_parent": { "__id__": 1 },
-    "_children": [],
-    "_active": true,
-    "_components": [{ "__id__": 9 }, { "__id__": 10 }],
-    "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 20, "z": 0 },
-    "_layer": 33554432
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 500, "height": 60 }
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 500, "height": 80 } },
-  { "__type__": "cc.Label", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_string": "事件描述内容...", "_fontSize": 22, "_color": { "__type__": "cc.Color", "r": 200, "g": 200, "b": 200, "a": 255 } },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_string": "你在旅途中发现了一个神秘的宝箱...",
+    "_fontSize": 20,
+    "_color": { "__type__": "cc.Color", "r": 200, "g": 200, "b": 200, "a": 255 }
+  },
   {
     "__type__": "cc.Node",
     "_name": "OptionsContainer",
@@ -77,13 +90,71 @@
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 12 }, { "__id__": 13 }],
+    "_components": [ { "__id__": 9 }, { "__id__": 10 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": -100, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": -50, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 600, "height": 200 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 40, "g": 40, "b": 50, "a": 200 } },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 700, "height": 500 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 25, "g": 25, "b": 35, "a": 240 } }
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 500, "height": 200 }
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_horizontal": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "SkipButton",
+    "_objFlags": 0,
+    "_parent": { "__id__": 1 },
+    "_children": [],
+    "_active": true,
+    "_components": [ { "__id__": 12 }, { "__id__": 13 } ],
+    "_prefab": null,
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": -180, "z": 0 },
+    "_layer": 33554432
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 150, "height": 40 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_string": "跳过",
+    "_fontSize": 20,
+    "_color": { "__type__": "cc.Color", "r": 150, "g": 150, "b": 150, "a": 255 }
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 600, "height": 400 }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 30, "g": 30, "b": 45, "a": 240 }
+  }
 ]
