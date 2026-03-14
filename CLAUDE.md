@@ -55,9 +55,8 @@
 | 在线奖励系统 | ✅ 已完成 | 在线时长奖励、VIP加成、每日重置 |
 | 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
 | 战争机器系统 | ✅ 已完成 | 弩车、医疗帐篷、弹药车、投石车 |
+| 市场系统 | ✅ 已完成 | 资源交易、汇率优惠、资源交换 |
 | 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
-| 魔法书系统 | 📋 待开发 | 类型定义已完成，需实现管理器 |
-| 市场系统 | 📋 待开发 | 类型定义已完成，需实现管理器 |
 | 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
 
 ## 项目结构
@@ -1146,6 +1145,87 @@ EventCenter.on(WarMachineEventType.OBTAINED, (data) => {
 });
 EventCenter.on(WarMachineEventType.BATTLE_ACTION, (data) => {
     console.log(`战争机器行动: ${data.actionType}`);
+});
+```
+
+### 市场系统
+
+```typescript
+import { MarketManager, marketManager } from './market/MarketManager';
+import { TradeType, MarketEventType } from './config/MarketTypes';
+
+// 初始化
+marketManager.init();
+
+// 获取市场等级
+const level = marketManager.getMarketLevel();
+const levelConfig = marketManager.getLevelConfig();
+console.log(`市场等级: ${level}, 汇率优惠: ${levelConfig?.rateBonus}%`);
+
+// 获取剩余交易次数
+const remaining = marketManager.getRemainingTrades();
+
+// 获取汇率预览
+const previews = marketManager.getRatePreviews();
+previews.forEach(preview => {
+    console.log(`${preview.resourceType}: 买入 ${preview.buyPrice}, 卖出 ${preview.sellPrice}`);
+});
+
+// 买入资源
+const buyResult = marketManager.executeTrade(
+    {
+        tradeType: TradeType.BUY,
+        resourceType: ResourceType.WOOD,
+        amount: 100
+    },
+    {
+        getResource: (type) => playerDataManager.getResource(type),
+        addResource: (type, amount) => playerDataManager.addResource(type, amount),
+        useResource: (type, amount) => playerDataManager.useResource(type, amount)
+    }
+);
+
+// 卖出资源
+const sellResult = marketManager.executeTrade(
+    {
+        tradeType: TradeType.SELL,
+        resourceType: ResourceType.ORE,
+        amount: 50
+    },
+    playerDataManager
+);
+
+// 获取资源交换列表
+const exchanges = marketManager.getResourceExchanges();
+
+// 执行资源交换（如木材换矿石）
+const exchangeResult = marketManager.executeExchange(
+    {
+        exchangeId: 'wood_to_ore',
+        fromAmount: 10
+    },
+    playerDataManager
+);
+
+// 升级市场
+const upgradeResult = marketManager.upgradeMarket({
+    hasEnoughResources: (cost) => playerDataManager.hasEnoughResources(cost),
+    useResources: (cost) => playerDataManager.useResources(cost)
+});
+
+// 获取交易记录
+const records = marketManager.getTradeRecords(20);
+
+// 存档
+const saveData = marketManager.getSaveData();
+marketManager.loadSaveData(saveData);
+
+// 监听市场事件
+EventCenter.on(MarketEventType.TRADE_COMPLETE, (data) => {
+    console.log(`交易完成: ${data.trade?.resourceType} ${data.trade?.amount}`);
+});
+EventCenter.on(MarketEventType.MARKET_UPGRADED, (data) => {
+    console.log(`市场升级: ${data.oldLevel} -> ${data.newLevel}`);
 });
 ```
 
