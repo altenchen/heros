@@ -36,6 +36,9 @@ import { collectionManager } from './collection';
 import { saveManager, autoSaveManager } from './save';
 import { SaveData, SaveEventType } from './config/SaveTypes';
 import { speedUpManager } from './utils/SpeedUpManager';
+import { expeditionManager } from './expedition';
+import { onlineRewardManager } from './onlinereward';
+import { announcementManager } from './announcement';
 
 const { ccclass, property } = _decorator;
 
