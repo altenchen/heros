@@ -280,6 +280,10 @@ declare module 'cc' {
             SPRITE: number;
             SCALE: number;
         };
+
+        static readonly EventType: {
+            CLICK: string;
+        };
     }
 
     export class EditBox extends Component {

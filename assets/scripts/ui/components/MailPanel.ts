@@ -405,13 +405,14 @@ export class MailPanel extends UIPanel {
      * 一键领取点击
      */
     private _onClaimAllClick(): void {
-        const result = mailManager.claimAllAttachments();
-        if (result.success) {
-            this._showToast(`领取成功！共${result.totalItems}个物品`);
+        const results = mailManager.claimAllAttachments();
+        const totalItems = results.reduce((sum, r) => sum + r.claimedAttachments.length, 0);
+        if (totalItems > 0) {
+            this._showToast(`领取成功！共${totalItems}个物品`);
             this._updateUI();
             this._hideDetailPanel();
         } else {
-            this._showToast(result.error || '领取失败');
+            this._showToast('没有可领取的附件');
         }
     }
 

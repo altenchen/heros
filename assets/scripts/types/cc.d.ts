@@ -127,6 +127,9 @@ declare module 'cc' {
             MOUSE_ENTER: string;
             MOUSE_LEAVE: string;
             MOUSE_WHEEL: string;
+            POSITION_CHANGED: string;
+            ROTATION_CHANGED: string;
+            SCALE_CHANGED: string;
         };
     }
 
