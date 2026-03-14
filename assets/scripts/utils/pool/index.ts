@@ -3,8 +3,10 @@
  * 导出所有对象池相关类
  */
 
-export { ObjectPool, PoolConfig, PoolStats, PoolManager, poolManager, IPoolable } from './ObjectPool';
-export { NodePool, NodePoolConfig, NodePoolManager, nodePoolManager } from './NodePool';
+export { ObjectPool, PoolManager, poolManager } from './ObjectPool';
+export type { PoolConfig, PoolStats, IPoolable } from './ObjectPool';
+export { NodePool, NodePoolManager, nodePoolManager } from './NodePool';
+export type { NodePoolConfig } from './NodePool';
 export {
     PooledBattleUnit,
     BattleUnitPool,
@@ -15,4 +17,5 @@ export {
     BattlePoolManager,
     battlePoolManager
 } from './BattleUnitPool';
-export { UIListItemPool, UIListItemPoolConfig, UIPoolManager, uiPoolManager } from './UIPool';
+export { UIListItemPool, UIPoolManager, uiPoolManager } from './UIPool';
+export type { UIListItemPoolConfig } from './UIPool';
