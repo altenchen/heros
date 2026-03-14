@@ -1211,6 +1211,10 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 在线奖励类型 | `assets/scripts/config/OnlineRewardTypes.ts` |
 | 在线奖励配置 | `assets/scripts/config/online_reward.json.ts` |
 | 在线奖励面板 | `assets/scripts/ui/components/OnlineRewardPanel.ts` |
+| 宝物管理 | `assets/scripts/artifact/ArtifactManager.ts` |
+| 宝物类型 | `assets/scripts/config/ArtifactTypes.ts` |
+| 宝物配置 | `assets/scripts/config/artifact.json.ts` |
+| 宝物面板 | `assets/scripts/ui/components/ArtifactPanel.ts` |
 
 ## 开发命令
 
