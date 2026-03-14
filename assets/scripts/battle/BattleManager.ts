@@ -707,6 +707,99 @@ export class BattleManager {
     }
 
     /**
+     * 施放魔法
+     */
+    castSpell(spellId: string, target: SpellTarget): boolean {
+        const result = battleMagicBridge.castSpell(spellId, target);
+
+        if (result.success) {
+            this.emit(BattleEventType.SPELL_CAST, {
+                spellId,
+                casterId: this.playerHero?.id,
+                targets: result.targets,
+                damage: result.damage,
+                heal: result.heal,
+                manaCost: result.manaCost
+            });
+
+            // 检查是否有单位死亡
+            this.checkAndRemoveDeadUnits();
+        }
+
+        return result.success;
+    }
+
+    /**
+     * 执行战争机器行动
+     */
+    executeWarMachineAction(): void {
+        if (!this.playerHero) return;
+
+        const heroAttack = this.playerHero.attack || 10;
+        const heroSpellPower = this.playerHero.spellPower || 10;
+
+        const result = battleWarMachineBridge.executeAIAction(heroAttack, heroSpellPower);
+
+        if (result) {
+            this.emit(BattleEventType.WAR_MACHINE_ACTION, {
+                type: result.type,
+                instanceId: result.instanceId,
+                targetId: result.targetId,
+                damage: result.damage,
+                heal: result.heal
+            });
+        }
+    }
+
+    /**
+     * 检查并移除死亡单位
+     */
+    private checkAndRemoveDeadUnits(): void {
+        const deadUnits = this.state.units.filter(
+            u => u instanceof BattleUnit && !u.isAlive()
+        ) as BattleUnit[];
+
+        for (const unit of deadUnits) {
+            this.emit(BattleEventType.UNIT_DIE, { unitId: unit.id });
+            this.grid.removeUnit(unit.position);
+            this.buffManager.clearBuffs(unit.id);
+        }
+
+        // 更新单位列表
+        this.state.units = this.state.units.filter(
+            u => u instanceof BattleUnit && u.isAlive()
+        );
+    }
+
+    /**
+     * 获取玩家英雄
+     */
+    getPlayerHero(): any {
+        return this.playerHero;
+    }
+
+    /**
+     * 获取敌人英雄
+     */
+    getEnemyHero(): any {
+        return this.enemyHero;
+    }
+
+    /**
+     * 获取魔法书桥接器
+     */
+    getMagicBridge(): typeof battleMagicBridge {
+        return battleMagicBridge;
+    }
+
+    /**
+     * 获取战争机器桥接器
+     */
+    getWarMachineBridge(): typeof battleWarMachineBridge {
+        return battleWarMachineBridge;
+    }
+
+    /**
      * 发送事件
      */
     private emit(type: BattleEventType, data: any): void {

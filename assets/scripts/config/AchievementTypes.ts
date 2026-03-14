@@ -78,6 +78,7 @@ export interface AchievementProgress {
     completed: boolean;
     claimed: boolean;
     completedAt?: number;
+    claimedAt?: number;
 }
 
 // ==================== 任务系统 ====================

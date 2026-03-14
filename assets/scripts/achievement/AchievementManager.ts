@@ -18,7 +18,7 @@ import {
     AchievementConfigMap,
     AchievementChainMap,
     AllAchievements
-} from '../configs/achievements.json';
+} from '../config/achievements.json';
 import { EventCenter } from '../utils/EventTarget';
 
 /** 成就事件类型 */
