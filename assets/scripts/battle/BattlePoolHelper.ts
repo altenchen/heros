@@ -5,7 +5,7 @@
 
 import { BattleUnit } from './BattleUnit';
 import { Hex, HeroData, UnitConfig, BuffData, StatusEffect } from '../config/GameTypes';
-import { battlePoolManager, PooledBattleUnit, PooledBuffData } from '../utils/pool';
+import { battlePoolManager, PooledBattleUnit, PooledBuffData } from '../utils/pool/BattleUnitPool';
 
 /**
  * 对象池优化的战斗单位

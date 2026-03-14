@@ -18,7 +18,7 @@ import {
     RANGED_DAMAGE_DECAY,
     MELEE_PENALTY
 } from '../config/GameTypes';
-import { battlePoolManager, PooledBuffData } from '../utils/pool';
+import { battlePoolManager, PooledBuffData } from '../utils/pool/BattleUnitPool';
 
 /**
  * 战斗单位实现

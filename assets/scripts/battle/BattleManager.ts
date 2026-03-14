@@ -16,7 +16,7 @@ import {
 import { HexGrid, HexCell } from './HexGrid';
 import { BattleUnit } from './BattleUnit';
 import { SkillManager } from '../skill/SkillManager';
-import { battlePoolManager, PooledBuffData } from '../utils/pool';
+import { battlePoolManager, PooledBuffData } from '../utils/pool/BattleUnitPool';
 import { BuffManager, buffManager } from './BuffManager';
 import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffTypes';
 import { TerrainEffectManager, terrainEffectManager } from './TerrainEffectManager';
