@@ -11,6 +11,14 @@ declare module 'cc' {
         (type: any): PropertyDecorator & MethodDecorator;
     };
 
+    export const _decorator: {
+        ccclass: (name?: string) => ClassDecorator;
+        property: PropertyDecorator & MethodDecorator & {
+            (options?: PropertyOptions): PropertyDecorator & MethodDecorator;
+            (type: any): PropertyDecorator & MethodDecorator;
+        };
+    };
+
     export interface PropertyOptions {
         type?: any;
         visible?: boolean;
@@ -801,9 +809,8 @@ declare module 'cc' {
     // ==================== 查找和实例化 ====================
     export function find(path: string): Node | null;
 
+    export function instantiate(original: Prefab | null): Node;
     export function instantiate<T extends Node>(original: T): T;
-    export function instantiate(original: Prefab): Node;
-    export function instantiate<T extends Asset>(original: T): T;
 
     // ==================== 其他工具 ====================
     export class sys {
