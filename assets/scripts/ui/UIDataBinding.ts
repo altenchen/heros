@@ -61,7 +61,6 @@ export interface IBindable {
 /**
  * 可绑定数据基类
  */
-@ccclass('BindableData')
 export class BindableData implements IBindable {
     /** 数据 */
     protected _data: Map<string, any> = new Map();
@@ -154,7 +153,6 @@ export class BindableData implements IBindable {
 /**
  * 数据绑定管理器
  */
-@ccclass('UIDataBinding')
 export class UIDataBinding {
     /** 绑定实例映射 */
     private bindings: Map<string, BindingInstance> = new Map();

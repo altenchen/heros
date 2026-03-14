@@ -162,7 +162,6 @@ export class WarMachineSlot extends UIPanel {
 }
 
 /** 战争机器列表项组件 */
-@ccclass('WarMachineItem')
 export class WarMachineItem extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;
@@ -227,7 +226,6 @@ export class WarMachineItem extends UIPanel {
 }
 
 /** 战争机器详情面板组件 */
-@ccclass('WarMachineDetailPanel')
 export class WarMachineDetailPanel extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;
