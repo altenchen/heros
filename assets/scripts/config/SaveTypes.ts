@@ -89,6 +89,8 @@ export interface SaveData {
     onlineReward: string;
     /** 公告数据 */
     announcement: string;
+    /** 宝物数据 */
+    artifacts: { artifacts: any[]; heroEquipments: any[] };
 }
 
 /**

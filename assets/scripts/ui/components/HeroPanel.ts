@@ -11,9 +11,9 @@ import { UIManager } from '../UIManager';
 import { EventCenter, GameEvent } from '../../utils/EventTarget';
 import { PlayerDataManager } from '../../utils/PlayerDataManager';
 import { HeroData, SkillInstance, ArmySlot, HeroConfig, UnitConfig } from '../../config/GameTypes';
-import { HeroConfigMap } from '../../../configs/heroes.json';
-import { SkillConfigMap } from '../../../configs/skills.json';
-import { UnitConfigMap } from '../../../configs/units.json';
+import { HeroConfigMap } from '../../config/heroes.json';
+import { SkillConfigMap } from '../../config/skills.json';
+import { UnitConfigMap } from '../../config/units.json';
 
 const { ccclass, property } = _decorator;
 

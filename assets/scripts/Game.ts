@@ -39,6 +39,7 @@ import { speedUpManager } from './utils/SpeedUpManager';
 import { expeditionManager } from './expedition';
 import { onlineRewardManager } from './onlinereward';
 import { announcementManager } from './announcement';
+import { artifactManager } from './artifact';
 
 const { ccclass, property } = _decorator;
 
@@ -192,6 +193,9 @@ export class Game extends Component {
         // 初始化公告系统
         announcementManager.init();
 
+        // 初始化宝物系统
+        artifactManager.init();
+
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
 
@@ -258,7 +262,8 @@ export class Game extends Component {
             collection: collectionManager.serialize(),
             expedition: expeditionManager.serialize(),
             onlineReward: onlineRewardManager.serialize(),
-            announcement: announcementManager.serialize()
+            announcement: announcementManager.serialize(),
+            artifacts: artifactManager.getSaveData()
         };
     }
 
@@ -294,6 +299,9 @@ export class Game extends Component {
             expeditionManager.deserialize(saveData.expedition);
             onlineRewardManager.deserialize(saveData.onlineReward);
             announcementManager.deserialize(saveData.announcement);
+            if (saveData.artifacts) {
+                artifactManager.loadSaveData(saveData.artifacts);
+            }
         }
 
         // 显示主菜单
@@ -544,6 +552,13 @@ export class Game extends Component {
      */
     getSpeedUpManager(): typeof speedUpManager {
         return speedUpManager;
+    }
+
+    /**
+     * 获取宝物管理器
+     */
+    getArtifactManager(): typeof artifactManager {
+        return artifactManager;
     }
 
     /**

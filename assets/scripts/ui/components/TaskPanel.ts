@@ -8,7 +8,7 @@ import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
 import { taskManager, TaskEventType, TaskProgress } from '../../achievement';
 import { TaskConfig, TaskType, TaskStatus } from '../../config/AchievementTypes';
-import { TaskConfigMap, DailyTaskTemplates, WeeklyTaskTemplates, MainTasks } from '../../../configs/achievements.json';
+import { TaskConfigMap, DailyTaskTemplates, WeeklyTaskTemplates, MainTasks } from '../../config/achievements.json';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;

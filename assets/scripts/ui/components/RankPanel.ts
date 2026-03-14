@@ -9,7 +9,7 @@ import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
 import { rankManager, RankEventType } from '../../rank';
 import { RankType, RankPeriod, RankEntry, RankConfig } from '../../config/RankTypes';
-import { rankConfigs, getRankReward } from '../../../configs/rank.json';
+import { rankConfigs, getRankReward } from '../../config/rank.json';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;

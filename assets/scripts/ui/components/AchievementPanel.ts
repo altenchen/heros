@@ -8,7 +8,7 @@ import { UIPanel, PanelAnimationType } from './UIPanel';
 import { UIButton } from './UIButton';
 import { achievementManager, AchievementEventType, AchievementProgress } from '../../achievement';
 import { AchievementConfig, AchievementType, AchievementRarity } from '../../config/AchievementTypes';
-import { AchievementConfigMap, AllAchievements } from '../../../configs/achievements.json';
+import { AchievementConfigMap, AllAchievements } from '../../config/achievements.json';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;

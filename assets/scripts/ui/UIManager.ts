@@ -244,6 +244,13 @@ export class UIManager {
             layer: UILayer.PANEL,
             cache: true
         });
+
+        // 宝物面板
+        this.registerUI('artifact_panel', {
+            prefab: 'prefabs/ui/ArtifactPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
     }
 
     /**

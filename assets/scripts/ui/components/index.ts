@@ -36,3 +36,4 @@ export { SkillTreePanel } from './SkillTreePanel';
 export { ExpeditionPanel, ExpeditionItem } from './ExpeditionPanel';
 export { OnlineRewardPanel, OnlineRewardItem } from './OnlineRewardPanel';
 export { AnnouncementPanel, AnnouncementItem, AnnouncementDetailContent } from './AnnouncementPanel';
+export { ArtifactPanel, EquipmentSlot } from './ArtifactPanel';
