@@ -199,6 +199,20 @@ export class InventoryManager {
     }
 
     /**
+     * 根据道具ID查找实例ID
+     */
+    findItemInstanceId(itemId: string): string | null {
+        for (const [, slots] of this._slots) {
+            for (const slot of slots) {
+                if (slot.item && slot.item.itemId === itemId) {
+                    return slot.item.instanceId;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 移除道具内部实现
      */
     private _removeItem(itemIdOrInstanceId: string, count: number, type: InventoryType): boolean {

@@ -399,14 +399,153 @@ town.recruitUnit('castle_tier1_pikeman', 10, resources);
 - [x] RankPanel 排行榜面板
 - [x] 个人排名显示
 
-### Phase 3.19: 随机事件系统 ✅
+### Phase 3.19: 每日签到系统 ✅
+- [x] 签到类型定义 (DailySigninTypes)
+- [x] 签到配置 (signin.json.ts)
+- [x] DailySigninManager 签到管理器
+- [x] 连续签到奖励
+- [x] 补签功能
+- [x] SigninPanel 签到面板
+
+### Phase 3.20: 背包系统 ✅
+- [x] 背包类型定义 (InventoryTypes)
+- [x] 物品配置 (items.json.ts)
+- [x] InventoryManager 背包管理器
+- [x] 道具使用与出售
+- [x] 背包扩容
+- [x] InventoryPanel 背包面板
+
+### Phase 3.21: 商店系统 ✅
+- [x] 商店类型定义 (ShopTypes)
+- [x] 商店配置 (shop.json.ts)
+- [x] ShopManager 商店管理器
+- [x] 商品购买与刷新
+- [x] 货币兑换
+- [x] ShopPanel 商店面板
+
+### Phase 3.22: 邮件系统 ✅
+- [x] 邮件类型定义 (MailTypes)
+- [x] 邮件配置 (mail.json.ts)
+- [x] MailManager 邮件管理器
+- [x] 系统邮件与附件
+- [x] 批量领取
+- [x] MailPanel 邮件面板
+
+### Phase 3.23: 活动系统 ✅
+- [x] 活动类型定义 (ActivityTypes)
+- [x] 活动配置 (activity.json.ts)
+- [x] ActivityManager 活动管理器
+- [x] 限时活动与任务进度
+- [x] 奖励领取
+- [x] ActivityPanel 活动面板
+
+### Phase 3.24: PVP竞技场系统 ✅
+- [x] 竞技场类型定义 (ArenaTypes)
+- [x] 竞技场配置 (arena.json.ts)
+- [x] ArenaManager 竞技场管理器
+- [x] 玩家匹配与段位
+- [x] 赛季奖励
+- [x] ArenaPanel 竞技场面板
+
+### Phase 3.25: 招募系统 ✅
+- [x] 招募类型定义 (GachaTypes)
+- [x] 招募配置 (gacha.json.ts)
+- [x] GachaManager 招募管理器
+- [x] 抽卡与保底机制
+- [x] GachaPanel 招募面板
+
+### Phase 3.26: 图鉴系统 ✅
+- [x] 图鉴类型定义 (CollectionTypes)
+- [x] 图鉴配置 (collection.json.ts)
+- [x] CollectionManager 图鉴管理器
+- [x] 收集进度与奖励
+- [x] CollectionPanel 图鉴面板
+
+### Phase 3.27: 存档系统 ✅
+- [x] 存档类型定义 (SaveTypes)
+- [x] SaveManager 存档管理器
+- [x] AutoSaveManager 自动存档
+- [x] 多存档槽位
+- [x] 导入导出
+- [x] SavePanel 存档面板
+
+### Phase 3.28: 加速系统 ✅
+- [x] 加速类型定义 (SpeedUpTypes)
+- [x] SpeedUpManager 加速管理器
+- [x] 道具与钻石加速
+- [x] SpeedUpPanel 加速面板
+
+### Phase 3.29: 离线奖励系统 ✅
+- [x] 离线收益计算
+- [x] 离线奖励领取
+- [x] VIP加成
+- [x] OfflineRewardPanel 离线奖励面板
+
+### Phase 3.30: 技能树系统 ✅
+- [x] 技能树类型定义 (SkillTreeTypes)
+- [x] SkillTreeManager 技能树管理器
+- [x] 技能解锁与升级
+- [x] 分支系统
+- [x] SkillTreePanel 技能树面板
+
+### Phase 3.31: 公告系统 ✅
+- [x] 公告类型定义 (AnnouncementTypes)
+- [x] 公告配置 (announcement.json.ts)
+- [x] AnnouncementManager 公告管理器
+- [x] 弹窗公告
+- [x] AnnouncementPanel 公告面板
+
+### Phase 3.32: 远征系统 ✅
+- [x] 远征类型定义 (ExpeditionTypes)
+- [x] 远征配置 (expedition.json.ts)
+- [x] ExpeditionManager 远征管理器
+- [x] 英雄派遣与奖励
+- [x] ExpeditionPanel 远征面板
+
+### Phase 3.33: 在线奖励系统 ✅
+- [x] 在线奖励类型定义 (OnlineRewardTypes)
+- [x] 在线奖励配置 (online_reward.json.ts)
+- [x] OnlineRewardManager 在线奖励管理器
+- [x] VIP加成
+- [x] OnlineRewardPanel 在线奖励面板
+
+### Phase 3.34: 宝物系统 ✅
+- [x] 宝物类型定义 (ArtifactTypes)
+- [x] 宝物配置 (artifact.json.ts)
+- [x] ArtifactManager 宝物管理器
+- [x] 装备与强化
+- [x] ArtifactPanel 宝物面板
+
+### Phase 3.35: 战争机器系统 ✅
+- [x] 战争机器类型定义 (WarMachineTypes)
+- [x] 战争机器配置 (war_machine.json.ts)
+- [x] WarMachineManager 战争机器管理器
+- [x] 弩车、医疗帐篷、弹药车、投石车
+- [x] 战斗集成 (BattleWarMachineBridge)
+- [x] WarMachinePanel 战争机器面板
+
+### Phase 3.36: 市场系统 ✅
+- [x] 市场类型定义 (MarketTypes)
+- [x] 市场配置 (market.json.ts)
+- [x] MarketManager 市场管理器
+- [x] 资源交易与汇率
+- [x] MarketPanel 市场面板
+
+### Phase 3.37: 魔法书系统 ✅
+- [x] 魔法书类型定义 (MagicBookTypes)
+- [x] 魔法书配置 (magic_book.json.ts)
+- [x] MagicBookManager 魔法书管理器
+- [x] 魔法学习与升级
+- [x] 派系熟练度
+- [x] 战斗集成 (BattleMagicBridge)
+- [x] MagicBookPanel 魔法书面板
+
+### Phase 3.38: 随机事件系统 ✅
 - [x] 随机事件类型定义 (RandomEventTypes)
-- [x] 随机事件配置（宝箱、商人、奇遇等）
-- [x] RandomEventManager 事件管理器
-- [x] 触发场景与概率系统
-- [x] 选项选择与效果应用
-- [x] RandomEventPanel 事件面板
-- [x] 事件冷却与历史记录
+- [x] 随机事件配置 (random_events.json.ts)
+- [x] RandomEventManager 随机事件管理器
+- [x] 事件触发与选项
+- [x] RandomEventPanel 随机事件面板
 
 ### Phase 4: 编辑器集成 🚧
 - [ ] 绑定组件到预制体

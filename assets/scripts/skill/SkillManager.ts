@@ -253,9 +253,9 @@ export class SkillManager {
         skill: Skill,
         caster: BattleUnit,
         target: BattleUnit,
-        effectConfig: { type: EffectType; value: number | string; duration?: number; status?: StatusEffect }
+        effectConfig: { type: EffectType; value?: number | string; duration?: number; status?: StatusEffect }
     ): void {
-        const value = this.calculateEffectValue(effectConfig.value, caster);
+        const value = this.calculateEffectValue(effectConfig.value ?? 0, caster);
         const buffManager = BuffManager.getInstance();
 
         switch (effectConfig.type) {

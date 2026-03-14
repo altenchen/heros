@@ -11,12 +11,16 @@ export class EventTarget {
 
     /**
      * 添加事件监听
+     * @param eventName 事件名称
+     * @param callback 回调函数
+     * @param thisArg 可选的this绑定对象
      */
-    on(eventName: string, callback: Function): void {
+    on(eventName: string, callback: Function, thisArg?: any): void {
         if (!this.listeners.has(eventName)) {
             this.listeners.set(eventName, []);
         }
-        this.listeners.get(eventName)!.push(callback);
+        const boundCallback = thisArg ? callback.bind(thisArg) : callback;
+        this.listeners.get(eventName)!.push(boundCallback);
     }
 
     /**
@@ -96,9 +100,12 @@ export class EventCenter {
 
     /**
      * 添加事件监听
+     * @param eventName 事件名称
+     * @param callback 回调函数
+     * @param thisArg 可选的this绑定对象
      */
-    static on(eventName: string, callback: Function): void {
-        EventCenter.getInstance().eventTarget.on(eventName, callback);
+    static on(eventName: string, callback: Function, thisArg?: any): void {
+        EventCenter.getInstance().eventTarget.on(eventName, callback, thisArg);
     }
 
     /**

@@ -108,7 +108,7 @@ interface AIDecision {
  */
 export class BattleManager {
     private grid: HexGrid;
-    private state: BattleState;
+    private state: LocalBattleState;
     private events: BattleEvent[] = [];
     private skillManager: SkillManager;
     private buffManager: BuffManager;
