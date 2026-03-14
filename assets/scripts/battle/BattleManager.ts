@@ -802,7 +802,7 @@ export class BattleManager {
     /**
      * 发送事件
      */
-    private emit(type: BattleEventType, data: any): void {
+    emit(type: BattleEventType, data: any): void {
         const event: BattleEvent = {
             type,
             data,

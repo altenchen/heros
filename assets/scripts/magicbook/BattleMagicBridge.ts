@@ -253,8 +253,9 @@ export class BattleMagicBridge {
                     if (centerCell) {
                         const areaCells = this.grid.getRange(centerCell, spell.areaRadius);
                         for (const cell of areaCells) {
-                            if (cell.unit && cell.unit.isAlive()) {
-                                targets.push(cell.unit);
+                            const unit = cell.unit as BattleUnit;
+                            if (unit && unit.isAlive()) {
+                                targets.push(unit);
                             }
                         }
                     }
@@ -501,10 +502,10 @@ export class BattleMagicBridge {
             if (!cell) continue;
 
             // 统计周围单位数量
-            const nearbyCells = this.grid.getCellsInRadius(cell, 2);
+            const nearbyCells = this.grid.getRange(cell, 2);
             let count = 0;
             for (const c of nearbyCells) {
-                if (this.grid.getUnitByHex(c.hex)) {
+                if (c.unit) {
                     count++;
                 }
             }

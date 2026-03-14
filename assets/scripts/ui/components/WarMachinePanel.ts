@@ -5,16 +5,16 @@
 
 import { _decorator, Node, Label, Button, ScrollView, Color, Sprite, ProgressBar } from 'cc';
 import { UIPanel } from './UIPanel';
-import { warMachineManager } from '../warmachine/WarMachineManager';
+import { warMachineManager } from '../../warmachine/WarMachineManager';
 import {
     WarMachineType,
     WarMachineRarity,
     WarMachineConfig,
     WarMachineInstance,
     WarMachineEventType
-} from '../config/WarMachineTypes';
+} from '../../config/WarMachineTypes';
 import { WarMachineConfigMap } from '../../configs/war_machine.json';
-import { EventCenter } from '../utils/EventTarget';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 
