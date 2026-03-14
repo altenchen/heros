@@ -16,7 +16,11 @@ export enum CollectionType {
     /** 技能图鉴 */
     SKILL = 'skill',
     /** 成就图鉴 */
-    ACHIEVEMENT = 'achievement'
+    ACHIEVEMENT = 'achievement',
+    /** 皮肤图鉴 */
+    SKIN = 'skin',
+    /** 称号图鉴 */
+    TITLE = 'title'
 }
 
 /** 收集状态 */

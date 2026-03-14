@@ -11,7 +11,7 @@ const { ccclass, property } = _decorator;
 /**
  * Toast 配置
  */
-interface ToastData {
+export interface ToastData {
     /** 消息内容 */
     message: string;
     /** 显示时长（毫秒） */

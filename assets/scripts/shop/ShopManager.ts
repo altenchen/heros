@@ -27,6 +27,7 @@ import {
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
 import { rewardManager, RewardType, RewardConfig } from '../utils/RewardManager';
+import { ResourceType } from '../config/GameTypes';
 
 /**
  * 商店管理器
