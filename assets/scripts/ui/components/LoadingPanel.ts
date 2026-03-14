@@ -42,7 +42,7 @@ export class LoadingPanel extends UIPanel {
     loadingIcon: Sprite | null = null;
 
     /** 加载状态 */
-    private _state: LoadingState = LoadingState.LOADING;
+    private _loadingState: LoadingState = LoadingState.LOADING;
 
     /** 加载文本 */
     private _text: string = '加载中...';

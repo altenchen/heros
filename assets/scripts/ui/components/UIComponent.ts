@@ -131,13 +131,6 @@ export class UIComponent extends Component {
      * 子类重写：销毁逻辑
      */
     protected _onDestroy(): void {
-        this.onDestroy();
-    }
-
-    /**
-     * 子类重写：销毁回调
-     */
-    protected onDestroy(): void {
         // 子类实现
     }
 

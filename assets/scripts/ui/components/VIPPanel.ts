@@ -244,7 +244,7 @@ export class VIPPanel extends UIPanel {
                 }
             }
 
-            this.privilegeContainer.addChild(privilegeNode);
+            this.privilegeContainer?.addChild(privilegeNode);
         });
     }
 
@@ -327,7 +327,7 @@ export class VIPPanel extends UIPanel {
                 });
             }
 
-            this.purchaseContainer.addChild(itemNode);
+            this.purchaseContainer?.addChild(itemNode);
         });
     }
 

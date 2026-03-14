@@ -326,7 +326,7 @@ export class UIButton extends UIComponent {
     /**
      * 销毁
      */
-    protected onDestroy(): void {
+    onDestroy(): void {
         this.node.off(Node.EventType.TOUCH_START, this._onTouchStart, this);
         this.node.off(Node.EventType.TOUCH_END, this._onTouchEnd, this);
         this.node.off(Node.EventType.TOUCH_CANCEL, this._onTouchCancel, this);

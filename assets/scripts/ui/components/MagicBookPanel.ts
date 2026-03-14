@@ -127,7 +127,7 @@ export class MagicBookPanel extends UIPanel {
 
     // ==================== 生命周期 ====================
 
-    protected onLoad(): void {
+    public onLoad(): void {
         super.onLoad();
         this.initEvents();
     }

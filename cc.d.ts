@@ -51,6 +51,10 @@ declare module 'cc' {
         static readonly GREEN: Color;
         static readonly BLUE: Color;
         static readonly YELLOW: Color;
+        static readonly CYAN: Color;
+        static readonly MAGENTA: Color;
+        static readonly GRAY: Color;
+        static readonly ORANGE: Color;
         static readonly TRANSPARENT: Color;
         clone(): Color;
         set(r: number, g: number, b: number, a?: number): Color;
@@ -124,6 +128,7 @@ declare module 'cc' {
         worldPosition: Vec3;
         worldScale: Vec3;
         uiTransform: UITransform | null;
+        angle: number;
 
         static readonly EventType: {
             TRANSFORM_CHANGED: string;
@@ -131,6 +136,16 @@ declare module 'cc' {
             ACTIVE_IN_HIERARCHY_CHANGED: string;
             CHILD_ADDED: string;
             CHILD_REMOVED: string;
+            TOUCH_START: string;
+            TOUCH_MOVE: string;
+            TOUCH_END: string;
+            TOUCH_CANCEL: string;
+            MOUSE_DOWN: string;
+            MOUSE_UP: string;
+            MOUSE_ENTER: string;
+            MOUSE_LEAVE: string;
+            MOUSE_MOVE: string;
+            MOUSE_WHEEL: string;
         };
 
         constructor(name?: string);
@@ -138,6 +153,7 @@ declare module 'cc' {
         addChild(child: Node): void;
         removeChild(child: Node): void;
         removeAllChildren(): void;
+        setParent(parent: Node | null, worldPositionStays?: boolean): void;
         getChildByPath(path: string): Node | null;
         getChildByName(name: string): Node | null;
         getChildByUuid(uuid: string): Node | null;
@@ -626,6 +642,8 @@ declare module 'cc' {
         static resume(): void;
         static step(): void;
         static end(): void;
+        static addPersistRootNode(node: Node): void;
+        static removePersistRootNode(node: Node): void;
         static isPersistRootNode(node: Node): boolean;
     }
 

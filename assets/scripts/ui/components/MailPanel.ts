@@ -330,7 +330,7 @@ export class MailPanel extends UIPanel {
             // 有附件未领取时不能删除
             this.deleteButton.interactable = !mail.attachments ||
                 mail.attachments.length === 0 ||
-                mail.attachmentsClaimed;
+                !!mail.attachmentsClaimed;
         }
     }
 
