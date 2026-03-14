@@ -41,6 +41,8 @@ import { onlineRewardManager } from './onlinereward';
 import { announcementManager } from './announcement';
 import { artifactManager } from './artifact';
 import { warMachineManager } from './warmachine';
+import { magicBookManager } from './magicbook/MagicBookManager';
+import { marketManager } from './market/MarketManager';
 
 const { ccclass, property } = _decorator;
 
@@ -200,6 +202,12 @@ export class Game extends Component {
         // 初始化战争机器系统
         warMachineManager.init();
 
+        // 初始化魔法书系统
+        magicBookManager.init();
+
+        // 初始化市场系统
+        marketManager.init();
+
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
 
@@ -268,7 +276,9 @@ export class Game extends Component {
             onlineReward: onlineRewardManager.serialize(),
             announcement: announcementManager.serialize(),
             artifacts: artifactManager.getSaveData(),
-            warMachines: warMachineManager.serialize()
+            warMachines: warMachineManager.serialize(),
+            magicBook: magicBookManager.getSaveData(),
+            market: marketManager.getSaveData()
         };
     }
 
@@ -309,6 +319,12 @@ export class Game extends Component {
             }
             if (saveData.warMachines) {
                 warMachineManager.deserialize(saveData.warMachines);
+            }
+            if (saveData.magicBook) {
+                magicBookManager.loadSaveData(saveData.magicBook);
+            }
+            if (saveData.market) {
+                marketManager.loadSaveData(saveData.market);
             }
         }
 
@@ -574,6 +590,20 @@ export class Game extends Component {
      */
     getWarMachineManager(): typeof warMachineManager {
         return warMachineManager;
+    }
+
+    /**
+     * 获取魔法书管理器
+     */
+    getMagicBookManager(): typeof magicBookManager {
+        return magicBookManager;
+    }
+
+    /**
+     * 获取市场管理器
+     */
+    getMarketManager(): typeof marketManager {
+        return marketManager;
     }
 
     /**

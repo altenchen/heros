@@ -396,6 +396,17 @@ export const UI_PREFABS: PrefabConfig[] = [
         cache: true,
         preload: false,
         description: '战争机器面板(弩车/医疗帐篷/弹药车/投石车)'
+    },
+
+    // ==================== 魔法书系统 ====================
+    {
+        name: 'MagicBookPanel',
+        path: 'prefabs/ui/MagicBookPanel',
+        component: 'scripts/ui/components/MagicBookPanel',
+        layer: 'PANEL',
+        cache: true,
+        preload: false,
+        description: '魔法书面板(魔法学习/派系熟练度/施法)'
     }
 ];
 
