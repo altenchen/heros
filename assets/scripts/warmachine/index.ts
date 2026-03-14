@@ -3,6 +3,7 @@
  */
 
 export { WarMachineManager, warMachineManager } from './WarMachineManager';
+export { BattleWarMachineBridge, battleWarMachineBridge, WarMachineBattleEventType } from './BattleWarMachineBridge';
 export {
     WarMachineType,
     WarMachineRarity,

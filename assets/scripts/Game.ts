@@ -630,6 +630,13 @@ export class Game extends Component {
     }
 
     /**
+     * 获取随机事件管理器
+     */
+    getRandomEventManager(): typeof randomEventManager {
+        return randomEventManager;
+    }
+
+    /**
      * 切换到主菜单
      */
     goToMainMenu(): void {

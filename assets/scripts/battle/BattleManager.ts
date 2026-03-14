@@ -899,6 +899,16 @@ export class BattleManager {
         // 清理地形效果管理器
         this.terrainEffectManager.clear();
 
+        // 清理魔法书桥接器
+        battleMagicBridge.cleanup();
+
+        // 清理战争机器桥接器
+        battleWarMachineBridge.cleanup();
+
+        // 清空英雄引用
+        this.playerHero = null;
+        this.enemyHero = null;
+
         // 清空引用
         this.state.units = [];
         this.events = [];

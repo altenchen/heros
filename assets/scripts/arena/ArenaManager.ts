@@ -601,7 +601,7 @@ export class ArenaManager {
             amount: r.amount
         }));
 
-        rewards.forEach(r => rewardManager.grantReward(r));
+        rewardManager.grantRewards(rewards);
 
         EventCenter.emit(ArenaEventType.REWARD_CLAIM, {
             type: ArenaEventType.REWARD_CLAIM,

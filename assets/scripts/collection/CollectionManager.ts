@@ -366,17 +366,13 @@ export class CollectionManager {
      * 发放奖励
      */
     private _grantRewards(rewards: { type: string; itemId: string; amount: number }[]): RewardConfig[] {
-        const grantedRewards: RewardConfig[] = [];
+        const grantedRewards: RewardConfig[] = rewards.map(r => ({
+            type: r.type as any,
+            itemId: r.itemId,
+            amount: r.amount
+        }));
 
-        rewards.forEach(r => {
-            const reward: RewardConfig = {
-                type: r.type as any,
-                itemId: r.itemId,
-                amount: r.amount
-            };
-            rewardManager.grantReward(reward);
-            grantedRewards.push(reward);
-        });
+        rewardManager.grantRewards(grantedRewards);
 
         return grantedRewards;
     }

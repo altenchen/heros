@@ -5,8 +5,8 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3 } from 'cc';
 import { UIPanel } from './UIPanel';
-import { RandomEventConfig, EventOption, EventEffect } from '../config/RandomEventTypes';
-import { randomEventManager } from '../randomevent';
+import { RandomEventConfig, EventOption, EventEffect } from '../../config/RandomEventTypes';
+import { randomEventManager } from '../../randomevent/RandomEventManager';
 
 const { ccclass, property } = _decorator;
 

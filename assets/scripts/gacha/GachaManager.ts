@@ -424,14 +424,12 @@ export class GachaManager {
      * 发放奖励
      */
     private _grantRewards(results: GachaResult[]): void {
-        results.forEach(result => {
-            const reward: RewardConfig = {
-                type: result.resultType as any,
-                itemId: result.itemId,
-                amount: result.amount
-            };
-            rewardManager.grantReward(reward);
-        });
+        const rewards: RewardConfig[] = results.map(result => ({
+            type: result.resultType as any,
+            itemId: result.itemId,
+            amount: result.amount
+        }));
+        rewardManager.grantRewards(rewards);
     }
 
     /**
