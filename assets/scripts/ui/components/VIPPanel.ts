@@ -7,7 +7,8 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { vipManager } from '../../vip';
-import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, PaymentProductConfig } from '../../config/VIPTypes';
+import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, PaymentProductConfig, MonthlyCardStatus } from '../../config/VIPTypes';
+import { paymentProducts } from '../../config/vip.json';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
@@ -293,12 +294,10 @@ export class VIPPanel extends UIPanel {
 
         this.purchaseContainer.removeAllChildren();
 
-        const purchaseItems = vipManager.getPurchaseItems();
-
-        purchaseItems.forEach(item => {
+        paymentProducts.forEach(item => {
             const itemNode = this.purchaseItemPrefab
                 ? instantiate(this.purchaseItemPrefab)
-                : new Node(`Purchase_${item.id}`);
+                : new Node(`Purchase_${item.productId}`);
 
             const nameLabel = itemNode.getChildByName('Name')?.getComponent(Label);
             if (nameLabel) {

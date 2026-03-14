@@ -308,16 +308,17 @@ export class ActivityPanel extends UIPanel {
      * 更新任务列表
      */
     private _updateTaskList(detail: any): void {
-        if (!this.taskContainer) return;
+        const container = this.taskContainer;
+        if (!container) return;
 
-        this.taskContainer.removeAllChildren();
+        container.removeAllChildren();
 
         if (!detail.tasks || detail.tasks.length === 0) {
             const emptyNode = new Node('NoTasks');
             const label = emptyNode.addComponent(Label);
             label.string = '暂无任务';
             label.fontSize = 20;
-            this.taskContainer.addChild(emptyNode);
+            container.addChild(emptyNode);
             return;
         }
 
@@ -369,7 +370,7 @@ export class ActivityPanel extends UIPanel {
                 });
             }
 
-            this.taskContainer.addChild(taskNode);
+            container.addChild(taskNode);
         });
     }
 

@@ -122,6 +122,8 @@ declare module 'cc' {
             MOUSE_DOWN: string;
             MOUSE_UP: string;
             MOUSE_MOVE: string;
+            MOUSE_ENTER: string;
+            MOUSE_LEAVE: string;
             MOUSE_WHEEL: string;
         };
     }
@@ -350,6 +352,27 @@ declare module 'cc' {
         getContentSize(): Size;
         convertToWorldSpaceAR(point: Vec3): Vec3;
         convertToNodeSpaceAR(point: Vec3): Vec3;
+    }
+
+    export class Graphics extends Component {
+        strokeColor: Color;
+        fillColor: Color;
+        lineWidth: number;
+
+        clear(): void;
+        moveTo(x: number, y: number): void;
+        lineTo(x: number, y: number): void;
+        rect(x: number, y: number, width: number, height: number): void;
+        circle(x: number, y: number, radius: number): void;
+        ellipse(x: number, y: number, width: number, height: number): void;
+        arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+        close(): void;
+        stroke(): void;
+        fill(): void;
+    }
+
+    export class UIOpacity extends Component {
+        opacity: number;
     }
 
     // ==================== 资源类 ====================

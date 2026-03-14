@@ -274,7 +274,7 @@ export class ArenaPanel extends UIPanel {
             if (this.matchProgressBar) {
                 this.matchProgressBar.progress = progress;
             }
-        }, 50);
+        }, 50) as unknown as number;
     }
 
     /**

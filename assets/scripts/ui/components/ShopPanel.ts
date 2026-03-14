@@ -15,9 +15,11 @@ const { ccclass, property } = _decorator;
 /** 商店类型名称 */
 const SHOP_TYPE_NAMES: Record<ShopType, string> = {
     [ShopType.NORMAL]: '普通商店',
+    [ShopType.GEMS]: '钻石商店',
     [ShopType.VIP]: 'VIP商店',
     [ShopType.ARENA]: '竞技场商店',
     [ShopType.GUILD]: '公会商店',
+    [ShopType.EVENT]: '活动商店',
     [ShopType.LIMITED]: '限时商店'
 };
 
@@ -25,8 +27,10 @@ const SHOP_TYPE_NAMES: Record<ShopType, string> = {
 const CURRENCY_NAMES: Record<CurrencyType, string> = {
     [CurrencyType.GOLD]: '金币',
     [CurrencyType.GEMS]: '钻石',
+    [CurrencyType.STAMINA]: '体力',
     [CurrencyType.ARENA_COIN]: '竞技币',
-    [CurrencyType.GUILD_COIN]: '公会币'
+    [CurrencyType.GUILD_COIN]: '公会币',
+    [CurrencyType.EVENT_COIN]: '活动币'
 };
 
 @ccclass('ShopPanel')

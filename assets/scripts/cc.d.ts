@@ -89,6 +89,11 @@ declare module 'cc' {
         removeFromParent(): void;
         destroy(): boolean;
 
+        addComponent<T extends Component>(type: Constructor<T>): T;
+        addComponent(type: string | Function): Component;
+
+        setParent(parent: Node | null, worldPositionStays?: boolean): void;
+
         on(type: string, callback: Function, target?: any): void;
         off(type: string, callback: Function, target?: any): void;
         emit(type: string, ...args: any[]): void;
@@ -119,6 +124,16 @@ declare module 'cc' {
             CHILD_REMOVED: string;
             CHILD_REORDER: string;
             GROUP_CHANGED: string;
+            TOUCH_START: string;
+            TOUCH_MOVE: string;
+            TOUCH_END: string;
+            TOUCH_CANCEL: string;
+            MOUSE_ENTER: string;
+            MOUSE_LEAVE: string;
+            MOUSE_DOWN: string;
+            MOUSE_UP: string;
+            MOUSE_MOVE: string;
+            MOUSE_WHEEL: string;
         };
     }
 

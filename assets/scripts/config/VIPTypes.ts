@@ -269,3 +269,47 @@ export enum VIPEventType {
     /** 成长基金领取 */
     GROWTH_FUND_CLAIMED = 'growth_fund_claimed'
 }
+
+/**
+ * 月卡状态详情（用于UI显示）
+ */
+export interface MonthlyCardStatusInfo {
+    /** 是否已激活 */
+    active: boolean;
+    /** 剩余天数 */
+    remainingDays: number;
+    /** 今日是否已领取 */
+    claimedToday: boolean;
+    /** 月卡ID */
+    cardId: string;
+}
+
+/**
+ * 成长基金状态（用于UI显示）
+ */
+export interface GrowthFundStatusInfo {
+    /** 是否已购买 */
+    purchased: boolean;
+    /** 已领取的等级 */
+    claimedLevels: number[];
+    /** 基金ID */
+    fundId: string;
+}
+
+/**
+ * VIP购买项（用于UI显示）
+ */
+export interface VIPPurchaseItem {
+    /** 商品ID */
+    id: string;
+    /** 商品名称 */
+    name: string;
+    /** 钻石数量 */
+    gems: number;
+    /** 价格 */
+    price: number;
+    /** 是否热门 */
+    isHot?: boolean;
+    /** 图标 */
+    icon?: string;
+}
