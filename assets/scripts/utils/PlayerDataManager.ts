@@ -116,6 +116,26 @@ export class PlayerDataManager {
     }
 
     /**
+     * 获取玩家等级
+     */
+    getPlayerLevel(): number {
+        return this.playerData?.level || 1;
+    }
+
+    /**
+     * 获取玩家基本信息
+     */
+    getPlayerInfo(): { id: string; name: string; level: number; faction: Faction } | null {
+        if (!this.playerData) return null;
+        return {
+            id: this.playerData.id,
+            name: this.playerData.name,
+            level: this.playerData.level,
+            faction: this.playerData.faction
+        };
+    }
+
+    /**
      * 计算离线奖励
      */
     private calculateOfflineRewards(): void {

@@ -1624,7 +1624,7 @@ master (主分支)
 - `BattlePanel.prefab` - 战斗面板
 - `HeroPanel.prefab` - 英雄面板
 
-**需要创建的预制体** (31个):
+**需要创建的预制体** (32个):
 
 | 预制体名称 | 组件脚本 | 层级 | 描述 |
 |-----------|---------|------|------|
@@ -1656,6 +1656,7 @@ master (主分支)
 | WarMachinePanel | WarMachinePanel.ts | PANEL | 战争机器面板 |
 | MagicBookPanel | MagicBookPanel.ts | PANEL | 魔法书面板 |
 | MarketPanel | MarketPanel.ts | PANEL | 市场面板 |
+| RandomEventPanel | RandomEventPanel.ts | POPUP | 随机事件面板 |
 | TutorialOverlay | TutorialOverlay.ts | TIPS | 教程遮罩 |
 | Toast | Toast.ts | TIPS | Toast提示 |
 

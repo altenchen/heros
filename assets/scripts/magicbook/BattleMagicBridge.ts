@@ -251,11 +251,10 @@ export class BattleMagicBridge {
                 if (target.hex && this.grid && spell.areaRadius) {
                     const centerCell = this.grid.getCellByHex(target.hex);
                     if (centerCell) {
-                        const areaCells = this.grid.getCellsInRadius(centerCell, spell.areaRadius);
+                        const areaCells = this.grid.getRange(centerCell, spell.areaRadius);
                         for (const cell of areaCells) {
-                            const unit = this.grid.getUnitByHex(cell.hex);
-                            if (unit && unit.isAlive()) {
-                                targets.push(unit);
+                            if (cell.unit && cell.unit.isAlive()) {
+                                targets.push(cell.unit);
                             }
                         }
                     }

@@ -127,6 +127,7 @@ export enum HeroClass {
 /** 资源类型 */
 export enum ResourceType {
     GOLD = 'gold',         // 金币
+    GEMS = 'gems',         // 钻石
     WOOD = 'wood',         // 木材
     ORE = 'ore',           // 矿石
     CRYSTAL = 'crystal',   // 水晶

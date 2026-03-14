@@ -184,13 +184,13 @@ export class ArenaManager {
         }
 
         const cost = this.getBuyCost();
-        const gems = playerDataManager.getResource('gems');
+        const gems = playerDataManager.getResource(ResourceType.GEMS);
 
         if (gems < cost) {
             return { success: false, error: '钻石不足' };
         }
 
-        playerDataManager.addResource('gems', -cost);
+        playerDataManager.addResource(ResourceType.GEMS, -cost);
         this._dailyBuyCount++;
         this._dailyChallengeCount--; // 增加一次挑战机会
 
