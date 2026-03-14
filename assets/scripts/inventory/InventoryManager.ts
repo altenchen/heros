@@ -21,7 +21,7 @@ import { getItemConfig, giftItems } from '../config/items.json';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
 import { BuffManager } from '../battle/BuffManager';
-import { StatusEffect } from '../config/GameTypes';
+import { StatusEffect, ResourceType } from '../config/GameTypes';
 
 /**
  * 背包管理器
@@ -366,13 +366,13 @@ export class InventoryManager {
                     break;
 
                 case 'restore_stamina':
-                    playerDataManager.addResource('stamina', effect.value);
+                    playerDataManager.addResource(ResourceType.STAMINA, effect.value);
                     results.push(effect);
                     break;
 
                 case 'add_resource':
                     const resourceId = effect.params?.resourceId || 'gold';
-                    playerDataManager.addResource(resourceId, effect.value);
+                    playerDataManager.addResource(resourceId as ResourceType, effect.value);
                     results.push(effect);
                     break;
 

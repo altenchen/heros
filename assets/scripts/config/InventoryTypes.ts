@@ -168,6 +168,8 @@ export interface InventoryItem {
     remainingUses?: number;
     /** 扩展属性 */
     extra?: Record<string, any>;
+    /** 道具配置（运行时填充） */
+    config?: ItemConfig;
 }
 
 /**
