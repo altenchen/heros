@@ -54,7 +54,8 @@
 | 远征系统 | ✅ 已完成 | 英雄派遣、远征奖励、星级评价 |
 | 在线奖励系统 | ✅ 已完成 | 在线时长奖励、VIP加成、每日重置 |
 | 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
-| 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
+| 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
+| 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
 
 ## 项目结构
 
@@ -1128,6 +1129,7 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 地形类型 | `assets/scripts/config/TerrainTypes.ts` |
 | 特效类型 | `assets/scripts/config/EffectTypes.ts` |
 | UI管理 | `assets/scripts/ui/UIManager.ts` |
+| 预制体索引 | `assets/scripts/ui/UIPrefabIndex.ts` |
 | 面板基类 | `assets/scripts/ui/components/UIPanel.ts` |
 | 战斗准备 | `assets/scripts/ui/components/FormationPanel.ts` |
 | 战斗面板 | `assets/scripts/ui/components/BattlePanel.ts` |
@@ -1299,11 +1301,74 @@ master (主分支)
 
 ## 下一步工作
 
-1. **在Cocos Creator中打开项目**
-2. **绑定组件**: 将脚本拖到预制体节点
-3. **设置属性**: 在属性检查器中绑定引用
-4. **替换美术**: 将占位图替换为实际资源
-5. **修改appid**: 在 `settings/v2/packages/builder.json` 中设置微信appid
+### 1. 创建UI预制体 (在Cocos Creator中)
+
+**已有预制体** (7个):
+- `MainMenu.prefab` - 主菜单
+- `LoadingPanel.prefab` - 加载界面
+- `AlertDialog.prefab` - 提示对话框
+- `SettingsPanel.prefab` - 设置面板
+- `TownPanel.prefab` - 主城面板
+- `BattlePanel.prefab` - 战斗面板
+- `HeroPanel.prefab` - 英雄面板
+
+**需要创建的预制体** (28个):
+
+| 预制体名称 | 组件脚本 | 层级 | 描述 |
+|-----------|---------|------|------|
+| SaveSelectPanel | SaveSelectPanel.ts | PANEL | 存档选择面板 |
+| SavePanel | SavePanel.ts | PANEL | 存档管理面板 |
+| OfflineRewardPanel | OfflineRewardPanel.ts | POPUP | 离线奖励面板 |
+| AchievementPanel | AchievementPanel.ts | PANEL | 成就面板 |
+| TaskPanel | TaskPanel.ts | PANEL | 任务面板 |
+| LevelPanel | LevelPanel.ts | PANEL | 关卡面板 |
+| FormationPanel | FormationPanel.ts | PANEL | 编队面板 |
+| BattleResultPanel | BattleResultPanel.ts | POPUP | 战斗结果面板 |
+| SocialPanel | SocialPanel.ts | PANEL | 社交面板 |
+| SigninPanel | SigninPanel.ts | PANEL | 签到面板 |
+| ShopPanel | ShopPanel.ts | PANEL | 商店面板 |
+| InventoryPanel | InventoryPanel.ts | PANEL | 背包面板 |
+| RankPanel | RankPanel.ts | PANEL | 排行榜面板 |
+| ArenaPanel | ArenaPanel.ts | PANEL | 竞技场面板 |
+| GachaPanel | GachaPanel.ts | PANEL | 招募面板 |
+| CollectionPanel | CollectionPanel.ts | PANEL | 图鉴面板 |
+| MailPanel | MailPanel.ts | PANEL | 邮件面板 |
+| ActivityPanel | ActivityPanel.ts | PANEL | 活动面板 |
+| VIPPanel | VIPPanel.ts | PANEL | VIP面板 |
+| SpeedUpPanel | SpeedUpPanel.ts | POPUP | 加速面板 |
+| SkillTreePanel | SkillTreePanel.ts | PANEL | 技能树面板 |
+| AnnouncementPanel | AnnouncementPanel.ts | PANEL | 公告面板 |
+| ExpeditionPanel | ExpeditionPanel.ts | PANEL | 远征面板 |
+| OnlineRewardPanel | OnlineRewardPanel.ts | PANEL | 在线奖励面板 |
+| ArtifactPanel | ArtifactPanel.ts | PANEL | 宝物面板 |
+| TutorialOverlay | TutorialOverlay.ts | TIPS | 教程遮罩 |
+| Toast | UIComponent.ts | TIPS | Toast提示 |
+
+**预制体创建步骤**:
+1. 在Cocos Creator中，右键点击 `assets/prefabs/ui/` 目录
+2. 选择 "创建" -> "Node" 创建空节点
+3. 将节点重命名为预制体名称
+4. 将对应的组件脚本拖拽到节点上
+5. 设置组件属性和添加子节点
+6. 将节点拖拽到 `assets/prefabs/ui/` 目录下生成预制体
+
+### 2. 绑定组件属性
+
+在Cocos Creator的属性检查器中，设置预制体的属性引用：
+- 绑定按钮点击事件
+- 设置标签引用
+- 配置滚动视图
+
+### 3. 替换美术资源
+
+将占位图替换为实际资源：
+- UI背景图放在 `assets/resources/ui/backgrounds/`
+- 图标资源放在 `assets/resources/ui/icons/`
+- 按钮资源放在 `assets/resources/ui/buttons/`
+
+### 4. 配置微信小游戏
+
+修改 `settings/v2/packages/builder.json` 设置微信appid
 
 ## 注意事项
 

@@ -40,6 +40,7 @@ import { expeditionManager } from './expedition';
 import { onlineRewardManager } from './onlinereward';
 import { announcementManager } from './announcement';
 import { artifactManager } from './artifact';
+import { warMachineManager } from './warmachine';
 
 const { ccclass, property } = _decorator;
 
@@ -196,6 +197,9 @@ export class Game extends Component {
         // 初始化宝物系统
         artifactManager.init();
 
+        // 初始化战争机器系统
+        warMachineManager.init();
+
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
 
@@ -263,7 +267,8 @@ export class Game extends Component {
             expedition: expeditionManager.serialize(),
             onlineReward: onlineRewardManager.serialize(),
             announcement: announcementManager.serialize(),
-            artifacts: artifactManager.getSaveData()
+            artifacts: artifactManager.getSaveData(),
+            warMachines: warMachineManager.serialize()
         };
     }
 
@@ -301,6 +306,9 @@ export class Game extends Component {
             announcementManager.deserialize(saveData.announcement);
             if (saveData.artifacts) {
                 artifactManager.loadSaveData(saveData.artifacts);
+            }
+            if (saveData.warMachines) {
+                warMachineManager.deserialize(saveData.warMachines);
             }
         }
 
@@ -559,6 +567,13 @@ export class Game extends Component {
      */
     getArtifactManager(): typeof artifactManager {
         return artifactManager;
+    }
+
+    /**
+     * 获取战争机器管理器
+     */
+    getWarMachineManager(): typeof warMachineManager {
+        return warMachineManager;
     }
 
     /**

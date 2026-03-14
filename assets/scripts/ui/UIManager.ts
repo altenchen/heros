@@ -251,6 +251,132 @@ export class UIManager {
             layer: UILayer.PANEL,
             cache: true
         });
+
+        // 存档选择面板
+        this.registerUI('save_select_panel', {
+            prefab: 'prefabs/ui/SaveSelectPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 离线奖励面板
+        this.registerUI('offline_reward_panel', {
+            prefab: 'prefabs/ui/OfflineRewardPanel',
+            layer: UILayer.POPUP,
+            cache: false
+        });
+
+        // 成就面板
+        this.registerUI('achievement_panel', {
+            prefab: 'prefabs/ui/AchievementPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 任务面板
+        this.registerUI('task_panel', {
+            prefab: 'prefabs/ui/TaskPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 竞技场面板
+        this.registerUI('arena_panel', {
+            prefab: 'prefabs/ui/ArenaPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 招募面板
+        this.registerUI('gacha_panel', {
+            prefab: 'prefabs/ui/GachaPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 图鉴面板
+        this.registerUI('collection_panel', {
+            prefab: 'prefabs/ui/CollectionPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 邮件面板
+        this.registerUI('mail_panel', {
+            prefab: 'prefabs/ui/MailPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 活动面板
+        this.registerUI('activity_panel', {
+            prefab: 'prefabs/ui/ActivityPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // VIP面板
+        this.registerUI('vip_panel', {
+            prefab: 'prefabs/ui/VIPPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 背包面板
+        this.registerUI('inventory_panel', {
+            prefab: 'prefabs/ui/InventoryPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 排行榜面板
+        this.registerUI('rank_panel', {
+            prefab: 'prefabs/ui/RankPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 签到面板
+        this.registerUI('signin_panel', {
+            prefab: 'prefabs/ui/SigninPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 技能树面板
+        this.registerUI('skill_tree_panel', {
+            prefab: 'prefabs/ui/SkillTreePanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 社交面板
+        this.registerUI('social_panel', {
+            prefab: 'prefabs/ui/SocialPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 加速面板
+        this.registerUI('speed_up_panel', {
+            prefab: 'prefabs/ui/SpeedUpPanel',
+            layer: UILayer.POPUP,
+            cache: true
+        });
+
+        // 存档管理面板
+        this.registerUI('save_panel', {
+            prefab: 'prefabs/ui/SavePanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 教程遮罩
+        this.registerUI('tutorial_overlay', {
+            prefab: 'prefabs/ui/TutorialOverlay',
+            layer: UILayer.TIPS,
+            cache: true
+        });
     }
 
     /**
