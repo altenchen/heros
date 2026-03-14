@@ -81,9 +81,12 @@ declare module 'cc' {
         addChild(child: Node): void;
         removeChild(child: Node): void;
         removeFromParent(): void;
+        setParent(parent: Node | null, worldPositionStays?: boolean): void;
         destroy(): boolean;
         removeAllChildren(): void;
         destroyAllChildren(): void;
+        addComponent<T extends Component>(type: new (...args: any[]) => T): T;
+        addComponent(type: string | Function): Component;
 
         on(type: string, callback: Function, target?: any): void;
         on(type: 'touch-start' | 'touch-move' | 'touch-end' | 'touch-cancel', callback: (event: EventTouch) => void, target?: any): void;
