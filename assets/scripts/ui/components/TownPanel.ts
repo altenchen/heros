@@ -114,6 +114,14 @@ export class TownPanel extends UIPanel {
     @property(Node)
     settingsButton: Node | null = null;
 
+    /** 魔法书按钮 */
+    @property(Node)
+    magicBookButton: Node | null = null;
+
+    /** 市场按钮 */
+    @property(Node)
+    marketButton: Node | null = null;
+
     // ==================== 状态 ====================
 
     /** 游戏实例 */
@@ -380,6 +388,26 @@ export class TownPanel extends UIPanel {
                 this.settingsButton.on(Node.EventType.TOUCH_END, this._onSettings, this);
             }
         }
+
+        // 魔法书按钮
+        if (this.magicBookButton) {
+            const btn = this.magicBookButton.getComponent(UIButton);
+            if (btn) {
+                btn.setOnClick(this._onMagicBook.bind(this));
+            } else {
+                this.magicBookButton.on(Node.EventType.TOUCH_END, this._onMagicBook, this);
+            }
+        }
+
+        // 市场按钮
+        if (this.marketButton) {
+            const btn = this.marketButton.getComponent(UIButton);
+            if (btn) {
+                btn.setOnClick(this._onMarket.bind(this));
+            } else {
+                this.marketButton.on(Node.EventType.TOUCH_END, this._onMarket, this);
+            }
+        }
     }
 
     /**
@@ -442,6 +470,20 @@ export class TownPanel extends UIPanel {
      */
     private _onSettings(): void {
         this._uiManager.showUI('settings_panel');
+    }
+
+    /**
+     * 魔法书按钮点击
+     */
+    private _onMagicBook(): void {
+        this._uiManager.showUI('magic_book_panel');
+    }
+
+    /**
+     * 市场按钮点击
+     */
+    private _onMarket(): void {
+        this._uiManager.showUI('market_panel');
     }
 
     /**

@@ -56,6 +56,7 @@
 | 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
 | 战争机器系统 | ✅ 已完成 | 弩车、医疗帐篷、弹药车、投石车 |
 | 市场系统 | ✅ 已完成 | 资源交易、汇率优惠、资源交换 |
+| 魔法书系统 | ✅ 已完成 | 魔法学习、派系熟练度、施法系统 |
 | 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
 | 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
 
@@ -1229,6 +1230,87 @@ EventCenter.on(MarketEventType.MARKET_UPGRADED, (data) => {
 });
 ```
 
+### 魔法书系统
+
+```typescript
+import { MagicBookManager, magicBookManager } from './magicbook/MagicBookManager';
+import { MagicBookEventType, SpellLevel, MagicMastery } from './config/MagicBookTypes';
+import { MagicSchool } from './config/GameTypes';
+
+// 初始化
+magicBookManager.init();
+
+// 初始化英雄魔法书
+magicBookManager.initHeroMagicBook('hero_1', 20, 1, 1);
+
+// 学习魔法
+const learnResult = magicBookManager.learnSpell('hero_1', 'spell_fireball');
+if (learnResult.success) {
+    console.log(`学习成功，费用: ${learnResult.cost.gold}金币`);
+}
+
+// 升级魔法
+const upgradeResult = magicBookManager.upgradeSpell('hero_1', 'spell_fireball');
+if (upgradeResult.success) {
+    console.log(`魔法升级到 Lv.${upgradeResult.newLevel}`);
+}
+
+// 获取派系熟练度
+const fireMastery = magicBookManager.getSchoolMastery('hero_1', MagicSchool.FIRE);
+console.log(`火系熟练度: ${fireMastery?.level}`);
+
+// 升级派系熟练度
+const masteryResult = magicBookManager.upgradeSchoolMastery('hero_1', MagicSchool.FIRE);
+
+// 获取魔法值
+const currentMana = magicBookManager.getCurrentMana('hero_1');
+const maxMana = magicBookManager.getMaxMana('hero_1');
+
+// 消耗/恢复魔法值
+magicBookManager.consumeMana('hero_1', 15);
+magicBookManager.restoreMana('hero_1', 10);
+magicBookManager.regenerateMana('hero_1');
+
+// 检查是否可以施放魔法
+const canCast = magicBookManager.canCastSpell('hero_1', 'spell_fireball');
+
+// 获取英雄已学魔法
+const spells = magicBookManager.getHeroSpells('hero_1');
+spells.forEach(({ config, heroSpell }) => {
+    console.log(`${config.name}: Lv.${heroSpell.level}`);
+});
+
+// 获取所有魔法配置
+const allSpells = magicBookManager.getAllSpells();
+const fireSpells = magicBookManager.getSpellsBySchool(MagicSchool.FIRE);
+
+// 获取魔法预览
+const preview = magicBookManager.getSpellPreview('hero_1', 'spell_fireball');
+if (preview) {
+    console.log(`魔法: ${preview.spell.name}`);
+    console.log(`消耗: ${preview.manaCost} 魔法值`);
+    console.log(`可施放: ${preview.canCast}`);
+}
+
+// 设置快捷栏
+magicBookManager.setQuickSlot(0, 'spell_fireball', 'hero_1');
+
+// 存档
+const saveData = magicBookManager.getSaveData();
+magicBookManager.loadSaveData(saveData);
+
+// 监听魔法书事件
+EventCenter.on(MagicBookEventType.SPELL_LEARNED, (data) => {
+    console.log(`学习魔法: ${data.spellName}`);
+});
+EventCenter.on(MagicBookEventType.MANA_CHANGED, (data) => {
+    console.log(`魔法值变化: ${data.currentMana}/${data.maxMana}`);
+});
+EventCenter.on(MagicBookEventType.MASTERY_UPGRADED, (data) => {
+    console.log(`派系熟练度提升: ${data.school}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -1373,6 +1455,10 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 市场类型 | `assets/scripts/config/MarketTypes.ts` |
 | 市场配置 | `assets/scripts/config/market.json.ts` |
 | 市场面板 | `assets/scripts/ui/components/MarketPanel.ts` |
+| 魔法书管理 | `assets/scripts/magicbook/MagicBookManager.ts` |
+| 魔法书类型 | `assets/scripts/config/MagicBookTypes.ts` |
+| 魔法书配置 | `assets/scripts/configs/magic_book.json.ts` |
+| 魔法书面板 | `assets/scripts/ui/components/MagicBookPanel.ts` |
 
 ## 开发命令
 

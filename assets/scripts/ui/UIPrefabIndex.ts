@@ -407,6 +407,17 @@ export const UI_PREFABS: PrefabConfig[] = [
         cache: true,
         preload: false,
         description: '魔法书面板(魔法学习/派系熟练度/施法)'
+    },
+
+    // ==================== 市场系统 ====================
+    {
+        name: 'MarketPanel',
+        path: 'prefabs/ui/MarketPanel',
+        component: 'scripts/ui/components/MarketPanel',
+        layer: 'PANEL',
+        cache: true,
+        preload: false,
+        description: '市场面板(资源交易/汇率/资源交换)'
     }
 ];
 
