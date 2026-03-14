@@ -46,6 +46,8 @@
 | 招募系统 | ✅ 已完成 | 抽卡、保底机制、概率配置 |
 | 图鉴系统 | ✅ 已完成 | 英雄图鉴、兵种图鉴、收集奖励 |
 | 存档系统 | ✅ 已完成 | 多存档槽位、自动存档、存档导入导出 |
+| 加速系统 | ✅ 已完成 | 建造加速、道具加速、钻石加速 |
+| 离线奖励系统 | ✅ 已完成 | 离线收益计算、离线奖励领取、双倍奖励 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -731,6 +733,72 @@ EventCenter.on(SaveEventType.LOAD_COMPLETE, (data) => {
 });
 ```
 
+### 加速系统
+
+```typescript
+import { SpeedUpManager, speedUpManager } from './utils/SpeedUpManager';
+import { SpeedUpType, SpeedUpEventType } from './config/SpeedUpTypes';
+
+// 初始化
+speedUpManager.init();
+
+// 注册加速目标（如建造中的建筑）
+speedUpManager.registerTarget({
+    type: SpeedUpType.BUILDING,
+    targetId: 'building_barracks_1',
+    remainingTime: 3600, // 1小时
+    totalTime: 7200,
+    extra: { name: '兵营' }
+});
+
+// 获取加速建议
+const suggestion = speedUpManager.getSpeedUpSuggestion('building_barracks_1');
+console.log(`钻石费用: ${suggestion.gemsCost}, 可免费加速: ${suggestion.canFreeSpeedUp}`);
+
+// 使用道具加速
+const itemResult = speedUpManager.speedUpWithItem('building_barracks_1', 'item_speedup_1hour');
+
+// 使用钻石加速
+const gemsResult = speedUpManager.speedUpWithGems('building_barracks_1');
+
+// 快速完成（剩余时间小于1分钟时免费）
+const quickResult = speedUpManager.quickFinish('building_barracks_1');
+
+// 格式化时间
+const timeStr = speedUpManager.formatTime(3661); // "1小时1分1秒"
+
+// 监听加速事件
+EventCenter.on(SpeedUpEventType.SPEED_UP_COMPLETE, (data) => {
+    console.log(`加速完成: ${data.targetId}`);
+});
+```
+
+### 离线奖励系统
+
+```typescript
+import { PlayerDataManager, playerDataManager } from './utils/PlayerDataManager';
+
+// 离线奖励在玩家登录时自动计算
+// 通过 PlayerDataManager.loadPlayerData() 加载数据时会自动计算离线奖励
+
+// 获取离线奖励数据
+const playerData = playerDataManager.getPlayerData();
+if (playerData?.offlineRewards && playerData.offlineRewards.gold > 0) {
+    console.log(`离线奖励: ${playerData.offlineRewards.gold}金币`);
+    console.log(`离线时间: ${playerData.offlineRewards.calculateTime}小时`);
+}
+
+// 领取离线奖励
+const success = playerDataManager.claimOfflineRewards();
+
+// 显示离线奖励面板
+uiManager.showUI('offline_reward_panel', {
+    gold: offlineRewards.gold,
+    resources: offlineRewards.resources,
+    offlineHours: offlineRewards.calculateTime
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -843,6 +911,9 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 存档类型 | `assets/scripts/config/SaveTypes.ts` |
 | 存档选择面板 | `assets/scripts/ui/components/SaveSelectPanel.ts` |
 | 离线奖励面板 | `assets/scripts/ui/components/OfflineRewardPanel.ts` |
+| 加速管理 | `assets/scripts/utils/SpeedUpManager.ts` |
+| 加速类型 | `assets/scripts/config/SpeedUpTypes.ts` |
+| 加速面板 | `assets/scripts/ui/components/SpeedUpPanel.ts` |
 
 ## 开发命令
 

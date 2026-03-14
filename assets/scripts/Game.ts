@@ -35,6 +35,7 @@ import { gachaManager } from './gacha';
 import { collectionManager } from './collection';
 import { saveManager, autoSaveManager } from './save';
 import { SaveData, SaveEventType } from './config/SaveTypes';
+import { speedUpManager } from './utils/SpeedUpManager';
 
 const { ccclass, property } = _decorator;
 
@@ -175,6 +176,9 @@ export class Game extends Component {
         // 初始化存档系统
         saveManager.init();
         autoSaveManager.init();
+
+        // 初始化加速系统
+        speedUpManager.init();
 
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
@@ -515,6 +519,13 @@ export class Game extends Component {
      */
     getCollectionManager(): typeof collectionManager {
         return collectionManager;
+    }
+
+    /**
+     * 获取加速管理器
+     */
+    getSpeedUpManager(): typeof speedUpManager {
+        return speedUpManager;
     }
 
     /**
