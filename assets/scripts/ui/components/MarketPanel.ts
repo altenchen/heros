@@ -348,10 +348,11 @@ export class MarketPanel extends UIPanel {
      * 更新汇率列表
      */
     private _updateRateList(): void {
-        if (!this.rateListContainer) return;
+        const container = this.rateListContainer;
+        if (!container) return;
 
         // 清空列表
-        this.rateListContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const previews = marketManager.getRatePreviews();
 
@@ -362,7 +363,7 @@ export class MarketPanel extends UIPanel {
             if (this.rateItemPrefab) {
                 const item = instantiate(this.rateItemPrefab);
                 this._setupRateItem(item, preview);
-                this.rateListContainer.addChild(item);
+                container.addChild(item);
             }
         });
     }
@@ -383,9 +384,10 @@ export class MarketPanel extends UIPanel {
      * 更新资源交换列表
      */
     private _updateExchangeList(): void {
-        if (!this.exchangeListContainer) return;
+        const container = this.exchangeListContainer;
+        if (!container) return;
 
-        this.exchangeListContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const exchanges = marketManager.getResourceExchanges();
 
@@ -393,7 +395,7 @@ export class MarketPanel extends UIPanel {
             if (this.exchangeItemPrefab) {
                 const item = instantiate(this.exchangeItemPrefab);
                 this._setupExchangeItem(item, exchange);
-                this.exchangeListContainer.addChild(item);
+                container.addChild(item);
             }
         });
     }
@@ -420,9 +422,10 @@ export class MarketPanel extends UIPanel {
      * 更新交易记录列表
      */
     private _updateRecordList(): void {
-        if (!this.recordListContainer) return;
+        const container = this.recordListContainer;
+        if (!container) return;
 
-        this.recordListContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const records = marketManager.getTradeRecords(20);
 
@@ -430,7 +433,7 @@ export class MarketPanel extends UIPanel {
             if (this.recordItemPrefab) {
                 const item = instantiate(this.recordItemPrefab);
                 this._setupRecordItem(item, record);
-                this.recordListContainer.addChild(item);
+                container.addChild(item);
             }
         });
     }

@@ -177,9 +177,10 @@ export class InventoryPanel extends UIPanel {
      * 初始化分类
      */
     private _initCategories(): void {
-        if (!this.categoryContainer) return;
+        const container = this.categoryContainer;
+        if (!container) return;
 
-        this.categoryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const types = [InventoryType.MAIN, InventoryType.EQUIPMENT, InventoryType.MATERIAL];
 
@@ -200,7 +201,7 @@ export class InventoryPanel extends UIPanel {
                 this._selectType(type);
             });
 
-            this.categoryContainer.addChild(btnNode);
+            container.addChild(btnNode);
         });
     }
 
@@ -262,9 +263,10 @@ export class InventoryPanel extends UIPanel {
      * 更新道具列表
      */
     private _updateItemList(): void {
-        if (!this.itemContainer) return;
+        const container = this.itemContainer;
+        if (!container) return;
 
-        this.itemContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const items = inventoryManager.getAllItems(this._currentType);
 
@@ -302,7 +304,7 @@ export class InventoryPanel extends UIPanel {
                 this._showItemDetail(item);
             });
 
-            this.itemContainer.addChild(itemNode);
+            container.addChild(itemNode);
         });
     }
 

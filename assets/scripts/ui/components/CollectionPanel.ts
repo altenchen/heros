@@ -184,9 +184,10 @@ export class CollectionPanel extends UIPanel {
      * 初始化分类
      */
     private _initCategories(): void {
-        if (!this.categoryContainer) return;
+        const container = this.categoryContainer;
+        if (!container) return;
 
-        this.categoryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const types = [CollectionType.HERO, CollectionType.UNIT];
 
@@ -207,7 +208,7 @@ export class CollectionPanel extends UIPanel {
                 this._selectType(type);
             });
 
-            this.categoryContainer.addChild(btnNode);
+            container.addChild(btnNode);
         });
     }
 
@@ -255,9 +256,10 @@ export class CollectionPanel extends UIPanel {
      * 更新条目列表
      */
     private _updateEntries(): void {
-        if (!this.entryContainer) return;
+        const container = this.entryContainer;
+        if (!container) return;
 
-        this.entryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const entries = collectionManager.getEntriesByType(this._currentType);
 
@@ -297,7 +299,7 @@ export class CollectionPanel extends UIPanel {
                 this._showEntryDetail(entry);
             });
 
-            this.entryContainer.addChild(entryNode);
+            container.addChild(entryNode);
         });
     }
 
@@ -318,9 +320,10 @@ export class CollectionPanel extends UIPanel {
      * 更新进度奖励
      */
     private _updateProgressRewards(): void {
-        if (!this.progressRewardContainer) return;
+        const container = this.progressRewardContainer;
+        if (!container) return;
 
-        this.progressRewardContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const claimableRewards = collectionManager.getClaimableRewards();
 
@@ -351,7 +354,7 @@ export class CollectionPanel extends UIPanel {
                 });
             }
 
-            this.progressRewardContainer.addChild(rewardNode);
+            container.addChild(rewardNode);
         });
     }
 

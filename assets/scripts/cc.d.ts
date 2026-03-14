@@ -57,6 +57,13 @@ declare module 'cc' {
 
         addChild(node: Node): void;
         removeChild(node: Node): void;
+
+        // UI扩展方法（UIButton等组件提供）
+        setEnabled?(enabled: boolean): void;
+        setOnClick?(callback: (data?: any) => void, data?: any): void;
+        setLabel?(text: string): void;
+        setText?(text: string): void;
+        setIcon?(spriteFrame: any): void;
     }
 
     export class Node {

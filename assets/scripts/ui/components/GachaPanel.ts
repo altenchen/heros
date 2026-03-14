@@ -182,9 +182,10 @@ export class GachaPanel extends UIPanel {
      * 初始化招募池列表
      */
     private _initPools(): void {
-        if (!this.poolContainer) return;
+        const container = this.poolContainer;
+        if (!container) return;
 
-        this.poolContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const pools = gachaManager.getActivePools();
         if (pools.length === 0) {
@@ -214,7 +215,7 @@ export class GachaPanel extends UIPanel {
                 this._selectPool(pool.poolId);
             });
 
-            this.poolContainer.addChild(btnNode);
+            container.addChild(btnNode);
         });
 
         this._loadPoolConfig();
@@ -358,8 +359,10 @@ export class GachaPanel extends UIPanel {
     private _showResults(results: GachaResult[]): void {
         if (!this.resultPanel || !this.resultContainer) return;
 
+        const container = this.resultContainer;
+
         this.resultPanel.active = true;
-        this.resultContainer.removeAllChildren();
+        container.removeAllChildren();
 
         results.forEach((result, index) => {
             const itemNode = this.resultItemPrefab
@@ -383,7 +386,7 @@ export class GachaPanel extends UIPanel {
                 countLabel.string = `x${result.amount}`;
             }
 
-            this.resultContainer.addChild(itemNode);
+            container.addChild(itemNode);
         });
     }
 
