@@ -33,6 +33,8 @@ import { activityManager } from './activity';
 import { arenaManager } from './arena';
 import { gachaManager } from './gacha';
 import { collectionManager } from './collection';
+import { saveManager, autoSaveManager } from './save';
+import { SaveData, SaveEventType } from './config/SaveTypes';
 
 const { ccclass, property } = _decorator;
 
@@ -170,6 +172,13 @@ export class Game extends Component {
         // 初始化图鉴系统
         collectionManager.init();
 
+        // 初始化存档系统
+        saveManager.init();
+        autoSaveManager.init();
+
+        // 设置自动存档回调
+        autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
+
         // 初始化UI管理器
         if (this.canvas) {
             this.uiManager.init(this.canvas);
@@ -178,21 +187,104 @@ export class Game extends Component {
         // 显示加载界面
         this.uiManager.showLoading('正在加载游戏资源...');
 
-        // 加载玩家数据
-        await this.loadPlayerData();
-
-        // 更新游戏天数
-        achievementManager.updatePlayDay();
-
         // 隐藏加载界面
         this.uiManager.hideLoading();
 
-        // 设置状态并显示主菜单
-        this._state = GameState.MAIN_MENU;
-        this.uiManager.showUI('main_menu');
+        // 检查是否有存档
+        if (saveManager.hasAnySave()) {
+            // 有存档，显示存档选择界面
+            this._state = GameState.MAIN_MENU;
+            this.uiManager.showUI('save_select_panel', { mode: 'load' });
+
+            // 监听存档加载完成
+            EventCenter.once(SaveEventType.LOAD_COMPLETE, this.onSaveLoaded, this);
+        } else {
+            // 没有存档，显示创建存档界面
+            this._state = GameState.MAIN_MENU;
+            this.uiManager.showUI('save_select_panel', { mode: 'create' });
+
+            // 监听新存档创建
+            EventCenter.once('new_game_created', this.onNewGameCreated, this);
+        }
 
         // 播放主菜单BGM
         soundManager.playBGM(BGMScene.MAIN_MENU);
+
+        console.log('游戏初始化完成，等待用户选择存档...');
+    }
+
+    /**
+     * 收集存档数据
+     */
+    private collectSaveData(): SaveData {
+        return {
+            version: '1.0.0',
+            timestamp: Date.now(),
+            player: this.playerDataManager.serialize(),
+            achievements: achievementManager.serialize(),
+            tasks: taskManager.serialize(),
+            levels: levelManager.serialize(),
+            friends: friendManager.serialize(),
+            guild: guildManager.serialize(),
+            chat: chatManager.serialize(),
+            tutorial: tutorialManager.serialize(),
+            audio: soundManager.serialize(),
+            signin: dailySigninManager.serialize(),
+            shop: shopManager.serialize(),
+            inventory: inventoryManager.serialize(),
+            skins: skinManager.serialize(),
+            vip: vipManager.serialize(),
+            rank: rankManager.serialize(),
+            mail: mailManager.serialize(),
+            activity: activityManager.serialize(),
+            arena: arenaManager.serialize(),
+            gacha: gachaManager.serialize(),
+            collection: collectionManager.serialize()
+        };
+    }
+
+    /**
+     * 存档加载完成处理
+     */
+    private onSaveLoaded(data: { slotId: number; data: SaveData }): void {
+        console.log('[Game] 存档加载完成，槽位:', data.slotId);
+
+        // 加载各系统数据
+        const saveData = data.data;
+        if (saveData) {
+            this.playerDataManager.deserialize(saveData.player);
+            achievementManager.deserialize(saveData.achievements);
+            taskManager.deserialize(saveData.tasks);
+            levelManager.deserialize(saveData.levels);
+            friendManager.deserialize(saveData.friends);
+            guildManager.deserialize(saveData.guild);
+            chatManager.deserialize(saveData.chat);
+            tutorialManager.deserialize(saveData.tutorial);
+            soundManager.deserialize(saveData.audio);
+            dailySigninManager.deserialize(saveData.signin);
+            shopManager.deserialize(saveData.shop);
+            inventoryManager.deserialize(saveData.inventory);
+            skinManager.deserialize(saveData.skins);
+            vipManager.deserialize(saveData.vip);
+            rankManager.deserialize(saveData.rank);
+            mailManager.deserialize(saveData.mail);
+            activityManager.deserialize(saveData.activity);
+            arenaManager.deserialize(saveData.arena);
+            gachaManager.deserialize(saveData.gacha);
+            collectionManager.deserialize(saveData.collection);
+        }
+
+        // 显示主菜单
+        this.uiManager.showUI('main_menu');
+
+        // 检查离线奖励
+        this.checkOfflineRewards();
+
+        // 启动自动存档
+        autoSaveManager.start();
+
+        // 更新游戏天数
+        achievementManager.updatePlayDay();
 
         console.log('游戏初始化完成');
 
@@ -204,129 +296,44 @@ export class Game extends Component {
     }
 
     /**
-     * 加载玩家数据
+     * 新存档创建处理
      */
-    private async loadPlayerData(): Promise<void> {
-        const savedData = localStorage.getItem('hmm_legacy_player');
-        if (savedData) {
-            this.playerDataManager.deserialize(savedData);
-            console.log('已加载存档');
-        } else {
-            console.log('未找到存档，创建新玩家');
-        }
+    private onNewGameCreated(data: { slotId: number; playerName: string; faction: string }): void {
+        console.log('[Game] 新存档创建，槽位:', data.slotId);
 
-        // 加载成就数据
-        const achievementData = localStorage.getItem('hmm_legacy_achievements');
-        if (achievementData) {
-            achievementManager.deserialize(achievementData);
-        }
+        // 创建新玩家数据
+        this.createNewGame(data.playerName, data.faction as Faction);
 
-        // 加载任务数据
-        const taskData = localStorage.getItem('hmm_legacy_tasks');
-        if (taskData) {
-            taskManager.deserialize(taskData);
-        }
+        // 启动自动存档
+        autoSaveManager.start();
 
-        // 加载关卡数据
-        const levelData = localStorage.getItem('hmm_legacy_levels');
-        if (levelData) {
-            levelManager.deserialize(levelData);
-        }
+        // 显示主菜单
+        this.uiManager.showUI('main_menu');
 
-        // 加载好友数据
-        const friendData = localStorage.getItem('hmm_legacy_friends');
-        if (friendData) {
-            friendManager.deserialize(friendData);
-        }
+        console.log('游戏初始化完成');
 
-        // 加载公会数据
-        const guildData = localStorage.getItem('hmm_legacy_guild');
-        if (guildData) {
-            guildManager.deserialize(guildData);
-        }
+        // 触发教程检查 - 游戏启动
+        tutorialManager.checkAndTrigger(TriggerType.GAME_START);
 
-        // 加载聊天数据
-        const chatData = localStorage.getItem('hmm_legacy_chat');
-        if (chatData) {
-            chatManager.deserialize(chatData);
-        }
+        // 触发事件
+        EventCenter.emit(GameEvent.GAME_LOADED);
+    }
 
-        // 加载教程数据
-        const tutorialData = localStorage.getItem('hmm_legacy_tutorial');
-        if (tutorialData) {
-            tutorialManager.deserialize(tutorialData);
-        }
+    /**
+     * 检查离线奖励
+     */
+    private checkOfflineRewards(): void {
+        const playerData = this.playerDataManager.getPlayerData();
+        if (!playerData) return;
 
-        // 加载音频设置
-        const audioData = localStorage.getItem('hmm_legacy_audio');
-        if (audioData) {
-            soundManager.deserialize(audioData);
-        }
-
-        // 加载签到数据
-        const signinData = localStorage.getItem('hmm_legacy_signin');
-        if (signinData) {
-            dailySigninManager.deserialize(signinData);
-        }
-
-        // 加载商店数据
-        const shopData = localStorage.getItem('hmm_legacy_shop');
-        if (shopData) {
-            shopManager.deserialize(shopData);
-        }
-
-        // 加载背包数据
-        const inventoryData = localStorage.getItem('hmm_legacy_inventory');
-        if (inventoryData) {
-            inventoryManager.deserialize(inventoryData);
-        }
-
-        // 加载皮肤数据
-        const skinData = localStorage.getItem('hmm_legacy_skins');
-        if (skinData) {
-            skinManager.deserialize(skinData);
-        }
-
-        // 加载VIP数据
-        const vipData = localStorage.getItem('hmm_legacy_vip');
-        if (vipData) {
-            vipManager.deserialize(vipData);
-        }
-
-        // 加载排行榜数据
-        const rankData = localStorage.getItem('hmm_legacy_rank');
-        if (rankData) {
-            rankManager.deserialize(rankData);
-        }
-
-        // 加载邮件数据
-        const mailData = localStorage.getItem('hmm_legacy_mail');
-        if (mailData) {
-            mailManager.deserialize(mailData);
-        }
-
-        // 加载活动数据
-        const activityData = localStorage.getItem('hmm_legacy_activity');
-        if (activityData) {
-            activityManager.deserialize(activityData);
-        }
-
-        // 加载竞技场数据
-        const arenaData = localStorage.getItem('hmm_legacy_arena');
-        if (arenaData) {
-            arenaManager.deserialize(arenaData);
-        }
-
-        // 加载招募数据
-        const gachaData = localStorage.getItem('hmm_legacy_gacha');
-        if (gachaData) {
-            gachaManager.deserialize(gachaData);
-        }
-
-        // 加载图鉴数据
-        const collectionData = localStorage.getItem('hmm_legacy_collection');
-        if (collectionData) {
-            collectionManager.deserialize(collectionData);
+        const offlineRewards = playerData.offlineRewards;
+        if (offlineRewards && offlineRewards.gold > 0) {
+            // 显示离线奖励面板
+            this.uiManager.showUI('offline_reward_panel', {
+                gold: offlineRewards.gold,
+                resources: offlineRewards.resources,
+                offlineHours: offlineRewards.calculateTime
+            });
         }
     }
 
@@ -344,68 +351,16 @@ export class Game extends Component {
      * 保存游戏
      */
     saveGame(): void {
-        const data = this.playerDataManager.serialize();
-        localStorage.setItem('hmm_legacy_player', data);
+        const saveData = this.collectSaveData();
 
-        // 保存成就数据
-        localStorage.setItem('hmm_legacy_achievements', achievementManager.serialize());
-
-        // 保存任务数据
-        localStorage.setItem('hmm_legacy_tasks', taskManager.serialize());
-
-        // 保存关卡数据
-        localStorage.setItem('hmm_legacy_levels', levelManager.serialize());
-
-        // 保存好友数据
-        localStorage.setItem('hmm_legacy_friends', friendManager.serialize());
-
-        // 保存公会数据
-        localStorage.setItem('hmm_legacy_guild', guildManager.serialize());
-
-        // 保存聊天数据
-        localStorage.setItem('hmm_legacy_chat', chatManager.serialize());
-
-        // 保存教程数据
-        localStorage.setItem('hmm_legacy_tutorial', tutorialManager.serialize());
-
-        // 保存音频设置
-        localStorage.setItem('hmm_legacy_audio', soundManager.serialize());
-
-        // 保存签到数据
-        localStorage.setItem('hmm_legacy_signin', dailySigninManager.serialize());
-
-        // 保存商店数据
-        localStorage.setItem('hmm_legacy_shop', shopManager.serialize());
-
-        // 保存背包数据
-        localStorage.setItem('hmm_legacy_inventory', inventoryManager.serialize());
-
-        // 保存皮肤数据
-        localStorage.setItem('hmm_legacy_skins', skinManager.serialize());
-
-        // 保存VIP数据
-        localStorage.setItem('hmm_legacy_vip', vipManager.serialize());
-
-        // 保存排行榜数据
-        localStorage.setItem('hmm_legacy_rank', rankManager.serialize());
-
-        // 保存邮件数据
-        localStorage.setItem('hmm_legacy_mail', mailManager.serialize());
-
-        // 保存活动数据
-        localStorage.setItem('hmm_legacy_activity', activityManager.serialize());
-
-        // 保存竞技场数据
-        localStorage.setItem('hmm_legacy_arena', arenaManager.serialize());
-
-        // 保存招募数据
-        localStorage.setItem('hmm_legacy_gacha', gachaManager.serialize());
-
-        // 保存图鉴数据
-        localStorage.setItem('hmm_legacy_collection', collectionManager.serialize());
-
-        console.log('游戏已保存');
-        EventCenter.emit(GameEvent.GAME_SAVED);
+        // 使用存档管理器保存
+        const result = saveManager.save(saveData);
+        if (result.success) {
+            console.log('游戏已保存');
+            EventCenter.emit(GameEvent.GAME_SAVED);
+        } else {
+            console.error('保存失败:', result.error);
+        }
     }
 
     /**
@@ -846,6 +801,12 @@ export class Game extends Component {
      * 销毁
      */
     onDestroy(): void {
+        // 退出时自动存档
+        autoSaveManager.saveOnExit();
+
+        // 清理自动存档管理器
+        autoSaveManager.cleanup();
+
         // 清理对象池
         PoolInitializer.cleanup();
 

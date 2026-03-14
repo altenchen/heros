@@ -28,3 +28,5 @@ export { ActivityPanel } from './ActivityPanel';
 export { VIPPanel } from './VIPPanel';
 export { InventoryPanel } from './InventoryPanel';
 export { ShopPanel } from './ShopPanel';
+export { OfflineRewardPanel } from './OfflineRewardPanel';
+export { SaveSelectPanel } from './SaveSelectPanel';

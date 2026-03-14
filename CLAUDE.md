@@ -45,6 +45,7 @@
 | PVP竞技场系统 | ✅ 已完成 | 玩家匹配、段位、赛季奖励 |
 | 招募系统 | ✅ 已完成 | 抽卡、保底机制、概率配置 |
 | 图鉴系统 | ✅ 已完成 | 英雄图鉴、兵种图鉴、收集奖励 |
+| 存档系统 | ✅ 已完成 | 多存档槽位、自动存档、存档导入导出 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -65,6 +66,7 @@ heros/
 │   │   ├── town/          # 主城系统
 │   │   ├── ui/            # UI系统 ⭐
 │   │   ├── network/       # 微信适配
+│   │   ├── save/          # 存档系统 ⭐
 │   │   └── utils/         # 工具类
 │   ├── scenes/            # 场景文件
 │   ├── prefabs/ui/        # UI预制体
@@ -667,6 +669,68 @@ EventCenter.on(CollectionEventType.PROGRESS_REACHED, (data) => {
 });
 ```
 
+### 存档系统
+
+```typescript
+import { SaveManager, saveManager } from './save/SaveManager';
+import { AutoSaveManager, autoSaveManager } from './save/AutoSaveManager';
+import { SaveEventType } from './config/SaveTypes';
+
+// 初始化
+saveManager.init();
+autoSaveManager.init();
+
+// 获取存档槽位列表
+const slots = saveManager.getSlots();
+
+// 创建新存档
+const createResult = saveManager.createSave(0, '玩家名', 'light');
+if (createResult.success) {
+    console.log('存档创建成功');
+}
+
+// 保存当前存档
+const saveData = collectSaveData(); // 收集所有系统数据
+const saveResult = saveManager.save(saveData);
+
+// 加载存档
+const loadResult = saveManager.loadFromSlot(0);
+if (loadResult.success) {
+    // 使用 loadResult.data 恢复游戏状态
+}
+
+// 删除存档
+const deleteResult = saveManager.deleteSave(0);
+
+// 导出存档（用于备份）
+const exportData = saveManager.exportSave(0);
+
+// 导入存档
+const importResult = saveManager.importSave(0, exportData);
+
+// 自动存档配置
+autoSaveManager.updateConfig({
+    enabled: true,
+    interval: 5 * 60 * 1000, // 5分钟
+    saveOnExit: true,
+    saveOnBattleEnd: true
+});
+
+// 启动自动存档
+autoSaveManager.start();
+
+// 手动触发存档
+autoSaveManager.manualSave();
+
+// 监听存档事件
+EventCenter.on(SaveEventType.SAVE_COMPLETE, (data) => {
+    console.log(`存档保存完成: 槽位${data.slotId}`);
+});
+EventCenter.on(SaveEventType.LOAD_COMPLETE, (data) => {
+    console.log(`存档加载完成: 槽位${data.slotId}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -774,6 +838,11 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 图鉴管理 | `assets/scripts/collection/CollectionManager.ts` |
 | 图鉴类型 | `assets/scripts/config/CollectionTypes.ts` |
 | 图鉴配置 | `assets/scripts/config/collection.json.ts` |
+| 存档管理 | `assets/scripts/save/SaveManager.ts` |
+| 自动存档 | `assets/scripts/save/AutoSaveManager.ts` |
+| 存档类型 | `assets/scripts/config/SaveTypes.ts` |
+| 存档选择面板 | `assets/scripts/ui/components/SaveSelectPanel.ts` |
+| 离线奖励面板 | `assets/scripts/ui/components/OfflineRewardPanel.ts` |
 
 ## 开发命令
 
