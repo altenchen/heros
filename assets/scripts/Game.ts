@@ -3,7 +3,7 @@
  * 初始化游戏系统，管理场景和UI
  */
 
-import { _decorator, Component, Node, director, resources, assetManager } from 'cc';
+import { _decorator, Component, Node, director, resources, assetManager, game } from 'cc';
 import { PlayerDataManager } from './utils/PlayerDataManager';
 import { BattleManager } from './battle/BattleManager';
 import { UIManager } from './ui/UIManager';
@@ -100,7 +100,7 @@ export class Game extends Component {
         }
 
         Game.instance = this;
-        director.addPersistRootNode(this.node);
+        game.addPersistRootNode(this.node);
 
         this.playerDataManager = new PlayerDataManager();
         this.uiManager = UIManager.getInstance();

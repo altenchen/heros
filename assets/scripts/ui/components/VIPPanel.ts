@@ -403,7 +403,7 @@ export class VIPPanel extends UIPanel {
             this._showToast('领取成功！');
             this._updateMonthlyCard();
         } else {
-            this._showToast(result.error || '领取失败');
+            this._showToast(result.message || '领取失败');
         }
     }
 

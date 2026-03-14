@@ -292,6 +292,14 @@ declare module 'cc' {
         returnType: number;
         fontSize: number;
         fontColor: Color;
+
+        static EventType: {
+            TEXT_CHANGED: string;
+            TEXT_INPUT: string;
+            EDITING_DID_BEGIN: string;
+            EDITING_DID_ENDED: string;
+            EDITING_RETURN: string;
+        };
     }
 
     export class Toggle extends Component {
@@ -309,6 +317,10 @@ declare module 'cc' {
         handle: Node | null;
         direction: number;
         node: Node;
+
+        static EventType: {
+            SLIDE: string;
+        };
     }
 
     export class PageView extends Component {
