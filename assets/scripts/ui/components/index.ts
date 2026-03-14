@@ -38,3 +38,4 @@ export { OnlineRewardPanel, OnlineRewardItem } from './OnlineRewardPanel';
 export { AnnouncementPanel, AnnouncementItem, AnnouncementDetailContent } from './AnnouncementPanel';
 export { ArtifactPanel, EquipmentSlot } from './ArtifactPanel';
 export { WarMachinePanel, WarMachineSlot, WarMachineItem, WarMachineDetailPanel } from './WarMachinePanel';
+export { MarketPanel } from './MarketPanel';
