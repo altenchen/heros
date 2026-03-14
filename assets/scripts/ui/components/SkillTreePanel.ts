@@ -12,7 +12,7 @@ import {
     HeroSkillNodeState,
     SkillTreeEventType
 } from '../../config/SkillTreeTypes';
-import { soundManager } from '../../audio';
+import { soundManager } from '../../audio/SoundManager';
 import { UIManager } from '../UIManager';
 import { EventCenter } from '../../utils/EventTarget';
 

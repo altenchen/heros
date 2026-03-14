@@ -15,7 +15,7 @@ import { UnitConfigMap } from '../../../configs/units.json';
 import { HeroConfigMap } from '../../../configs/heroes.json';
 import { LevelConfigMap } from '../../config/levels.json';
 import { levelBattleBridge, PlayerBattleUnit } from '../../level/LevelBattleBridge';
-import { levelManager } from '../../level';
+import { levelManager } from '../../level/LevelManager';
 import { BATTLEFIELD_RADIUS } from '../../config/GameTypes';
 
 const { ccclass, property } = _decorator;

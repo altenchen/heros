@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { activityManager } from '../../activity';
+import { activityManager } from '../../activity/ActivityManager';
 import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress, ActivityInfo, ActivityTask, ActivityReward, ActivityDetailResult, ClaimActivityResult, ActivityConfig } from '../../config/ActivityTypes';
 import { EventCenter } from '../../utils/EventTarget';
 

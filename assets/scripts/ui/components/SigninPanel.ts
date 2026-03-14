@@ -6,7 +6,7 @@
 
 import { _decorator, Component, Node, Label, Sprite, Button, Color, tween, Vec3, UIOpacity } from 'cc';
 import { UIPanel, PanelConfig, PanelAnimationType } from './UIPanel';
-import { dailySigninManager, getActiveSigninCycle } from '../../signin';
+import { dailySigninManager, getActiveSigninCycle } from '../../signin/DailySigninManager';
 import {
     SigninState,
     SigninPreview,
@@ -15,7 +15,7 @@ import {
     SigninEventType,
     SigninEventData
 } from '../../config/DailySigninTypes';
-import { soundManager } from '../../audio';
+import { soundManager } from '../../audio/SoundManager';
 import { UISoundType } from '../../config/AudioTypes';
 import { UIManager } from '../UIManager';
 

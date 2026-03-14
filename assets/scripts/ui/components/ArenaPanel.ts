@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, ProgressBar, Sprite, Color } from 'cc';
 import { UIPanel } from './UIPanel';
-import { arenaManager, ArenaTier, ArenaState, MatchType, BattleResult, BattleRecord } from '../../arena';
+import { arenaManager, ArenaTier, ArenaState, MatchType, BattleResult, BattleRecord } from '../../arena/ArenaManager';
 import { EventCenter } from '../../utils/EventTarget';
 import { ArenaEventType } from '../../config/ArenaTypes';
 
