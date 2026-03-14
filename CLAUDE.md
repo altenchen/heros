@@ -21,6 +21,7 @@
 | 主城系统 | ✅ 已完成 | 建筑、招募、资源 |
 | UI系统 | ✅ 已完成 | 管理器、组件、面板 |
 | 预制体 | ✅ 已完成 | 7个UI预制体 |
+| UI面板扩展 | ✅ 已完成 | 竞技场、招募、图鉴、邮件、活动、VIP、背包、商店面板 |
 | 对象池 | ✅ 已完成 | 通用池、节点池、战斗池 |
 | 成就任务 | ✅ 已完成 | 33个成就、12个任务 |
 | 关卡系统 | ✅ 已完成 | 2章节9关卡、精英副本 |
@@ -718,6 +719,15 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 战斗准备 | `assets/scripts/ui/components/FormationPanel.ts` |
 | 战斗面板 | `assets/scripts/ui/components/BattlePanel.ts` |
 | 战斗结果 | `assets/scripts/ui/components/BattleResultPanel.ts` |
+| 排行榜面板 | `assets/scripts/ui/components/RankPanel.ts` |
+| 竞技场面板 | `assets/scripts/ui/components/ArenaPanel.ts` |
+| 招募面板 | `assets/scripts/ui/components/GachaPanel.ts` |
+| 图鉴面板 | `assets/scripts/ui/components/CollectionPanel.ts` |
+| 邮件面板 | `assets/scripts/ui/components/MailPanel.ts` |
+| 活动面板 | `assets/scripts/ui/components/ActivityPanel.ts` |
+| VIP面板 | `assets/scripts/ui/components/VIPPanel.ts` |
+| 背包面板 | `assets/scripts/ui/components/InventoryPanel.ts` |
+| 商店面板 | `assets/scripts/ui/components/ShopPanel.ts` |
 | 战斗逻辑 | `assets/scripts/battle/BattleManager.ts` |
 | Buff管理 | `assets/scripts/battle/BuffManager.ts` |
 | 地形效果 | `assets/scripts/battle/TerrainEffectManager.ts` |
