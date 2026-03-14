@@ -421,6 +421,6 @@ export class BattleUnit implements IBattleUnit {
      * @param value 修正值（可为负数）
      */
     modifySpeedModifier(value: number): void {
-        this.speedModifier += value;
+        this._speedModifier += value;
     }
 }

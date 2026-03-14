@@ -576,7 +576,7 @@ export class BattleManager {
 
             case 'zombie_disease':
                 // 僵尸疾病
-                target.modifySpeedModifier(-(specialty.effect.value as number));
+                target.modifySpeed(-(specialty.effect.value as number));
                 break;
 
             case 'medusa_stone':
@@ -677,13 +677,19 @@ export class BattleManager {
             return false;
         }
 
-        const skill = this.skillManager.getSkill(skillId);
-        if (!skill) {
+        const skillConfig = this.skillManager.getSkill(skillId);
+        if (!skillConfig) {
             return false;
         }
 
         // 检查专注点消耗
-        if (skill.cost.focus && !this.useFocusPoint(skill.cost.focus)) {
+        if (skillConfig.cost.focus && !this.useFocusPoint(skillConfig.cost.focus)) {
+            return false;
+        }
+
+        // 创建技能实例
+        const skill = this.skillManager.createSkill(skillId, this.state.currentUnit);
+        if (!skill) {
             return false;
         }
 
