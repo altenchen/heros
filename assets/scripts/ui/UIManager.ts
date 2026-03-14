@@ -377,6 +377,13 @@ export class UIManager {
             layer: UILayer.TIPS,
             cache: true
         });
+
+        // 战争机器面板
+        this.registerUI('war_machine_panel', {
+            prefab: 'prefabs/ui/WarMachinePanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
     }
 
     /**
