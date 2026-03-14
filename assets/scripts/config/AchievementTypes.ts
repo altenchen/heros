@@ -27,7 +27,8 @@ export enum AchievementConditionType {
     WIN_STREAK = 'win_streak',               // 连胜次数
     USE_SKILL = 'use_skill',                 // 使用技能次数
     SUMMON_UNITS = 'summon_units',           // 召唤单位次数
-    PLAY_DAYS = 'play_days'                  // 累计游戏天数
+    PLAY_DAYS = 'play_days',                 // 累计游戏天数
+    CLEAR_LEVELS = 'clear_levels'            // 通关关卡数
 }
 
 /** 成就稀有度 */

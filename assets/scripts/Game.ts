@@ -8,7 +8,7 @@ import { PlayerDataManager } from './utils/PlayerDataManager';
 import { BattleManager } from './battle/BattleManager';
 import { UIManager } from './ui/UIManager';
 import { EventCenter, GameEvent } from './utils/EventTarget';
-import { Hex, Race, Faction } from './config/GameTypes';
+import { Hex, Race, Faction, ResourceType } from './config/GameTypes';
 import { UnitConfigMap } from '../configs/units.json';
 import { HeroConfigMap } from '../configs/heroes.json';
 import { PoolInitializer } from './utils/pool/PoolExamples';
@@ -71,13 +71,13 @@ export class Game extends Component {
     private _state: GameState = GameState.LOADING;
 
     /** 玩家数据管理器 */
-    private playerDataManager: PlayerDataManager;
+    private playerDataManager!: PlayerDataManager;
 
     /** 战斗管理器 */
     private battleManager: BattleManager | null = null;
 
     /** UI管理器 */
-    private uiManager: UIManager;
+    private uiManager!: UIManager;
 
     /** Canvas节点 */
     @property(Node)
@@ -849,7 +849,7 @@ export class Game extends Component {
                 soundManager.playBGM(BGMScene.VICTORY);
 
                 // 奖励
-                this.playerDataManager.addResource('gold', 1000);
+                this.playerDataManager.addResource(ResourceType.GOLD, 1000);
                 this.playerDataManager.addExperience(500);
 
                 // 触发成就事件 - 赢得战斗

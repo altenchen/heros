@@ -259,11 +259,11 @@ export class GachaPanel extends UIPanel {
         const pityRemaining = gachaManager.getPityRemaining(this._currentPoolId);
 
         if (this.pityCountLabel) {
-            this.pityCountLabel.string = `${pityCount}/${this._currentPoolConfig.pityThreshold}`;
+            this.pityCountLabel.string = `${pityCount}/${this._currentPoolConfig.pity.hardPity}`;
         }
 
         if (this.pityProgressBar) {
-            this.pityProgressBar.progress = pityCount / this._currentPoolConfig.pityThreshold;
+            this.pityProgressBar.progress = pityCount / this._currentPoolConfig.pity.hardPity;
         }
 
         if (this.pityTipLabel) {

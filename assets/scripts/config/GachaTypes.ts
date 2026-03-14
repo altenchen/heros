@@ -71,6 +71,8 @@ export interface GachaPoolConfig {
     tenCost: GachaCost;
     /** 保底配置 */
     pity: GachaPityConfig;
+    /** 保底阈值（别名，与 pity.hardPity 一致） */
+    pityThreshold?: number;
     /** 奖品池 */
     items: GachaPoolItem[];
     /** UP物品 */

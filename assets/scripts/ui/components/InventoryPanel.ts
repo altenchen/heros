@@ -213,7 +213,8 @@ export class InventoryPanel extends UIPanel {
             [InventoryType.EQUIPMENT]: '装备',
             [InventoryType.MATERIAL]: '材料',
             [InventoryType.HERO]: '英雄',
-            [InventoryType.SKIN]: '皮肤'
+            [InventoryType.SKIN]: '皮肤',
+            [InventoryType.SHARD]: '碎片'
         };
         return names[type] || '';
     }
@@ -381,12 +382,12 @@ export class InventoryPanel extends UIPanel {
      * 扩容点击
      */
     private _onExpandClick(): void {
-        const result = inventoryManager.expandInventory(this._currentType);
-        if (result.success) {
-            this._showToast(`扩容成功！容量+${result.addedSlots}`);
+        const success = inventoryManager.expandInventory(this._currentType);
+        if (success) {
+            this._showToast('扩容成功！');
             this._updateCapacity();
         } else {
-            this._showToast(result.error || '扩容失败');
+            this._showToast('扩容失败');
         }
     }
 
@@ -401,12 +402,13 @@ export class InventoryPanel extends UIPanel {
             this._showToast('使用成功！');
 
             // 更新详情
-            if (result.remainingCount <= 0) {
+            const remaining = result.remainingCount ?? 0;
+            if (remaining <= 0) {
                 this._hideDetailPanel();
             } else if (this._currentItem) {
-                this._currentItem.count = result.remainingCount;
+                this._currentItem.count = remaining;
                 if (this.itemCountLabel) {
-                    this.itemCountLabel.string = `数量: ${result.remainingCount}`;
+                    this.itemCountLabel.string = `数量: ${remaining}`;
                 }
             }
 

@@ -11,9 +11,9 @@ import { UIManager } from '../UIManager';
 import { EventCenter, GameEvent } from '../../utils/EventTarget';
 import { PlayerDataManager } from '../../utils/PlayerDataManager';
 import { HeroData, SkillInstance, ArmySlot, HeroConfig, UnitConfig } from '../../config/GameTypes';
-import { HeroConfigMap } from '../../config/heroes.json';
-import { SkillConfigMap } from '../../config/skills.json';
-import { UnitConfigMap } from '../../config/units.json';
+import { HeroConfigMap } from '../../../configs/heroes.json';
+import { SkillConfigMap } from '../../../configs/skills.json';
+import { UnitConfigMap } from '../../../configs/units.json';
 
 const { ccclass, property } = _decorator;
 
@@ -153,7 +153,7 @@ export class HeroPanel extends UIPanel {
             // 默认显示第一个英雄
             const heroes = this._playerData?.getAllHeroes() || [];
             if (heroes.length > 0) {
-                this._currentHeroId = heroes[0].id;
+                this._currentHeroId = heroes[0].data.id;
             }
         }
 
@@ -171,9 +171,10 @@ export class HeroPanel extends UIPanel {
     private _loadHeroData(): void {
         if (!this._playerData || !this._currentHeroId) return;
 
-        this._currentHero = this._playerData.getHero(this._currentHeroId);
-        if (this._currentHero) {
-            this._currentHeroConfig = HeroConfigMap.get(this._currentHero.configId) || null;
+        const hero = this._playerData.getHero(this._currentHeroId);
+        if (hero) {
+            this._currentHero = hero.data;
+            this._currentHeroConfig = hero.config;
         }
     }
 

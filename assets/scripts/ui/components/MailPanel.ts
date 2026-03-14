@@ -18,7 +18,9 @@ const MAIL_TYPE_ICONS: Record<MailType, string> = {
     [MailType.REWARD]: 'mail_reward',
     [MailType.FRIEND]: 'mail_friend',
     [MailType.GUILD]: 'mail_guild',
-    [MailType.BATTLE]: 'mail_battle'
+    [MailType.BATTLE]: 'mail_battle',
+    [MailType.ANNOUNCEMENT]: 'mail_announcement',
+    [MailType.BATTLE_REPORT]: 'mail_battle_report'
 };
 
 /** 邮件类型名称 */
@@ -27,7 +29,9 @@ const MAIL_TYPE_NAMES: Record<MailType, string> = {
     [MailType.REWARD]: '奖励邮件',
     [MailType.FRIEND]: '好友邮件',
     [MailType.GUILD]: '公会邮件',
-    [MailType.BATTLE]: '战报邮件'
+    [MailType.BATTLE]: '战报邮件',
+    [MailType.ANNOUNCEMENT]: '公告邮件',
+    [MailType.BATTLE_REPORT]: '战斗报告'
 };
 
 @ccclass('MailPanel')

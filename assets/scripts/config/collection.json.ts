@@ -230,8 +230,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     // 英雄图鉴进度奖励
     {
         rewardId: 'progress_hero_5',
+        id: 'progress_hero_5',
         type: CollectionType.HERO,
         requiredCount: 5,
+        count: 5,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 10000 },
             { type: 'resource', itemId: 'gems', amount: 200 }
@@ -239,8 +241,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     },
     {
         rewardId: 'progress_hero_10',
+        id: 'progress_hero_10',
         type: CollectionType.HERO,
         requiredCount: 10,
+        count: 10,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 30000 },
             { type: 'resource', itemId: 'gems', amount: 500 },
@@ -249,8 +253,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     },
     {
         rewardId: 'progress_hero_20',
+        id: 'progress_hero_20',
         type: CollectionType.HERO,
         requiredCount: 20,
+        count: 20,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 100000 },
             { type: 'resource', itemId: 'gems', amount: 1500 },
@@ -260,8 +266,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     // 兵种图鉴进度奖励
     {
         rewardId: 'progress_unit_10',
+        id: 'progress_unit_10',
         type: CollectionType.UNIT,
         requiredCount: 10,
+        count: 10,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 5000 },
             { type: 'resource', itemId: 'gems', amount: 100 }
@@ -269,8 +277,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     },
     {
         rewardId: 'progress_unit_30',
+        id: 'progress_unit_30',
         type: CollectionType.UNIT,
         requiredCount: 30,
+        count: 30,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 20000 },
             { type: 'resource', itemId: 'gems', amount: 300 }
@@ -279,8 +289,10 @@ export const collectionProgressRewards: CollectionProgressReward[] = [
     // 总收集进度奖励
     {
         rewardId: 'progress_total_50',
+        id: 'progress_total_50',
         type: CollectionType.HERO, // 用HERO表示总进度
         requiredCount: 50,
+        count: 50,
         rewards: [
             { type: 'resource', itemId: 'gold', amount: 50000 },
             { type: 'resource', itemId: 'gems', amount: 800 },

@@ -18,7 +18,9 @@ export enum MailType {
     /** 公会邮件 */
     GUILD = 'guild',
     /** 战斗报告 */
-    BATTLE_REPORT = 'battle_report'
+    BATTLE_REPORT = 'battle_report',
+    /** 战斗邮件（别名） */
+    BATTLE = 'battle'
 }
 
 /**
@@ -67,6 +69,8 @@ export interface MailAttachment {
 export interface MailData {
     /** 邮件ID */
     mailId: string;
+    /** ID（别名） */
+    id?: string;
     /** 邮件类型 */
     type: MailType;
     /** 发送者 */
@@ -81,6 +85,8 @@ export interface MailData {
     expireTime: number;
     /** 附件列表 */
     attachments: MailAttachment[];
+    /** 附件是否已领取 */
+    attachmentsClaimed?: boolean;
     /** 邮件状态 */
     state: MailState;
     /** 是否有附件 */
@@ -203,6 +209,18 @@ export interface ClaimAttachmentResult {
     mailId: string;
     /** 已领取的附件 */
     claimedAttachments: MailAttachment[];
+    /** 错误信息 */
+    error?: string;
+}
+
+/**
+ * 一键领取所有附件结果
+ */
+export interface ClaimAllAttachmentsResult {
+    /** 是否成功 */
+    success: boolean;
+    /** 总物品数 */
+    totalItems: number;
     /** 错误信息 */
     error?: string;
 }

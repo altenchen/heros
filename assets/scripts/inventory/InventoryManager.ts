@@ -454,7 +454,7 @@ export class InventoryManager {
             if (roll <= (content.probability || 100)) {
                 // 发放奖励
                 if (content.type === 'resource') {
-                    playerDataManager.addResource(content.itemId || 'gold', content.amount);
+                    playerDataManager.addResource((content.itemId as ResourceType) || ResourceType.GOLD, content.amount);
                 } else if (content.type === 'item') {
                     this.addItem(content.itemId || '', content.amount);
                 }

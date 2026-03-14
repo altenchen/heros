@@ -59,7 +59,7 @@ type IBattleUnitData = BattleUnitData;
 /**
  * 战斗状态（使用 BattleUnit 类类型）
  */
-interface LocalBattleState {
+interface BattleState {
     turn: number;
     phase: 'preparation' | 'battle' | 'end';
     focusPoints: number;
@@ -109,7 +109,7 @@ interface AIDecision {
  */
 export class BattleManager {
     private grid: HexGrid;
-    private state: LocalBattleState;
+    private state: BattleState;
     private events: BattleEvent[] = [];
     private skillManager: SkillManager;
     private buffManager: BuffManager;
@@ -133,7 +133,7 @@ export class BattleManager {
     /**
      * 创建初始战斗状态
      */
-    private createInitialState(): LocalBattleState {
+    private createInitialState(): BattleState {
         return {
             turn: 0,
             phase: 'preparation',
@@ -869,7 +869,7 @@ export class BattleManager {
     /**
      * 获取战斗状态
      */
-    getState(): LocalBattleState {
+    getState(): BattleState {
         return this.state;
     }
 

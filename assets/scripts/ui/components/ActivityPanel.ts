@@ -7,7 +7,7 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { activityManager } from '../../activity';
-import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress, ActivityInfo, ActivityTask, ActivityReward, ActivityDetailResult, ClaimActivityResult } from '../../config/ActivityTypes';
+import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress, ActivityInfo, ActivityTask, ActivityReward, ActivityDetailResult, ClaimActivityResult, ActivityConfig } from '../../config/ActivityTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
@@ -204,12 +204,13 @@ export class ActivityPanel extends UIPanel {
     /**
      * 创建活动项
      */
-    private _createActivityItem(activity: ActivityInfo): void {
+    private _createActivityItem(activity: ActivityConfig): void {
         if (!this.activityContainer) return;
 
+        const activityId = activity.activityId;
         const itemNode = this.activityItemPrefab
             ? instantiate(this.activityItemPrefab)
-            : new Node(`Activity_${activity.id}`);
+            : new Node(`Activity_${activityId}`);
 
         // 设置活动名称
         const nameLabel = itemNode.getChildByName('Name')?.getComponent(Label);
@@ -226,7 +227,7 @@ export class ActivityPanel extends UIPanel {
         // 设置活动状态
         const stateLabel = itemNode.getChildByName('State')?.getComponent(Label);
         if (stateLabel) {
-            const isActive = activityManager.isActivityActive(activity.id);
+            const isActive = activityManager.isActivityActive(activityId);
             stateLabel.string = isActive ? '进行中' : '即将开启';
             stateLabel.color = isActive ? new Color(50, 205, 50) : new Color(150, 150, 150);
         }
@@ -246,12 +247,12 @@ export class ActivityPanel extends UIPanel {
         // 可领取标记
         const claimableMark = itemNode.getChildByName('ClaimableMark');
         if (claimableMark) {
-            claimableMark.active = activityManager.hasClaimableRewards(activity.id);
+            claimableMark.active = activityManager.hasClaimableRewards(activityId);
         }
 
         // 点击查看详情
         itemNode.on(Node.EventType.TOUCH_END, () => {
-            this._showActivityDetail(activity.id);
+            this._showActivityDetail(activityId);
         });
 
         this.activityContainer.addChild(itemNode);
@@ -439,17 +440,19 @@ export class ActivityPanel extends UIPanel {
     /**
      * 活动开始回调
      */
-    private _onActivityStart(data: { activity: ActivityInfo }): void {
+    private _onActivityStart(data: { activity?: { name: string } }): void {
         this._updateActivityList();
-        this._showToast(`活动【${data.activity.name}】已开启！`);
+        if (data.activity) {
+            this._showToast(`活动【${data.activity.name}】已开启！`);
+        }
     }
 
     /**
      * 活动结束回调
      */
-    private _onActivityEnd(data: { activity: ActivityInfo }): void {
+    private _onActivityEnd(data: { activityId?: string }): void {
         this._updateActivityList();
-        if (this._currentActivityId === data.activity.id) {
+        if (data.activityId && this._currentActivityId === data.activityId) {
             this._hideDetailPanel();
         }
     }

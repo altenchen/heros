@@ -11,8 +11,8 @@ import { UIManager } from '../UIManager';
 import { EventCenter, GameEvent } from '../../utils/EventTarget';
 import { PlayerDataManager } from '../../utils/PlayerDataManager';
 import { ResourceType, Race, BuildingConfig, UnitConfig } from '../../config/GameTypes';
-import { UnitConfigMap } from '../../config/units.json';
-import { HeroConfigMap } from '../../config/heroes.json';
+import { UnitConfigMap } from '../../../configs/units.json';
+import { HeroConfigMap } from '../../../configs/heroes.json';
 import { nodePoolManager } from '../../utils/pool';
 
 const { ccclass, property } = _decorator;

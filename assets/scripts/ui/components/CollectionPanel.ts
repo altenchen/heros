@@ -7,15 +7,21 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { collectionManager } from '../../collection';
-import { CollectionType, CollectionState, CollectionEventType, CollectionEntry, CollectionProgressReward } from '../../config/CollectionTypes';
+import { CollectionType, CollectionState, CollectionEventType, CollectionEntryConfig, CollectionEntryData, CollectionProgressReward } from '../../config/CollectionTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
+
+/** 收集条目（包含配置和数据） */
+type CollectionEntryItem = { config: CollectionEntryConfig; data: CollectionEntryData };
 
 /** 图鉴类型名称 */
 const COLLECTION_TYPE_NAMES: Record<CollectionType, string> = {
     [CollectionType.HERO]: '英雄',
     [CollectionType.UNIT]: '兵种',
+    [CollectionType.ITEM]: '物品',
+    [CollectionType.SKILL]: '技能',
+    [CollectionType.ACHIEVEMENT]: '成就',
     [CollectionType.SKIN]: '皮肤',
     [CollectionType.TITLE]: '称号'
 };
@@ -24,7 +30,8 @@ const COLLECTION_TYPE_NAMES: Record<CollectionType, string> = {
 const STATE_COLORS: Record<CollectionState, Color> = {
     [CollectionState.LOCKED]: new Color(100, 100, 100),       // 灰色
     [CollectionState.UNLOCKED]: new Color(200, 200, 200),     // 浅灰
-    [CollectionState.COLLECTED]: new Color(50, 205, 50)       // 绿色
+    [CollectionState.COLLECTED]: new Color(50, 205, 50),      // 绿色
+    [CollectionState.MAX_LEVEL]: new Color(255, 215, 0)       // 金色
 };
 
 @ccclass('CollectionPanel')
@@ -354,9 +361,9 @@ export class CollectionPanel extends UIPanel {
     private _getProgressRewardConfigs(): CollectionProgressReward[] {
         // 从配置中获取
         return [
-            { id: 'progress_1', type: this._currentType, count: 5, rewards: [{ type: 'gems', amount: 100 }] },
-            { id: 'progress_2', type: this._currentType, count: 10, rewards: [{ type: 'gems', amount: 200 }] },
-            { id: 'progress_3', type: this._currentType, count: 20, rewards: [{ type: 'gems', amount: 500 }] }
+            { rewardId: 'progress_1', id: 'progress_1', type: this._currentType, requiredCount: 5, count: 5, rewards: [{ type: 'gems', itemId: 'gems', amount: 100 }] },
+            { rewardId: 'progress_2', id: 'progress_2', type: this._currentType, requiredCount: 10, count: 10, rewards: [{ type: 'gems', itemId: 'gems', amount: 200 }] },
+            { rewardId: 'progress_3', id: 'progress_3', type: this._currentType, requiredCount: 20, count: 20, rewards: [{ type: 'gems', itemId: 'gems', amount: 500 }] }
         ];
     }
 
@@ -370,10 +377,10 @@ export class CollectionPanel extends UIPanel {
     /**
      * 显示条目详情
      */
-    private _showEntryDetail(entry: CollectionEntry): void {
+    private _showEntryDetail(entry: { config: CollectionEntryConfig; data: CollectionEntryData }): void {
         if (!this.detailPanel) return;
 
-        this._currentEntryId = entry.config.id;
+        this._currentEntryId = entry.config.entryId;
         this.detailPanel.active = true;
 
         if (this.detailNameLabel) {
@@ -415,13 +422,13 @@ export class CollectionPanel extends UIPanel {
     private _onCollectClick(): void {
         if (!this._currentEntryId) return;
 
-        const result = collectionManager.collect(this._currentEntryId);
-        if (result.success) {
+        const success = collectionManager.collect(this._currentEntryId);
+        if (success) {
             this._showToast('收集成功！');
             this._updateUI();
             this._hideDetailPanel();
         } else {
-            this._showToast(result.error || '收集失败');
+            this._showToast('收集失败');
         }
     }
 

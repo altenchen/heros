@@ -15,7 +15,9 @@ import {
     ActivityListResult,
     ActivityDetailResult,
     ClaimActivityResult,
-    ActivityTaskReward
+    ActivityTaskReward,
+    ActivityInfo,
+    ActivityTask
 } from '../config/ActivityTypes';
 import {
     activityConfigs,
