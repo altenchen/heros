@@ -5,7 +5,7 @@
  */
 
 import { _decorator, Component, Node, Label, Sprite, Button, Color, tween, Vec3, UIOpacity } from 'cc';
-import { UIPanel, PanelConfig } from './UIPanel';
+import { UIPanel, PanelConfig, PanelAnimationType } from './UIPanel';
 import { dailySigninManager, getActiveSigninCycle } from '../../signin';
 import {
     SigninState,
@@ -90,6 +90,7 @@ export class SigninPanel extends UIPanel {
         return {
             layer: 3, // POPUP层
             animationType: PanelAnimationType.SCALE,
+            animationDuration: 0.3,
             cache: true,
             closeOnBackKey: true,
             blockInput: true

@@ -156,6 +156,8 @@ declare module 'cc' {
         removeAllChildren(): void;
         removeFromParent(): void;
         clone(): Node;
+        setSiblingIndex(index: number): void;
+        getSiblingIndex(): number;
         setParent(parent: Node | null, worldPositionStays?: boolean): void;
         getChildByPath(path: string): Node | null;
         getChildByName(name: string): Node | null;
@@ -281,6 +283,12 @@ declare module 'cc' {
         overflow: number;
         enableWrapText: boolean;
         maxWidth: number;
+        enableOutline: boolean;
+        outlineColor: Color;
+        outlineWidth: number;
+        enableBold: boolean;
+        enableItalic: boolean;
+        underlineHeight: number;
 
         static readonly HorizontalAlign: {
             LEFT: number;

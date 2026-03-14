@@ -4,7 +4,7 @@
  */
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, UIOpacity, SpriteFrame } from 'cc';
-import { UIPanel, PanelConfig } from './UIPanel';
+import { UIPanel, PanelConfig, PanelAnimationType } from './UIPanel';
 import { saveManager, autoSaveManager } from '../../save';
 import {
     SaveSlot,
@@ -106,6 +106,7 @@ export class SavePanel extends UIPanel {
         return {
             layer: 3, // POPUP层
             animationType: PanelAnimationType.SCALE,
+            animationDuration: 0.3,
             cache: true,
             closeOnBackKey: true,
             blockInput: true
