@@ -12,7 +12,7 @@ import {
     SigninPreview,
     SigninEventType,
     SigninEventData,
-    RewardConfig,
+    RewardConfig as SigninRewardConfigItem,
     SigninRewardConfig,
     SigninCycleConfig
 } from '../config/DailySigninTypes';
@@ -321,7 +321,7 @@ export class DailySigninManager {
         this._grantRewards(rewardConfig.rewards);
 
         // 检查连续签到奖励
-        let continuousBonus: RewardConfig | undefined;
+        let continuousBonus: SigninRewardConfigItem | undefined;
         const bonus = getContinuousBonus(cycle.cycleId, progress.continuousDays);
         if (bonus) {
             this._grantRewards([bonus]);
@@ -460,9 +460,9 @@ export class DailySigninManager {
     /**
      * 发放奖励
      */
-    private _grantRewards(rewards: RewardConfig[]): void {
+    private _grantRewards(rewards: SigninRewardConfigItem[]): void {
         // 转换为统一奖励配置格式
-        const rewardConfigs: RewardConfig[] = rewards.map(r => ({
+        const rewardConfigs = rewards.map(r => ({
             type: r.type,
             itemId: r.itemId,
             amount: r.amount

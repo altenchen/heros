@@ -132,7 +132,7 @@ export class BattleManager {
     /**
      * 创建初始战斗状态
      */
-    private createInitialState(): BattleState {
+    private createInitialState(): LocalBattleState {
         return {
             turn: 0,
             phase: 'preparation',
