@@ -7,7 +7,7 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { activityManager } from '../../activity';
-import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress } from '../../config/ActivityTypes';
+import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress, ActivityInfo, ActivityTask, ActivityReward, ActivityDetailResult, ClaimActivityResult } from '../../config/ActivityTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
@@ -161,8 +161,8 @@ export class ActivityPanel extends UIPanel {
         const list = activityManager.getActivityList();
 
         // 先显示进行中的活动
-        const activeActivities = list.activities.filter(a => activityManager.isActivityActive(a.id));
-        const previewActivities = list.activities.filter(a => !activityManager.isActivityActive(a.id));
+        const activeActivities = list.activities.filter(a => activityManager.isActivityActive(a.activityId));
+        const previewActivities = list.activities.filter(a => !activityManager.isActivityActive(a.activityId));
 
         // 添加进行中的活动
         if (activeActivities.length > 0) {

@@ -54,7 +54,9 @@ export enum ShopType {
     /** 活动商店 */
     EVENT = 'event',
     /** 限时商店 */
-    LIMITED = 'limited'
+    LIMITED = 'limited',
+    /** VIP商店 */
+    VIP = 'vip'
 }
 
 /**
@@ -119,6 +121,8 @@ export interface ShopItemPrice {
 export interface ShopItemConfig {
     /** 商品ID */
     itemId: string;
+    /** ID（别名） */
+    id?: string;
     /** 商品名称 */
     name: string;
     /** 商品描述 */
@@ -131,8 +135,14 @@ export interface ShopItemConfig {
     contents: ShopItemContent[];
     /** 价格列表 */
     prices: ShopItemPrice[];
+    /** 价格（别名，兼容旧接口） */
+    price?: number;
+    /** 原价（别名） */
+    originalPrice?: number;
     /** 购买限制 */
     buyLimit?: number;
+    /** 购买限制（别名） */
+    limit?: number;
     /** 每日限制 */
     dailyLimit?: number;
     /** 每周限制 */
@@ -156,6 +166,9 @@ export interface ShopItemConfig {
     /** 图标路径 */
     icon?: string;
 }
+
+/** 商品（类型别名） */
+export type ShopItem = ShopItemConfig;
 
 /**
  * 商品购买记录

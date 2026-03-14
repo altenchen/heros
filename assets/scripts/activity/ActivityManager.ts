@@ -265,7 +265,31 @@ export class ActivityManager {
         const progress = this._getOrCreateProgress(activityId);
         const state = this._stateCache.get(activityId) || this._calculateActivityState(activity);
 
-        return { activity, progress, state };
+        // 构建 ActivityInfo
+        const info: ActivityInfo = {
+            id: activity.activityId,
+            type: activity.type,
+            name: activity.name,
+            description: activity.description,
+            icon: activity.icon,
+            startTime: activity.startTime,
+            endTime: activity.endTime
+        };
+
+        // 构建 ActivityTask 列表
+        const tasks: ActivityTask[] = activity.tasks.map(task => {
+            const taskProgress = progress.taskProgress.get(task.taskId);
+            return {
+                id: task.taskId,
+                name: task.name,
+                currentProgress: taskProgress?.current || 0,
+                targetProgress: task.condition.target,
+                claimed: taskProgress?.claimed || false,
+                rewards: task.rewards
+            };
+        });
+
+        return { info, tasks, progress, state };
     }
 
     /**

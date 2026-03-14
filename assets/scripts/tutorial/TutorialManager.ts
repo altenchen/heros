@@ -18,6 +18,7 @@ import {
 } from '../config/TutorialTypes';
 import { tutorials, getTutorialById } from '../config/tutorials.json';
 import { EventCenter } from '../utils/EventTarget';
+import { ResourceType } from '../config/GameTypes';
 import { playerDataManager } from '../utils/PlayerDataManager';
 
 /**

@@ -133,6 +133,8 @@ export interface ActivityTaskProgress {
 export interface ActivityConfig {
     /** 活动ID */
     activityId: string;
+    /** ID（别名） */
+    id: string;
     /** 活动类型 */
     type: ActivityType;
     /** 活动名称 */

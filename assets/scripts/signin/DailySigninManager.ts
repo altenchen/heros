@@ -405,8 +405,8 @@ export class DailySigninManager {
         const cost = calculateMakeupCost(cycle, progress.makeupUsedCount);
 
         // 检查资源是否足够
-        const gold = playerDataManager.getResource('gold');
-        const gems = playerDataManager.getResource('gems');
+        const gold = playerDataManager.getResource(ResourceType.GOLD);
+        const gems = playerDataManager.getResource(ResourceType.GEMS);
 
         if (gold < cost.gold || gems < cost.gems) {
             return {
@@ -418,8 +418,8 @@ export class DailySigninManager {
         }
 
         // 扣除资源
-        playerDataManager.addResource('gold', -cost.gold);
-        playerDataManager.addResource('gems', -cost.gems);
+        playerDataManager.addResource(ResourceType.GOLD, -cost.gold!);
+        playerDataManager.addResource(ResourceType.GEMS, -cost.gems!);
 
         // 获取奖励
         const rewardConfig = getRewardByDay(cycle.cycleId, day);
