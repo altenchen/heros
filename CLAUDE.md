@@ -53,7 +53,7 @@
 | 公告系统 | ✅ 已完成 | 游戏公告、弹窗公告、已读状态 |
 | 远征系统 | ✅ 已完成 | 英雄派遣、远征奖励、星级评价 |
 | 在线奖励系统 | ✅ 已完成 | 在线时长奖励、VIP加成、每日重置 |
-| 宝物系统 | 🚧 进行中 | 神器收集、装备强化、属性加成 |
+| 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -1018,6 +1018,65 @@ EventCenter.on(OnlineRewardEventType.REWARD_AVAILABLE, (data) => {
 });
 EventCenter.on(OnlineRewardEventType.REWARD_CLAIMED, (data) => {
     console.log(`领取奖励: ${data.rewardId}`);
+});
+```
+
+### 宝物系统
+
+```typescript
+import { ArtifactManager, artifactManager } from './artifact/ArtifactManager';
+import { ArtifactSlot, ArtifactRarity, ArtifactEventType, ArtifactStatType } from './config/ArtifactTypes';
+
+// 初始化
+artifactManager.init();
+
+// 初始化英雄装备槽
+artifactManager.initHeroEquipment('hero_1');
+
+// 获取宝物
+const artifact = artifactManager.addArtifact('artifact_sword_3', 1);
+
+// 装备宝物
+const equipResult = artifactManager.equipArtifact('hero_1', artifact!.instanceId);
+if (equipResult.success) {
+    console.log('装备成功');
+}
+
+// 卸下宝物
+artifactManager.unequipArtifact('hero_1', ArtifactSlot.MAIN_HAND);
+
+// 获取英雄装备属性
+const attack = artifactManager.getHeroStat('hero_1', ArtifactStatType.ATTACK);
+const allStats = artifactManager.getHeroAllStats('hero_1');
+
+// 获取背包宝物列表
+const artifacts = artifactManager.getArtifacts({ rarity: ArtifactRarity.MAJOR });
+
+// 获取英雄装备
+const equipment = artifactManager.getHeroEquipment('hero_1');
+const mainHand = artifactManager.getSlotArtifact('hero_1', ArtifactSlot.MAIN_HAND);
+
+// 出售宝物
+const gold = artifactManager.sellArtifact(artifact!.instanceId);
+
+// 强化宝物
+artifactManager.enhanceArtifact(artifact!.instanceId, { gold: 1000, gems: 10 });
+
+// 组合宝物合成
+if (artifactManager.canCombineArtifact('artifact_sword_4')) {
+    const combined = artifactManager.combineArtifact('artifact_sword_4');
+}
+
+// 存档
+const saveData = artifactManager.getSaveData();
+artifactManager.loadSaveData(saveData);
+
+// 监听宝物事件
+EventCenter.on(ArtifactEventType.ARTIFACT_OBTAINED, (data) => {
+    console.log(`获得宝物: ${data.artifactId}`);
+});
+EventCenter.on(ArtifactEventType.ARTIFACT_EQUIPPED, (data) => {
+    console.log(`装备宝物: ${data.artifactId}`);
 });
 ```
 
