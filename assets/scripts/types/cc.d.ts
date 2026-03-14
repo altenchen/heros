@@ -259,12 +259,6 @@ declare module 'cc' {
         };
     }
 
-    export class UIComponent extends Component {
-        setEnabled(enabled: boolean): void;
-        setLabel(text: string): void;
-        setOnClick(callback: Function, target?: any): void;
-    }
-
     export class ScrollView extends Component {
         content: Node | null;
         horizontal: boolean;
@@ -433,7 +427,7 @@ declare module 'cc' {
 
     // ==================== 工具函数 ====================
     export function instantiate(original: Prefab): Node;
-    export function instantiate<T extends Asset>(original: T): T;
+    export function instantiate(original: Node): Node;
     export function clamp(value: number, min: number, max: number): number;
     export function lerp(a: number, b: number, t: number): number;
     export function find(path: string): Node | null;
