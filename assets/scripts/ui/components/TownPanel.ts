@@ -260,7 +260,8 @@ export class TownPanel extends UIPanel {
      * 更新英雄列表
      */
     private _updateHeroList(): void {
-        if (!this._playerData || !this.heroListContainer) return;
+        const container = this.heroListContainer;
+        if (!this._playerData || !container) return;
 
         // 归还所有英雄节点到池中
         this._heroNodes.forEach(node => {
@@ -277,10 +278,10 @@ export class TownPanel extends UIPanel {
             // 从池中获取英雄头像节点
             let heroNode: Node;
             if (nodePoolManager.getPool(TownPanel.POOL_HERO_ICON)) {
-                heroNode = nodePoolManager.get(TownPanel.POOL_HERO_ICON, this.heroListContainer!);
+                heroNode = nodePoolManager.get(TownPanel.POOL_HERO_ICON, container);
             } else {
                 heroNode = this.heroIconPrefab ? instantiate(this.heroIconPrefab) : new Node(`Hero_${index}`);
-                this.heroListContainer.addChild(heroNode);
+                container.addChild(heroNode);
             }
 
             // 设置点击事件

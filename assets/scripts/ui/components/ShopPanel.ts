@@ -169,9 +169,10 @@ export class ShopPanel extends UIPanel {
      * 初始化分类
      */
     private _initCategories(): void {
-        if (!this.categoryContainer) return;
+        const container = this.categoryContainer;
+        if (!container) return;
 
-        this.categoryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const types = [ShopType.NORMAL, ShopType.VIP, ShopType.ARENA, ShopType.GUILD];
 
@@ -192,7 +193,7 @@ export class ShopPanel extends UIPanel {
                 this._selectShopType(type);
             });
 
-            this.categoryContainer.addChild(btnNode);
+            container.addChild(btnNode);
         });
     }
 
@@ -228,9 +229,10 @@ export class ShopPanel extends UIPanel {
      * 更新商品列表
      */
     private _updateShopItems(): void {
-        if (!this.shopContainer) return;
+        const container = this.shopContainer;
+        if (!container) return;
 
-        this.shopContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const items = shopManager.getShopItems(this._currentShopType);
 
@@ -294,7 +296,7 @@ export class ShopPanel extends UIPanel {
                 });
             }
 
-            this.shopContainer.addChild(itemNode);
+            container.addChild(itemNode);
         });
     }
 
@@ -316,9 +318,10 @@ export class ShopPanel extends UIPanel {
      * 更新兑换列表
      */
     private _updateExchangeList(): void {
-        if (!this.exchangeContainer) return;
+        const container = this.exchangeContainer;
+        if (!container) return;
 
-        this.exchangeContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const exchanges = shopManager.getExchangeConfigs();
 
@@ -345,7 +348,7 @@ export class ShopPanel extends UIPanel {
                 });
             }
 
-            this.exchangeContainer.addChild(exchangeNode);
+            container.addChild(exchangeNode);
         });
     }
 

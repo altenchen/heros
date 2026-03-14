@@ -219,6 +219,31 @@ declare module 'cc' {
     }
 
     // ============ UI Components ============
+    export class UIOpacity extends Component {
+        opacity: number;
+    }
+
+    export class Graphics extends Component {
+        strokeColor: Color;
+        fillColor: Color;
+        lineWidth: number;
+        miterLimit: number;
+
+        clear(): void;
+        close(): void;
+        moveTo(x: number, y: number): void;
+        lineTo(x: number, y: number): void;
+        bezierCurveTo(c1x: number, c1y: number, c2x: number, c2y: number, x: number, y: number): void;
+        quadraticCurveTo(cx: number, cy: number, x: number, y: number): void;
+        arc(cx: number, cy: number, r: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
+        ellipse(cx: number, cy: number, rx: number, ry: number): void;
+        circle(cx: number, cy: number, r: number): void;
+        rect(x: number, y: number, w: number, h: number): void;
+        roundRect(x: number, y: number, w: number, h: number, r: number): void;
+        fill(): void;
+        stroke(): void;
+    }
+
     export class UITransform extends Component {
         contentSize: Size;
         anchorPoint: Vec2;
@@ -561,6 +586,12 @@ declare module 'cc' {
         width: number;
         height: number;
         pixelFormat: number;
+    }
+
+    export class ImageAsset extends Asset {
+        width: number;
+        height: number;
+        data: ArrayBuffer;
     }
 
     export class Prefab extends Asset {

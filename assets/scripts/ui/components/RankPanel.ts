@@ -196,10 +196,11 @@ export class RankPanel extends UIPanel {
      * 设置分类按钮
      */
     private _setupCategories(): void {
-        if (!this.categoryContainer) return;
+        const container = this.categoryContainer;
+        if (!container) return;
 
         // 清空现有按钮
-        this.categoryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const types = Object.values(RankType);
 
@@ -221,7 +222,7 @@ export class RankPanel extends UIPanel {
                 this._selectType(type);
             });
 
-            this.categoryContainer.addChild(buttonNode);
+            container.addChild(buttonNode);
         });
     }
 
@@ -393,8 +394,9 @@ export class RankPanel extends UIPanel {
             this.rewardPreviewPanel.active = true;
         }
 
-        if (this.rewardListContainer) {
-            this.rewardListContainer.removeAllChildren();
+        const listContainer = this.rewardListContainer;
+        if (listContainer) {
+            listContainer.removeAllChildren();
 
             const rewardConfig = getRankReward(entry.rank, this._currentType);
             if (rewardConfig) {
@@ -403,7 +405,7 @@ export class RankPanel extends UIPanel {
                     const label = rewardNode.addComponent(Label);
                     label.string = this._formatReward(reward.type, reward.amount, reward.itemId);
                     label.fontSize = 20;
-                    this.rewardListContainer.addChild(rewardNode);
+                    listContainer.addChild(rewardNode);
                 });
             }
         }

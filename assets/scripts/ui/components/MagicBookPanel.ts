@@ -132,7 +132,7 @@ export class MagicBookPanel extends UIPanel {
         this.initEvents();
     }
 
-    protected onDestroy(): void {
+    onDestroy(): void {
         this.removeEvents();
         super.onDestroy();
     }

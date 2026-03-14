@@ -216,15 +216,17 @@ export class SpeedUpPanel extends UIPanel {
      * 创建加速道具项
      */
     private _createSpeedUpItems(): void {
-        if (!this.itemContainer || !this.itemTemplate || !this._target) {
+        const container = this.itemContainer;
+        const template = this.itemTemplate;
+        if (!container || !template || !this._target) {
             return;
         }
 
         // 隐藏模板
-        this.itemTemplate.active = false;
+        template.active = false;
 
         // 清除现有项
-        this.itemContainer.removeAllChildren();
+        container.removeAllChildren();
         this._items = [];
 
         // 获取可用道具
@@ -233,7 +235,7 @@ export class SpeedUpPanel extends UIPanel {
         items.forEach(config => {
             const node = this._createItemNode(config);
             if (node) {
-                this.itemContainer.addChild(node);
+                container.addChild(node);
                 this._items.push({ config, node });
             }
         });

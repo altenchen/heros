@@ -125,14 +125,16 @@ export class RandomEventPanel extends UIPanel {
         });
         this.optionButtons = [];
 
-        if (!this.currentEvent || !this.optionsContainer || !this.optionButtonTemplate) return;
+        const container = this.optionsContainer;
+        const template = this.optionButtonTemplate;
+        if (!this.currentEvent || !container || !template) return;
 
         this.currentEvent.options.forEach((option, index) => {
             // 检查是否可以选择
             const canSelect = this.checkOptionRequirements(option);
 
             // 克隆按钮模板
-            const buttonNode = this.optionButtonTemplate.clone();
+            const buttonNode = template.clone();
             buttonNode.active = true;
             buttonNode.name = `Option_${option.id}`;
 
@@ -162,7 +164,7 @@ export class RandomEventPanel extends UIPanel {
             }
 
             // 添加到容器
-            this.optionsContainer.addChild(buttonNode);
+            container.addChild(buttonNode);
 
             this.optionButtons.push({
                 option,
