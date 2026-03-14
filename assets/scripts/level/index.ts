@@ -3,5 +3,5 @@
  * 导出关卡系统相关类
  */
 
-export * from './LevelTypes';
+export * from '../config/LevelTypes';
 export { LevelManager, levelManager, LevelEventType } from './LevelManager';

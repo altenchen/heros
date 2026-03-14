@@ -34,7 +34,7 @@ export interface MarketLevelConfig {
     /** 市场名称 */
     name: string;
     /** 建造费用 */
-    buildCost: Record<ResourceType, number>;
+    buildCost: Partial<Record<ResourceType, number>>;
     /** 汇率优惠百分比 */
     rateBonus: number;
     /** 每日交易次数上限 */
