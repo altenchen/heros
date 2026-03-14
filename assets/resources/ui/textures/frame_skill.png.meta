@@ -1,0 +1,11 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": false,
+  "uuid": "d95943a1-8b73-4b76-ad7b-23c53c259cf6",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "fixAlphaTransparencyArtifacts": true
+  }
+}
