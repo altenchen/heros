@@ -152,7 +152,7 @@ export class MarketManager {
         if (!rateConfig) return 0;
 
         const levelConfig = this.getLevelConfig();
-        const bonus = levelConfig?.rateBonus ? levelConfig.rateBonus / 100 : 0;
+        const bonus = (levelConfig?.rateBonus ?? 0) / 100;
 
         if (tradeType === TradeType.BUY) {
             // 买入价格：等级越高越便宜

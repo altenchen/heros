@@ -4,5 +4,5 @@
  */
 
 export * from '../config/OnlineRewardTypes';
-export { OnlineRewardManager, onlineRewardManager, OnlineRewardEventType } from './OnlineRewardManager';
+export { OnlineRewardManager, onlineRewardManager } from './OnlineRewardManager';
 export { onlineRewardConfigs, onlineRewardConfigMap, getClaimableRewards, getNextReward } from '../config/online_reward.json';
