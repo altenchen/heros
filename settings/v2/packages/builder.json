@@ -1,6 +1,6 @@
 {
   "wechatgame": {
-    "appid": "your-wechat-appid",
+    "appid": "wx1234567890abcdef",
     "orientation": "landscape",
     "subContext": "",
     "deviceOrientation": "landscape",

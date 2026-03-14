@@ -11,6 +11,7 @@ import {
     UseTarget,
     ItemEffectType
 } from './InventoryTypes';
+import { ResourceType } from './GameTypes';
 
 /**
  * 消耗品类道具
@@ -31,7 +32,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_EXP, params: {}, value: 100 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 100 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 100 }
     },
     {
         itemId: 'exp_potion_medium',
@@ -47,7 +48,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_EXP, params: {}, value: 500 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 500 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 500 }
     },
     {
         itemId: 'exp_potion_large',
@@ -63,7 +64,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_EXP, params: {}, value: 2000 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 2000 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 2000 }
     },
     // ==================== 体力道具 ====================
     {
@@ -80,7 +81,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.RESTORE_STAMINA, params: {}, value: 20 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 200 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 200 }
     },
     {
         itemId: 'stamina_potion_medium',
@@ -96,7 +97,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.RESTORE_STAMINA, params: {}, value: 50 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 500 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 500 }
     },
     {
         itemId: 'stamina_potion_large',
@@ -112,7 +113,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.RESTORE_STAMINA, params: {}, value: 100 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 1000 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 1000 }
     },
     // ==================== 属性卷轴 ====================
     {
@@ -129,7 +130,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_BUFF, params: { buffType: 'attack' }, value: 10, duration: 3600 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 300 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 300 }
     },
     {
         itemId: 'scroll_defense',
@@ -145,7 +146,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_BUFF, params: { buffType: 'defense' }, value: 10, duration: 3600 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 300 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 300 }
     },
     {
         itemId: 'scroll_speed',
@@ -161,7 +162,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.ADD_BUFF, params: { buffType: 'speed' }, value: 5, duration: 3600 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 400 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 400 }
     },
     // ==================== 加速道具 ====================
     {
@@ -178,7 +179,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.SPEEDUP_BUILD, params: {}, value: 300 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 50 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 50 }
     },
     {
         itemId: 'speedup_1hour',
@@ -194,7 +195,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.SPEEDUP_BUILD, params: {}, value: 3600 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 500 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 500 }
     },
     {
         itemId: 'speedup_24hour',
@@ -210,7 +211,7 @@ export const consumableItems: ItemConfig[] = [
             { type: ItemEffectType.SPEEDUP_BUILD, params: {}, value: 86400 }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 5000 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 5000 }
     }
 ];
 
@@ -228,7 +229,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 9999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 1 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 1 }
     },
     {
         itemId: 'material_ore',
@@ -240,7 +241,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 9999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 1 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 1 }
     },
     {
         itemId: 'material_crystal',
@@ -252,7 +253,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 10 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 10 }
     },
     {
         itemId: 'material_gem',
@@ -264,7 +265,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 50 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 50 }
     },
     {
         itemId: 'material_sulfur',
@@ -276,7 +277,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 10 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 10 }
     },
     {
         itemId: 'material_mercury',
@@ -288,7 +289,7 @@ export const materialItems: ItemConfig[] = [
         maxStack: 999,
         usable: false,
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 10 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 10 }
     }
 ];
 
@@ -310,7 +311,7 @@ export const shardItems: ItemConfig[] = [
             { type: ItemEffectType.COMPOSE, params: { targetId: 'hero_catherine', requiredCount: 50 } }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 100 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 100 }
     },
     {
         itemId: 'shard_sandro',
@@ -326,7 +327,7 @@ export const shardItems: ItemConfig[] = [
             { type: ItemEffectType.COMPOSE, params: { targetId: 'hero_sandro', requiredCount: 50 } }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 100 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 100 }
     },
     {
         itemId: 'shard_gem',
@@ -342,7 +343,7 @@ export const shardItems: ItemConfig[] = [
             { type: ItemEffectType.COMPOSE, params: { targetId: 'hero_gem', requiredCount: 50 } }
         ],
         sellable: true,
-        sellPrice: { currency: 'gold', amount: 150 }
+        sellPrice: { currency: ResourceType.GOLD, amount: 150 }
     }
 ];
 

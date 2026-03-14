@@ -148,10 +148,10 @@ export class ShopManager {
         if (item.buyLimit && purchaseCount >= item.buyLimit) {
             return ShopItemState.SOLD_OUT;
         }
-        if (item.dailyLimit && (progress.dailyPurchaseCount.get(item.itemId) ?? 0) >= item.dailyLimit) {
+        if (item.dailyLimit !== undefined && (progress.dailyPurchaseCount.get(item.itemId) ?? 0) >= item.dailyLimit) {
             return ShopItemState.SOLD_OUT;
         }
-        if (item.weeklyLimit) {
+        if (item.weeklyLimit !== undefined) {
             const weeklyCount = progress.weeklyPurchaseCount.get(item.itemId) || 0;
             if (weeklyCount >= item.weeklyLimit) {
                 return ShopItemState.SOLD_OUT;

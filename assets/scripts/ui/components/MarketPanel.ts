@@ -17,23 +17,27 @@ const { ccclass, property } = _decorator;
 /** 资源名称 */
 const RESOURCE_NAMES: Record<ResourceType, string> = {
     [ResourceType.GOLD]: '金币',
+    [ResourceType.GEMS]: '钻石',
     [ResourceType.WOOD]: '木材',
     [ResourceType.ORE]: '矿石',
     [ResourceType.CRYSTAL]: '水晶',
     [ResourceType.GEM]: '宝石',
     [ResourceType.SULFUR]: '硫磺',
     [ResourceType.MERCURY]: '水银',
+    [ResourceType.STAMINA]: '体力',
 };
 
 /** 资源颜色 */
 const RESOURCE_COLORS: Record<ResourceType, Color> = {
     [ResourceType.GOLD]: new Color(255, 215, 0),
+    [ResourceType.GEMS]: new Color(0, 255, 255),
     [ResourceType.WOOD]: new Color(139, 90, 43),
     [ResourceType.ORE]: new Color(128, 128, 128),
     [ResourceType.CRYSTAL]: new Color(0, 191, 255),
     [ResourceType.GEM]: new Color(255, 0, 127),
     [ResourceType.SULFUR]: new Color(255, 165, 0),
     [ResourceType.MERCURY]: new Color(192, 192, 192),
+    [ResourceType.STAMINA]: new Color(0, 255, 0),
 };
 
 @ccclass('MarketPanel')
