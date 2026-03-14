@@ -19,6 +19,7 @@ export const MARKET_LEVELS: MarketLevelConfig[] = [
         name: '初级市场',
         buildCost: {
             [ResourceType.GOLD]: 500,
+            [ResourceType.GEMS]: 0,
             [ResourceType.WOOD]: 10,
             [ResourceType.ORE]: 5,
             [ResourceType.CRYSTAL]: 0,
@@ -39,6 +40,7 @@ export const MARKET_LEVELS: MarketLevelConfig[] = [
         name: '中级市场',
         buildCost: {
             [ResourceType.GOLD]: 1500,
+            [ResourceType.GEMS]: 0,
             [ResourceType.WOOD]: 20,
             [ResourceType.ORE]: 10,
             [ResourceType.CRYSTAL]: 2,
@@ -61,6 +63,7 @@ export const MARKET_LEVELS: MarketLevelConfig[] = [
         name: '高级市场',
         buildCost: {
             [ResourceType.GOLD]: 5000,
+            [ResourceType.GEMS]: 0,
             [ResourceType.WOOD]: 30,
             [ResourceType.ORE]: 20,
             [ResourceType.CRYSTAL]: 5,
@@ -85,6 +88,7 @@ export const MARKET_LEVELS: MarketLevelConfig[] = [
         name: '大师级市场',
         buildCost: {
             [ResourceType.GOLD]: 15000,
+            [ResourceType.GEMS]: 0,
             [ResourceType.WOOD]: 50,
             [ResourceType.ORE]: 30,
             [ResourceType.CRYSTAL]: 10,

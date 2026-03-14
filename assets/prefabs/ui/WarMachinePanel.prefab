@@ -3,9 +3,7 @@
     "__type__": "cc.Prefab",
     "_name": "WarMachinePanel",
     "_objFlags": 0,
-    "data": {
-      "__id__": 1
-    },
+    "data": { "__id__": 1 },
     "persistent": false
   },
   {
@@ -16,14 +14,10 @@
     "_children": [
       { "__id__": 2 },
       { "__id__": 5 },
-      { "__id__": 8 },
-      { "__id__": 11 }
+      { "__id__": 8 }
     ],
     "_active": true,
-    "_components": [
-      { "__id__": 14 },
-      { "__id__": 15 }
-    ],
+    "_components": [ { "__id__": 11 }, { "__id__": 12 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 0, "z": 0 },
     "_layer": 33554432
@@ -35,55 +29,99 @@
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 3 }, { "__id__": 4 }],
+    "_components": [ { "__id__": 3 }, { "__id__": 4 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 280, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 40 } },
-  { "__type__": "cc.Label", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_string": "战争机器", "_fontSize": 32, "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 } },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 40 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_string": "战争机器",
+    "_fontSize": 32,
+    "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 }
+  },
   {
     "__type__": "cc.Node",
-    "_name": "BallistaSection",
+    "_name": "MachineList",
     "_objFlags": 0,
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 6 }, { "__id__": 7 }],
+    "_components": [ { "__id__": 6 }, { "__id__": 7 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": -280, "y": 100, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": -300, "y": 0, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 200 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 60, "g": 40, "b": 40, "a": 200 } },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 250, "height": 500 }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 30, "g": 40, "b": 30, "a": 200 }
+  },
   {
     "__type__": "cc.Node",
-    "_name": "FirstAidTentSection",
+    "_name": "MachineDetail",
     "_objFlags": 0,
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 9 }, { "__id__": 10 }],
+    "_components": [ { "__id__": 9 }, { "__id__": 10 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": -70, "y": 100, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 150, "y": 0, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 200 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 40, "g": 60, "b": 40, "a": 200 } },
   {
-    "__type__": "cc.Node",
-    "_name": "AmmoCartSection",
+    "__type__": "cc.UITransform",
+    "_name": "",
     "_objFlags": 0,
-    "_parent": { "__id__": 1 },
-    "_children": [],
-    "_active": true,
-    "_components": [{ "__id__": 12 }, { "__id__": 13 }],
-    "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 140, "y": 100, "z": 0 },
-    "_layer": 33554432
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 550, "height": 500 }
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 200 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 40, "g": 40, "b": 60, "a": 200 } },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 900, "height": 600 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 25, "g": 25, "b": 35, "a": 240 } }
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 40, "g": 30, "b": 40, "a": 200 }
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 900, "height": 600 }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 25, "g": 25, "b": 35, "a": 240 }
+  }
 ]

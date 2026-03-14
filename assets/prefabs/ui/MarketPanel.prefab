@@ -3,9 +3,7 @@
     "__type__": "cc.Prefab",
     "_name": "MarketPanel",
     "_objFlags": 0,
-    "data": {
-      "__id__": 1
-    },
+    "data": { "__id__": 1 },
     "persistent": false
   },
   {
@@ -20,10 +18,7 @@
       { "__id__": 11 }
     ],
     "_active": true,
-    "_components": [
-      { "__id__": 14 },
-      { "__id__": 15 }
-    ],
+    "_components": [ { "__id__": 14 }, { "__id__": 15 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 0, "z": 0 },
     "_layer": 33554432
@@ -35,27 +30,87 @@
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 3 }, { "__id__": 4 }],
+    "_components": [ { "__id__": 3 }, { "__id__": 4 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 280, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 40 } },
-  { "__type__": "cc.Label", "_name": "", "_objFlags": 0, "node": { "__id__": 2 }, "_enabled": true, "_string": "市场", "_fontSize": 32, "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 } },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 40 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 2 },
+    "_enabled": true,
+    "_string": "市场",
+    "_fontSize": 32,
+    "_color": { "__type__": "cc.Color", "r": 255, "g": 215, "b": 0, "a": 255 }
+  },
   {
     "__type__": "cc.Node",
-    "_name": "TradePanel",
+    "_name": "ResourceInfo",
     "_objFlags": 0,
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 6 }, { "__id__": 7 }],
+    "_components": [ { "__id__": 6 }, { "__id__": 7 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": -200, "y": 50, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 200, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 400, "height": 400 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 5 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 40, "g": 40, "b": 50, "a": 200 } },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 800, "height": 60 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 5 },
+    "_enabled": true,
+    "_string": "金币: 10000  木材: 500  矿石: 300  水晶: 50",
+    "_fontSize": 20,
+    "_color": { "__type__": "cc.Color", "r": 200, "g": 200, "b": 200, "a": 255 }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "RatePanel",
+    "_objFlags": 0,
+    "_parent": { "__id__": 1 },
+    "_children": [],
+    "_active": true,
+    "_components": [ { "__id__": 9 }, { "__id__": 10 } ],
+    "_prefab": null,
+    "_lpos": { "__type__": "cc.Vec3", "x": -250, "y": -50, "z": 0 },
+    "_layer": 33554432
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 350, "height": 400 }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 8 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 30, "g": 40, "b": 30, "a": 200 }
+  },
   {
     "__type__": "cc.Node",
     "_name": "ExchangePanel",
@@ -63,27 +118,41 @@
     "_parent": { "__id__": 1 },
     "_children": [],
     "_active": true,
-    "_components": [{ "__id__": 9 }, { "__id__": 10 }],
+    "_components": [ { "__id__": 12 }, { "__id__": 13 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 200, "y": 50, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": 200, "y": -50, "z": 0 },
     "_layer": 33554432
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 400, "height": 400 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 8 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 30, "g": 30, "b": 40, "a": 200 } },
   {
-    "__type__": "cc.Node",
-    "_name": "MarketInfo",
+    "__type__": "cc.UITransform",
+    "_name": "",
     "_objFlags": 0,
-    "_parent": { "__id__": 1 },
-    "_children": [],
-    "_active": true,
-    "_components": [{ "__id__": 12 }, { "__id__": 13 }],
-    "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": -200, "z": 0 },
-    "_layer": 33554432
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 400, "height": 400 }
   },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 800, "height": 80 } },
-  { "__type__": "cc.Label", "_name": "", "_objFlags": 0, "node": { "__id__": 11 }, "_enabled": true, "_string": "市场等级: 1 | 汇率优惠: 0% | 剩余交易次数: 10", "_fontSize": 20, "_color": { "__type__": "cc.Color", "r": 200, "g": 200, "b": 200, "a": 255 } },
-  { "__type__": "cc.UITransform", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_contentSize": { "__type__": "cc.Size", "width": 900, "height": 600 } },
-  { "__type__": "cc.Sprite", "_name": "", "_objFlags": 0, "node": { "__id__": 1 }, "_enabled": true, "_color": { "__type__": "cc.Color", "r": 25, "g": 25, "b": 35, "a": 240 } }
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 40, "g": 30, "b": 40, "a": 200 }
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 900, "height": 600 }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 1 },
+    "_enabled": true,
+    "_color": { "__type__": "cc.Color", "r": 25, "g": 25, "b": 35, "a": 240 }
+  }
 ]
