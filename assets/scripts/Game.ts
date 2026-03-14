@@ -23,6 +23,7 @@ import { BGMScene } from './config/AudioTypes';
 import { dailySigninManager } from './signin';
 import { shopManager } from './shop';
 import { inventoryManager } from './inventory';
+import { vipManager } from './vip';
 import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBridge';
 import { rewardManager } from './utils/RewardManager';
 import { skinManager } from './utils/SkinManager';
@@ -135,6 +136,9 @@ export class Game extends Component {
 
         // 初始化背包系统
         inventoryManager.init();
+
+        // 初始化VIP系统
+        vipManager.init();
 
         // 初始化奖励系统
         rewardManager.init();
@@ -253,6 +257,12 @@ export class Game extends Component {
             inventoryManager.deserialize(inventoryData);
         }
 
+        // 加载VIP数据
+        const vipData = localStorage.getItem('hmm_legacy_vip');
+        if (vipData) {
+            vipManager.deserialize(vipData);
+        }
+
         // 加载皮肤数据
         const skinData = localStorage.getItem('hmm_legacy_skins');
         if (skinData) {
@@ -309,6 +319,9 @@ export class Game extends Component {
 
         // 保存背包数据
         localStorage.setItem('hmm_legacy_inventory', inventoryManager.serialize());
+
+        // 保存VIP数据
+        localStorage.setItem('hmm_legacy_vip', vipManager.serialize());
 
         // 保存皮肤数据
         localStorage.setItem('hmm_legacy_skins', skinManager.serialize());
@@ -413,6 +426,13 @@ export class Game extends Component {
      */
     getInventoryManager(): typeof inventoryManager {
         return inventoryManager;
+    }
+
+    /**
+     * 获取VIP管理器
+     */
+    getVIPManager(): typeof vipManager {
+        return vipManager;
     }
 
     /**
