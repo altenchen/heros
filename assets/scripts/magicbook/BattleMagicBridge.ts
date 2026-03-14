@@ -451,7 +451,7 @@ export class BattleMagicBridge {
                 // 治疗魔法：优先治疗血量最低的友军
                 if (spell.targetType === TargetType.SINGLE) {
                     const target = playerUnits.reduce((min, u) =>
-                        u.currentHp / u.getMaxHp() < (min?.currentHp || 0) / (min?.getMaxHp?.() || 1) ? u : min,
+                        u.currentHp / u.maxHp < (min?.currentHp || 0) / (min?.maxHp || 1) ? u : min,
                         playerUnits[0]
                     );
                     return target ? { type: 'unit', unit: target } : null;
