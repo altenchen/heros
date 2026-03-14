@@ -427,13 +427,14 @@ export class UIManager {
             }
 
             // 使用Cocos Creator的resources.load加载
-            resources.load(path, Prefab, (err, prefab) => {
+            resources.load(path, Prefab, (err, asset) => {
                 if (err) {
                     console.error(`Failed to load prefab: ${path}`, err);
                     reject(err);
                     return;
                 }
 
+                const prefab = asset as Prefab;
                 this.prefabCache.set(path, prefab);
                 resolve(prefab);
             });

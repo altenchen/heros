@@ -154,6 +154,16 @@ export const BuildingConfigMap: Map<string, BuildingConfig> = new Map(
 export class Town {
     data: TownData;
 
+    /** 获取建筑列表 */
+    get buildings(): BuildingInstance[] {
+        return this.data.buildings;
+    }
+
+    /** 获取驻军列表 */
+    get garrison(): ArmySlot[] {
+        return this.data.garrison;
+    }
+
     constructor(race: Race) {
         this.data = this.createInitialTown(race);
     }

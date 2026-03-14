@@ -270,7 +270,7 @@ export class ShopPanel extends UIPanel {
 
             // 原价（如果有折扣）
             const originalLabel = itemNode.getChildByName('OriginalPrice')?.getComponent(Label);
-            if (originalLabel && item.prices && item.prices.length > 0 && item.prices[0].discountedPrice) {
+            if (originalLabel && item.prices && item.prices.length > 0 && item.prices[0].currentPrice !== item.prices[0].originalPrice) {
                 originalLabel.string = `${item.prices[0].originalPrice}`;
                 originalLabel.color = new Color(150, 150, 150);
             }
@@ -329,16 +329,16 @@ export class ShopPanel extends UIPanel {
         exchanges.forEach((exchange, index) => {
             const exchangeNode = this.exchangeItemPrefab
                 ? instantiate(this.exchangeItemPrefab)
-                : new Node(`Exchange_${exchange.id}`);
+                : new Node(`Exchange_${exchange.exchangeId}`);
 
             exchangeNode.setPosition(0, -index * 80, 0);
 
             // 兑换信息
             const infoLabel = exchangeNode.getChildByName('Info')?.getComponent(Label);
             if (infoLabel) {
-                const fromName = CURRENCY_NAMES[exchange.from.currency] || exchange.from.currency;
-                const toName = CURRENCY_NAMES[exchange.to.currency] || exchange.to.currency;
-                infoLabel.string = `${exchange.from.amount} ${fromName} -> ${exchange.to.amount} ${toName}`;
+                const fromName = CURRENCY_NAMES[exchange.fromCurrency] || exchange.fromCurrency;
+                const toName = CURRENCY_NAMES[exchange.toCurrency] || exchange.toCurrency;
+                infoLabel.string = `${exchange.fromAmount} ${fromName} -> ${exchange.toAmount} ${toName}`;
             }
 
             // 兑换按钮
@@ -357,7 +357,7 @@ export class ShopPanel extends UIPanel {
      * 购买商品
      */
     private _purchaseItem(item: ShopItem): void {
-        const result = shopManager.purchase(item.id, 1);
+        const result = shopManager.purchase(item.itemId, 1);
         if (result.success) {
             this._showToast('购买成功！');
             this._updateCurrency();
@@ -371,7 +371,7 @@ export class ShopPanel extends UIPanel {
      * 执行兑换
      */
     private _doExchange(exchange: ExchangeConfig): void {
-        const result = shopManager.exchange(exchange.id);
+        const result = shopManager.exchange(exchange.exchangeId);
         if (result.success) {
             this._showToast('兑换成功！');
             this._updateCurrency();

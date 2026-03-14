@@ -21,6 +21,16 @@ export class Hero {
     data: HeroData;
     config: HeroConfig;
 
+    /** 获取英雄实例ID */
+    get id(): string {
+        return this.data.id;
+    }
+
+    /** 获取英雄配置ID */
+    get configId(): string {
+        return this.data.configId;
+    }
+
     constructor(configId: string) {
         const config = HeroConfigMap.get(configId);
         if (!config) {

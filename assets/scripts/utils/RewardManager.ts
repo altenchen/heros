@@ -329,18 +329,22 @@ export class RewardManager {
         }
 
         // 查找是否有相同兵种的槽位
-        const existingSlot = town.garrison.find(slot => slot && slot.unitId === unitId);
+        const existingSlot = town.data.garrison.find(slot => slot && slot.unitId === unitId);
         if (existingSlot) {
             existingSlot.count += amount;
         } else {
             // 找空槽位
-            const emptyIndex = town.garrison.findIndex(slot => !slot);
+            const emptyIndex = town.data.garrison.findIndex(slot => !slot);
             if (emptyIndex === -1) {
                 return { success: false, type: RewardType.UNIT, itemId: unitId, amount: 0, reason: '军队已满' };
             }
-            town.garrison[emptyIndex] = {
+            town.data.garrison[emptyIndex] = {
                 unitId,
-                count: amount
+                configId: unitId,
+                count: amount,
+                currentHp: 0,
+                maxHp: 0,
+                position: { q: 0, r: 0 }
             };
         }
 

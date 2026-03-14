@@ -518,6 +518,67 @@ export class ShopManager {
     }
 
     /**
+     * 获取货币兑换配置列表
+     */
+    getExchangeConfigs(): CurrencyExchangeConfig[] {
+        return currencyExchangeConfigs;
+    }
+
+    /**
+     * 刷新商店
+     */
+    refreshShop(shopType: ShopType): ShopPurchaseResult {
+        const progress = this._getOrCreateProgress(shopType);
+
+        // 检查每日刷新次数
+        const refreshConfig = this._getRefreshConfig(shopType);
+        if (refreshConfig?.dailyManualRefreshLimit !== undefined) {
+            if (progress.manualRefreshCount >= refreshConfig.dailyManualRefreshLimit) {
+                return {
+                    success: false,
+                    error: '今日刷新次数已用完'
+                };
+            }
+        }
+
+        // 扣除刷新消耗
+        if (refreshConfig?.manualRefreshCost) {
+            const cost = refreshConfig.manualRefreshCost;
+            const currentAmount = this._getCurrencyAmount(cost.currency);
+            if (currentAmount < cost.amount) {
+                return {
+                    success: false,
+                    error: '资源不足'
+                };
+            }
+            this._deductCurrency(cost.currency, cost.amount);
+        }
+
+        // 重置商店进度
+        progress.dailyPurchaseCount = new Map();
+        progress.manualRefreshCount++;
+        progress.lastRefreshTime = Date.now();
+
+        // 发送刷新事件
+        EventCenter.emit(ShopEventType.SHOP_REFRESH, { shopType });
+
+        console.log(`[ShopManager] 商店已刷新: ${shopType}`);
+
+        return {
+            success: true
+        };
+    }
+
+    /**
+     * 获取商店刷新配置
+     */
+    private _getRefreshConfig(shopType: ShopType): { dailyManualRefreshLimit?: number; manualRefreshCost?: { currency: CurrencyType; amount: number } } | undefined {
+        // 从默认配置中获取
+        const { DEFAULT_SHOP_REFRESH } = require('../config/ShopTypes');
+        return DEFAULT_SHOP_REFRESH.find((c: any) => c.shopType === shopType);
+    }
+
+    /**
      * 序列化数据
      */
     serialize(): string {

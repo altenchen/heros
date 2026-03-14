@@ -158,8 +158,9 @@ export class ObjectPool<T> {
         if (!obj) return;
 
         // 调用清理方法
-        if ((obj as IPoolable).clear) {
-            (obj as IPoolable).clear();
+        const poolable = obj as unknown as IPoolable;
+        if (poolable.clear) {
+            poolable.clear();
         }
 
         // 标记为可用

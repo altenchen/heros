@@ -465,13 +465,14 @@ export class TutorialOverlay extends UIComponent {
             return;
         }
 
-        const width = transform.width;
-        const height = transform.height;
+        const size = transform.contentSize;
+        const width = size.width;
+        const height = size.height;
         const radius = 10;
 
         this.dialogBg.clear();
         this.dialogBg.fillColor = DIALOG_BG_COLOR;
-        this.dialogBg.roundRect(-width / 2, -height / 2, width, height, radius, radius);
+        this.dialogBg.roundRect(-width / 2, -height / 2, width, height, radius);
         this.dialogBg.fill();
     }
 
@@ -488,8 +489,9 @@ export class TutorialOverlay extends UIComponent {
             return;
         }
 
-        const width = transform.width;
-        const height = transform.height;
+        const size = transform.contentSize;
+        const width = size.width;
+        const height = size.height;
 
         let x = 0;
         let y = 0;
@@ -529,10 +531,10 @@ export class TutorialOverlay extends UIComponent {
         this.node.inverseTransformPoint(localPos, worldPos);
 
         const targetTransform = target.getComponent(UITransform);
-        const targetHeight = targetTransform?.height || 50;
+        const targetHeight = targetTransform?.contentSize.height || 50;
 
         const dialogTransform = this.dialogContainer.getComponent(UITransform);
-        const dialogHeight = dialogTransform?.height || 150;
+        const dialogHeight = dialogTransform?.contentSize.height || 150;
 
         let x = localPos.x;
         let y = localPos.y;
@@ -559,7 +561,7 @@ export class TutorialOverlay extends UIComponent {
         this.node.inverseTransformPoint(localPos, worldPos);
 
         const targetTransform = target.getComponent(UITransform);
-        const targetHeight = targetTransform?.height || 50;
+        const targetHeight = targetTransform?.contentSize.height || 50;
 
         this.arrowNode.setPosition(new Vec3(localPos.x, localPos.y + targetHeight / 2 + 10, 0));
     }

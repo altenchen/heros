@@ -234,9 +234,10 @@ export class TownPanel extends UIPanel {
     private _updateResources(): void {
         if (!this._playerData) return;
 
+        const playerData = this._playerData;
         this._resourceLabels.forEach((label, type) => {
             if (label) {
-                const amount = this._playerData.getResource(type);
+                const amount = playerData.getResource(type);
                 label.string = this._formatNumber(amount);
             }
         });
@@ -270,7 +271,7 @@ export class TownPanel extends UIPanel {
         const heroes = this._playerData.getAllHeroes();
 
         heroes.forEach((hero, index) => {
-            const config = HeroConfigMap.get(hero.configId);
+            const config = HeroConfigMap.get(hero.data.configId);
             if (!config) return;
 
             // 从池中获取英雄头像节点
@@ -289,7 +290,7 @@ export class TownPanel extends UIPanel {
             // 设置点击事件
             heroNode.off(Node.EventType.TOUCH_END);
             heroNode.on(Node.EventType.TOUCH_END, () => {
-                this._showHeroDetail(hero.id);
+                this._showHeroDetail(hero.data.id);
             });
 
             this._heroNodes.push(heroNode);
@@ -313,7 +314,7 @@ export class TownPanel extends UIPanel {
 
         // TODO: 从配置中获取建筑列表并显示
         // 这里暂时创建示例建筑
-        const buildings = town.buildings || [];
+        const buildings = town.data?.buildings || [];
 
         buildings.forEach((building, index) => {
             this._createBuildingItem(building, index);

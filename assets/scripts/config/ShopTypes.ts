@@ -113,6 +113,8 @@ export interface ShopItemPrice {
     discountType?: DiscountType;
     /** 折扣值 */
     discountValue?: number;
+    /** 折扣后价格 */
+    discountedPrice?: number;
 }
 
 /**
@@ -211,6 +213,8 @@ export interface ShopPurchaseResult {
 export interface CurrencyExchangeConfig {
     /** 兑换ID */
     exchangeId: string;
+    /** ID（别名） */
+    id?: string;
     /** 源货币 */
     fromCurrency: CurrencyType;
     /** 源数量 */

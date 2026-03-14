@@ -646,8 +646,9 @@ declare module 'cc' {
 
     // ============ Resources Module ============
     export namespace resources {
-        export function load(path: string, type: typeof Asset, callback: (error: Error | null, asset: Asset) => void): void;
+        export function load<T extends Asset>(path: string, type: new (...args: any[]) => T, callback: (error: Error | null, asset: T) => void): void;
         export function load<T extends Asset>(path: string, callback: (error: Error | null, asset: T) => void): void;
+        export function load(path: string, type: typeof Asset, callback: (error: Error | null, asset: Asset) => void): void;
         export function load(path: string, callback: (error: Error | null, asset: Asset) => void): void;
         export function loadDir(path: string, type: typeof Asset, callback: (error: Error | null, assets: Asset[]) => void): void;
         export function release(asset: Asset | Asset[]): void;
