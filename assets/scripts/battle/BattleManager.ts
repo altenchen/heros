@@ -52,9 +52,9 @@ export interface BattleEvent {
 }
 
 /**
- * 战斗单位接口（用于类型兼容）
+ * 战斗单位数据接口（从 GameTypes 导入）
  */
-type IBattleUnit = BattleUnit;
+type IBattleUnitData = BattleUnitData;
 
 /**
  * 战斗状态（使用 BattleUnit 类类型）
@@ -76,7 +76,7 @@ interface LocalBattleState {
 export interface BattleResult {
     winner: 'player' | 'enemy' | null;
     turns: number;
-    survivedUnits: IBattleUnit[];
+    survivedUnits: IBattleUnitData[];
     rewards: {
         gold: number;
         experience: number;
