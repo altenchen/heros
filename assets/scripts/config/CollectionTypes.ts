@@ -168,7 +168,9 @@ export enum CollectionEventType {
     /** 进度达成 */
     PROGRESS_REACHED = 'collection_progress_reached',
     /** 奖励领取 */
-    REWARD_CLAIMED = 'collection_reward_claimed'
+    REWARD_CLAIMED = 'collection_reward_claimed',
+    /** 碎片添加 */
+    SHARD_ADDED = 'collection_shard_added'
 }
 
 /** 图鉴事件数据 */
@@ -193,3 +195,6 @@ export const DEFAULT_COLLECTION_SETTINGS = {
     showNotification: true,
     sortType: 'rarity' as 'rarity' | 'time' | 'name'
 };
+
+/** 图鉴条目（类型别名，便于使用） */
+export type CollectionEntry = CollectionEntryConfig;

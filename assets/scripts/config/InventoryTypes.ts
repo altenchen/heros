@@ -40,6 +40,20 @@ export enum ItemQuality {
 }
 
 /**
+ * 道具稀有度（别名，与 ItemQuality 兼容）
+ */
+export enum ItemRarity {
+    /** 普通 */
+    COMMON = 1,
+    /** 稀有 */
+    RARE = 3,
+    /** 史诗 */
+    EPIC = 4,
+    /** 传说 */
+    LEGENDARY = 5
+}
+
+/**
  * 道具使用目标
  */
 export enum UseTarget {

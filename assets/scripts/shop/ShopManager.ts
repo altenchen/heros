@@ -317,11 +317,11 @@ export class ShopManager {
     private _getCurrencyAmount(currency: CurrencyType): number {
         switch (currency) {
             case CurrencyType.GOLD:
-                return playerDataManager.getResource('gold');
+                return playerDataManager.getResource(ResourceType.GOLD);
             case CurrencyType.GEMS:
-                return playerDataManager.getResource('gems');
+                return playerDataManager.getResource(ResourceType.GEMS);
             case CurrencyType.STAMINA:
-                return playerDataManager.getResource('stamina');
+                return playerDataManager.getResource(ResourceType.STAMINA);
             case CurrencyType.GUILD_COIN:
                 // return playerDataManager.getResource('guild_coin');
                 return 0;
@@ -339,13 +339,13 @@ export class ShopManager {
     private _deductCurrency(currency: CurrencyType, amount: number): void {
         switch (currency) {
             case CurrencyType.GOLD:
-                playerDataManager.addResource('gold', -amount);
+                playerDataManager.addResource(ResourceType.GOLD, -amount);
                 break;
             case CurrencyType.GEMS:
-                playerDataManager.addResource('gems', -amount);
+                playerDataManager.addResource(ResourceType.GEMS, -amount);
                 break;
             case CurrencyType.STAMINA:
-                playerDataManager.addResource('stamina', -amount);
+                playerDataManager.addResource(ResourceType.STAMINA, -amount);
                 break;
             case CurrencyType.GUILD_COIN:
                 // playerDataManager.addResource('guild_coin', -amount);

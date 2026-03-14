@@ -232,11 +232,63 @@ export interface ActivityListResult {
 }
 
 /**
+ * 活动配置（面板使用的简化接口）
+ */
+export interface ActivityInfo {
+    /** 活动ID */
+    id: string;
+    /** 活动类型 */
+    type: ActivityType;
+    /** 活动名称 */
+    name: string;
+    /** 活动描述 */
+    description: string;
+    /** 图标 */
+    icon: string;
+    /** 开始时间 (时间戳) */
+    startTime: number;
+    /** 结束时间 (时间戳) */
+    endTime: number;
+}
+
+/**
+ * 活动任务（面板使用的简化接口）
+ */
+export interface ActivityTask {
+    /** 任务ID */
+    id: string;
+    /** 任务名称 */
+    name: string;
+    /** 当前进度 */
+    currentProgress: number;
+    /** 目标进度 */
+    targetProgress: number;
+    /** 是否已领取 */
+    claimed: boolean;
+    /** 奖励列表 */
+    rewards: ActivityTaskReward[];
+}
+
+/**
+ * 活动奖励（面板使用的简化接口）
+ */
+export interface ActivityReward {
+    /** 奖励类型 */
+    type: string;
+    /** 物品ID */
+    itemId?: string;
+    /** 数量 */
+    amount: number;
+}
+
+/**
  * 活动详情结果
  */
 export interface ActivityDetailResult {
-    /** 活动 */
-    activity: ActivityConfig;
+    /** 活动信息 */
+    info: ActivityInfo;
+    /** 任务列表 */
+    tasks: ActivityTask[];
     /** 进度 */
     progress: ActivityProgress;
     /** 状态 */
@@ -257,4 +309,14 @@ export interface ClaimActivityResult {
     rewards: ActivityTaskReward[];
     /** 错误信息 */
     error?: string;
+}
+
+/**
+ * 一键领取结果
+ */
+export interface ClaimAllRewardsResult {
+    /** 是否成功 */
+    success: boolean;
+    /** 结果列表 */
+    results: ClaimActivityResult[];
 }
