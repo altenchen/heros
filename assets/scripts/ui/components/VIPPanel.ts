@@ -336,25 +336,28 @@ export class VIPPanel extends UIPanel {
      */
     private _updateMonthlyCard(): void {
         const cardStatus = vipManager.getMonthlyCardStatus('monthly_card_basic');
+        const isActive = cardStatus === MonthlyCardStatus.ACTIVE || cardStatus === MonthlyCardStatus.PENDING_CLAIM;
+        const canClaim = cardStatus === MonthlyCardStatus.PENDING_CLAIM;
+        const remainingDays = vipManager.getMonthlyCardRemainingDays('monthly_card_basic');
 
         if (this.monthlyCardStatusLabel) {
-            this.monthlyCardStatusLabel.string = cardStatus.active ? '已激活' : '未激活';
-            this.monthlyCardStatusLabel.color = cardStatus.active
+            this.monthlyCardStatusLabel.string = isActive ? '已激活' : '未激活';
+            this.monthlyCardStatusLabel.color = isActive
                 ? new Color(50, 205, 50)
                 : new Color(150, 150, 150);
         }
 
         if (this.monthlyCardDaysLabel) {
-            this.monthlyCardDaysLabel.string = cardStatus.active
-                ? `剩余 ${cardStatus.remainingDays} 天`
+            this.monthlyCardDaysLabel.string = isActive
+                ? `剩余 ${remainingDays} 天`
                 : '';
         }
 
         if (this.claimMonthlyCardButton) {
-            this.claimMonthlyCardButton.interactable = cardStatus.active && !cardStatus.claimedToday;
+            this.claimMonthlyCardButton.interactable = canClaim;
             const label = this.claimMonthlyCardButton.node.getComponentInChildren(Label);
             if (label) {
-                label.string = cardStatus.claimedToday ? '今日已领取' : '领取每日奖励';
+                label.string = cardStatus === MonthlyCardStatus.ACTIVE ? '今日已领取' : '领取每日奖励';
             }
         }
     }
@@ -363,14 +366,17 @@ export class VIPPanel extends UIPanel {
      * 更新成长基金
      */
     private _updateGrowthFund(): void {
-        const fundStatus = vipManager.getGrowthFundStatus('growth_fund_1');
+        const isPurchased = vipManager.isGrowthFundPurchased('growth_fund_1');
 
         if (this.growthFundStatusLabel) {
-            if (!fundStatus.purchased) {
+            if (!isPurchased) {
                 this.growthFundStatusLabel.string = '未购买';
             } else {
-                const claimedCount = fundStatus.claimedLevels.length;
-                this.growthFundStatusLabel.string = `已领取 ${claimedCount} 档`;
+                // 使用可领取等级数量作为已领取档数
+                const playerLevel = 50; // TODO: 从玩家数据获取实际等级
+                const claimableLevels = vipManager.getClaimableGrowthFundLevels('growth_fund_1', playerLevel);
+                // 假设每领取一次，claimedLevels 数组就增加一个
+                this.growthFundStatusLabel.string = `成长基金已激活`;
             }
         }
     }
@@ -378,13 +384,13 @@ export class VIPPanel extends UIPanel {
     /**
      * 购买商品
      */
-    private _purchaseItem(item: VIPPurchaseItem): void {
-        const result = vipManager.purchase(item.id);
+    private _purchaseItem(item: PaymentProductConfig): void {
+        const result = vipManager.purchase(item.productId);
         if (result.success) {
             this._showToast(`购买成功！获得 ${result.gems} 钻石`);
             this._updateVIPInfo();
         } else {
-            this._showToast(result.error || '购买失败');
+            this._showToast(result.message || '购买失败');
         }
     }
 

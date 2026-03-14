@@ -259,6 +259,12 @@ declare module 'cc' {
         };
     }
 
+    export class UIComponent extends Component {
+        setEnabled(enabled: boolean): void;
+        setLabel(text: string): void;
+        setOnClick(callback: Function, target?: any): void;
+    }
+
     export class ScrollView extends Component {
         content: Node | null;
         horizontal: boolean;
@@ -292,6 +298,10 @@ declare module 'cc' {
         isChecked: boolean;
         checkMark: Sprite | null;
         node: Node;
+
+        static EventType: {
+            TOGGLE: string;
+        };
     }
 
     export class Slider extends Component {
@@ -448,24 +458,23 @@ declare module 'cc' {
     }
 
     // ==================== 动画系统 ====================
-    export class tween<T> {
-        constructor(target: T);
-
-        to(duration: number, props: any, opts?: any): tween<T>;
-        by(duration: number, props: any, opts?: any): tween<T>;
-        delay(duration: number): tween<T>;
-        call(callback: Function): tween<T>;
-        repeat(times: number, tween?: tween<T>): tween<T>;
-        repeatForever(tween: tween<T>): tween<T>;
-        sequence(...tweens: tween<T>[]): tween<T>;
-        parallel(...tweens: tween<T>[]): tween<T>;
-        start(): tween<T>;
-        stop(): tween<T>;
-
-        static tween<T>(target: T): tween<T>;
-        static stopAll(): void;
-        static stopAllByTarget(target: any): void;
+    export class Tween<T> {
+        to(duration: number, props: any, opts?: any): Tween<T>;
+        by(duration: number, props: any, opts?: any): Tween<T>;
+        delay(duration: number): Tween<T>;
+        call(callback: Function): Tween<T>;
+        repeat(times: number, tween?: Tween<T>): Tween<T>;
+        repeatForever(tween: Tween<T>): Tween<T>;
+        sequence(...tweens: Tween<T>[]): Tween<T>;
+        parallel(...tweens: Tween<T>[]): Tween<T>;
+        start(): Tween<T>;
+        stop(): Tween<T>;
     }
+
+    export function tween<T>(target: T): Tween<T>;
+    export function tween(target: any): Tween<any>;
+    export function stopAll(): void;
+    export function stopAllByTarget(target: any): void;
 
     // ==================== 输入系统 ====================
     export class input {

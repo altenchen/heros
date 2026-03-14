@@ -18,7 +18,8 @@
     "paths": {
       "db://*": ["./assets/*"]
     },
-    "types": ["node"]
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./assets/scripts/types"]
   },
   "include": [
     "assets/**/*.ts",

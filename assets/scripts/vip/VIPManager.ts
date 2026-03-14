@@ -18,7 +18,10 @@ import {
     PaymentStatus,
     MonthlyCardStatus,
     VIPPrivilegeType,
-    VIPEventType
+    VIPEventType,
+    MonthlyCardStatusInfo,
+    GrowthFundStatusInfo,
+    VIPPurchaseItem
 } from '../config/VIPTypes';
 import {
     vipLevels,
@@ -512,6 +515,66 @@ export class VIPManager {
         return config.levelRewards
             .filter(r => r.level <= playerLevel && !fundData.claimedLevels.includes(r.level))
             .map(r => r.level);
+    }
+
+    /**
+     * 获取月卡状态详情（用于UI显示）
+     */
+    getMonthlyCardStatusInfo(cardId: string): MonthlyCardStatusInfo {
+        const cardData = this._data.monthlyCards[cardId];
+        const now = Date.now();
+
+        if (!cardData || now > cardData.expireTime) {
+            return {
+                active: false,
+                remainingDays: 0,
+                claimedToday: false,
+                cardId
+            };
+        }
+
+        const remainingDays = Math.ceil((cardData.expireTime - now) / (24 * 60 * 60 * 1000));
+        return {
+            active: true,
+            remainingDays,
+            claimedToday: cardData.todayClaimed,
+            cardId
+        };
+    }
+
+    /**
+     * 获取成长基金状态（用于UI显示）
+     */
+    getGrowthFundStatus(fundId: string): GrowthFundStatusInfo {
+        const fundData = this._data.growthFunds[fundId];
+
+        if (!fundData) {
+            return {
+                purchased: false,
+                claimedLevels: [],
+                fundId
+            };
+        }
+
+        return {
+            purchased: fundData.purchased,
+            claimedLevels: [...fundData.claimedLevels],
+            fundId
+        };
+    }
+
+    /**
+     * 获取购买项列表（用于UI显示）
+     */
+    getPurchaseItems(): VIPPurchaseItem[] {
+        return paymentProducts.map(product => ({
+            id: product.productId,
+            name: product.name,
+            gems: product.gems + product.bonusGems,
+            price: product.price,
+            isHot: product.isHot,
+            icon: product.icon
+        }));
     }
 
     // ==================== 序列化 ====================

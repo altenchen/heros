@@ -103,7 +103,7 @@ export class ArenaPanel extends UIPanel {
     closeButton: Button | null = null;
 
     /** 匹配动画定时器 */
-    private _matchAnimTimer: number | null = null;
+    private _matchAnimTimer: ReturnType<typeof setInterval> | null = null;
 
     /**
      * 面板打开
