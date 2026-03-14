@@ -7,26 +7,29 @@
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
 import { activityManager } from '../../activity';
-import { ActivityType, ActivityState, ActivityEventType, ActivityInfo, ActivityTask, ActivityReward } from '../../config/ActivityTypes';
+import { ActivityType, ActivityState, ActivityEventType, ActivityTaskReward, ActivityTaskProgress } from '../../config/ActivityTypes';
 import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 
 /** 活动类型名称 */
 const ACTIVITY_TYPE_NAMES: Record<ActivityType, string> = {
-    [ActivityType.DAILY]: '日常活动',
-    [ActivityType.WEEKLY]: '周常活动',
-    [ActivityType.LIMITED]: '限时活动',
+    [ActivityType.LIMITED_TIME]: '限时活动',
     [ActivityType.FESTIVAL]: '节日活动',
-    [ActivityType.NEW_PLAYER]: '新手活动',
-    [ActivityType.SPECIAL]: '特殊活动'
+    [ActivityType.PERIODIC]: '周期活动',
+    [ActivityType.RECHARGE]: '充值活动',
+    [ActivityType.CONSUME]: '消费活动',
+    [ActivityType.ACCUMULATED_SIGNIN]: '累计签到',
+    [ActivityType.LIMITED_DUNGEON]: '限时副本',
+    [ActivityType.LIMITED_SHOP]: '限时商店'
 };
 
 /** 活动状态颜色 */
 const ACTIVITY_STATE_COLORS: Record<ActivityState, Color> = {
-    [ActivityState.PREVIEW]: new Color(150, 150, 150),      // 灰色
+    [ActivityState.NOT_STARTED]: new Color(150, 150, 150),  // 灰色
     [ActivityState.ACTIVE]: new Color(50, 205, 50),         // 绿色
-    [ActivityState.ENDED]: new Color(100, 100, 100)         // 深灰
+    [ActivityState.ENDED]: new Color(100, 100, 100),        // 深灰
+    [ActivityState.DISABLED]: new Color(80, 80, 80)         // 更深灰
 };
 
 @ccclass('ActivityPanel')
@@ -130,7 +133,7 @@ export class ActivityPanel extends UIPanel {
         EventCenter.on(ActivityEventType.ACTIVITY_START, this._onActivityStart, this);
         EventCenter.on(ActivityEventType.ACTIVITY_END, this._onActivityEnd, this);
         EventCenter.on(ActivityEventType.TASK_COMPLETE, this._onTaskComplete, this);
-        EventCenter.on(ActivityEventType.PROGRESS_UPDATE, this._onProgressUpdate, this);
+        EventCenter.on(ActivityEventType.TASK_PROGRESS_UPDATE, this._onProgressUpdate, this);
 
         this.claimAllButton?.node.on(Button.EventType.CLICK, this._onClaimAllClick, this);
         this.closeButton?.node.on(Button.EventType.CLICK, this._onCloseClick, this);
@@ -144,7 +147,7 @@ export class ActivityPanel extends UIPanel {
         EventCenter.off(ActivityEventType.ACTIVITY_START, this._onActivityStart, this);
         EventCenter.off(ActivityEventType.ACTIVITY_END, this._onActivityEnd, this);
         EventCenter.off(ActivityEventType.TASK_COMPLETE, this._onTaskComplete, this);
-        EventCenter.off(ActivityEventType.PROGRESS_UPDATE, this._onProgressUpdate, this);
+        EventCenter.off(ActivityEventType.TASK_PROGRESS_UPDATE, this._onProgressUpdate, this);
     }
 
     /**

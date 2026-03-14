@@ -111,7 +111,7 @@ export class EventCenter {
     /**
      * 移除事件监听
      */
-    static off(eventName: string, callback: Function): void {
+    static off(eventName: string, callback: Function, thisArg?: any): void {
         EventCenter.getInstance().eventTarget.off(eventName, callback);
     }
 

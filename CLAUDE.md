@@ -1751,6 +1751,7 @@ master (主分支)
 - `OnlineRewardPanel.prefab` - 在线奖励面板
 - `RandomEventPanel.prefab` - 随机事件面板
 - `WarMachinePanel.prefab` - 战争机器面板
+- `TutorialOverlay.prefab` - 教程遮罩
 
 ### 2. 绑定组件属性 (待完成)
 
