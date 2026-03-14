@@ -99,6 +99,8 @@ export interface SaveData {
     market: { level: number; todayTradeCount: number; lastResetTime: number; tradeRecords: any[] };
     /** 技能树数据 */
     skillTree: Record<string, any>;
+    /** 随机事件数据 */
+    randomEvents: { triggeredEvents: any[]; cooldowns: Record<string, number>; triggerCounts: Record<string, number>; lastTriggerTime: number };
 }
 
 /**

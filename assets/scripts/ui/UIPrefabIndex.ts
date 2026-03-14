@@ -418,6 +418,17 @@ export const UI_PREFABS: PrefabConfig[] = [
         cache: true,
         preload: false,
         description: '市场面板(资源交易/汇率/资源交换)'
+    },
+
+    // ==================== 随机事件系统 ====================
+    {
+        name: 'RandomEventPanel',
+        path: 'prefabs/ui/RandomEventPanel',
+        component: 'scripts/ui/components/RandomEventPanel',
+        layer: 'POPUP',
+        cache: true,
+        preload: false,
+        description: '随机事件面板(随机事件触发/选择/效果)'
     }
 ];
 

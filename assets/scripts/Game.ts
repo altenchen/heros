@@ -44,6 +44,7 @@ import { warMachineManager } from './warmachine';
 import { magicBookManager } from './magicbook/MagicBookManager';
 import { marketManager } from './market/MarketManager';
 import { skillTreeManager } from './hero';
+import { randomEventManager } from './randomevent';
 
 const { ccclass, property } = _decorator;
 
@@ -212,6 +213,9 @@ export class Game extends Component {
         // 初始化技能树系统
         skillTreeManager.init();
 
+        // 初始化随机事件系统
+        randomEventManager.init();
+
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
 
@@ -283,7 +287,8 @@ export class Game extends Component {
             warMachines: warMachineManager.serialize(),
             magicBook: magicBookManager.getSaveData(),
             market: marketManager.getSaveData(),
-            skillTree: skillTreeManager.getSaveData()
+            skillTree: skillTreeManager.getSaveData(),
+            randomEvents: randomEventManager.getSaveData()
         };
     }
 
@@ -333,6 +338,9 @@ export class Game extends Component {
             }
             if (saveData.skillTree) {
                 skillTreeManager.loadSaveData(saveData.skillTree);
+            }
+            if (saveData.randomEvents) {
+                randomEventManager.loadSaveData(saveData.randomEvents);
             }
         }
 
