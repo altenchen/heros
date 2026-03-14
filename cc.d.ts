@@ -344,6 +344,13 @@ declare module 'cc' {
             NEXT: number;
         };
 
+        static readonly EventType: {
+            EDITING_DID_BEGAN: string;
+            EDITING_DID_ENDED: string;
+            TEXT_CHANGED: string;
+            EDITING_RETURN: string;
+        };
+
         focus(): void;
         blur(): void;
     }
@@ -372,6 +379,10 @@ declare module 'cc' {
             HORIZONTAL: number;
             VERTICAL: number;
         };
+
+        static readonly EventType: {
+            SLIDE: string;
+        };
     }
 
     export class Toggle extends Component {
@@ -379,6 +390,10 @@ declare module 'cc' {
         checkMark: Sprite | null;
         background: Sprite | null;
         checkEvents: EventHandler[];
+
+        static readonly EventType: {
+            TOGGLE: string;
+        };
     }
 
     export class ToggleContainer extends Component {
@@ -806,12 +821,11 @@ declare module 'cc' {
             start(): Tween<T>;
             stop(): Tween<T>;
             clone(target: T): Tween<T>;
+            union(): Tween<T>;
         }
-
-        export function tween<T>(target: T): Tween<T>;
     }
 
-    export const tween: typeof tween.tween;
+    export function tween<T>(target: T): tween.Tween<T>;
 
     // ============ UI Helper ============
     export function instantiate(prefab: Prefab): Node;

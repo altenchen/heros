@@ -146,6 +146,13 @@ export class UIButton extends UIComponent {
     }
 
     /**
+     * 设置按钮标签（别名）
+     */
+    setLabel(text: string): void {
+        this.setText(text);
+    }
+
+    /**
      * 设置图标
      */
     setIcon(spriteFrame: any): void {

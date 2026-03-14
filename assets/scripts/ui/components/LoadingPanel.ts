@@ -97,7 +97,7 @@ export class LoadingPanel extends UIPanel {
             }
         }
 
-        this._state = LoadingState.LOADING;
+        this._loadingState = LoadingState.LOADING;
         super.show(data);
 
         // 开始超时计时
@@ -144,7 +144,7 @@ export class LoadingPanel extends UIPanel {
      * 设置状态
      */
     setState(state: LoadingState, text?: string): void {
-        this._state = state;
+        this._loadingState = state;
 
         switch (state) {
             case LoadingState.SUCCESS:
@@ -192,7 +192,7 @@ export class LoadingPanel extends UIPanel {
      */
     update(dt: number): void {
         // 旋转加载图标
-        if (this.loadingIcon && this._state === LoadingState.LOADING) {
+        if (this.loadingIcon && this._loadingState === LoadingState.LOADING) {
             this.loadingIcon.node.angle += dt * 180;
         }
     }
@@ -226,9 +226,12 @@ export class LoadingPanel extends UIPanel {
      * 更新进度（静态方法）
      */
     static setProgress(progress: number, text?: string): void {
-        const panel = uiManager.getUI('LoadingPanel') as LoadingPanel;
-        if (panel) {
-            panel.updateProgress(progress, text);
+        const node = uiManager.getUI('LoadingPanel');
+        if (node) {
+            const panel = node.getComponent(LoadingPanel);
+            if (panel) {
+                panel.updateProgress(progress, text);
+            }
         }
     }
 }

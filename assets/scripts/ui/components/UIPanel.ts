@@ -340,7 +340,7 @@ export class UIPanel extends UIComponent {
     /**
      * 销毁面板
      */
-    protected onDestroy(): void {
+    onDestroy(): void {
         this._maskNode = null;
         this._contentNode = null;
     }
