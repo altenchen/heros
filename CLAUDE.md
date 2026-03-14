@@ -1312,6 +1312,70 @@ EventCenter.on(MagicBookEventType.MASTERY_UPGRADED, (data) => {
 });
 ```
 
+### 随机事件系统
+
+```typescript
+import { RandomEventManager, randomEventManager } from './randomevent/RandomEventManager';
+import { EventTriggerScene, RandomEventEventType } from './config/RandomEventTypes';
+
+// 初始化
+randomEventManager.init();
+
+// 尝试触发随机事件
+const result = randomEventManager.tryTriggerEvent(EventTriggerScene.TOWN);
+if (result.success) {
+    console.log(`触发事件: ${result.event?.name}`);
+    // 显示事件面板
+    uiManager.showUI('RandomEventPanel', { event: result.event });
+}
+
+// 获取当前活动事件
+const activeEvent = randomEventManager.getActiveEvent();
+
+// 选择选项
+const selectResult = randomEventManager.selectOption('option_1', {
+    checkRequirement: (type, id, amount) => {
+        // 检查需求条件
+        return playerDataManager.hasResource(id, amount);
+    }
+});
+
+// 应用效果
+randomEventManager.applyEffects(selectResult.effects!, {
+    addResource: (id, amount) => playerDataManager.addResource(id, amount),
+    removeResource: (id, amount) => playerDataManager.useResource(id, amount),
+    addItem: (id, amount) => inventoryManager.addItem(id, amount),
+    addExp: (amount) => heroManager.addExp(amount)
+});
+
+// 跳过事件
+randomEventManager.skipEvent();
+
+// 检查事件是否可用
+const isAvailable = randomEventManager.isEventAvailable('event_treasure_1');
+
+// 获取事件冷却剩余时间
+const cooldown = randomEventManager.getCooldownRemaining('event_treasure_1');
+
+// 强制触发指定事件
+randomEventManager.forceTriggerEvent('event_special_1');
+
+// 获取事件历史
+const history = randomEventManager.getEventHistory();
+
+// 存档
+const saveData = randomEventManager.getSaveData();
+randomEventManager.loadSaveData(saveData);
+
+// 监听事件
+EventCenter.on(RandomEventEventType.EVENT_TRIGGERED, (data) => {
+    console.log(`事件触发: ${data.event?.name}`);
+});
+EventCenter.on(RandomEventEventType.OPTION_SELECTED, (data) => {
+    console.log(`选择选项: ${data.optionId}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -1460,6 +1524,10 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 魔法书类型 | `assets/scripts/config/MagicBookTypes.ts` |
 | 魔法书配置 | `assets/configs/magic_book.json.ts` |
 | 魔法书面板 | `assets/scripts/ui/components/MagicBookPanel.ts` |
+| 随机事件管理 | `assets/scripts/randomevent/RandomEventManager.ts` |
+| 随机事件类型 | `assets/scripts/config/RandomEventTypes.ts` |
+| 随机事件配置 | `assets/scripts/configs/random_events.json.ts` |
+| 随机事件面板 | `assets/scripts/ui/components/RandomEventPanel.ts` |
 | Toast提示 | `assets/scripts/ui/components/Toast.ts` |
 
 ## 开发命令
