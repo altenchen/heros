@@ -27,7 +27,8 @@
     "autoReleaseAssets": false,
     "_globals": {
       "__id__": 8
-    }
+    },
+    "_id": "49a6e54d-fa03-4e23-827e-541eaf3a60aa"
   },
   {
     "__type__": "cc.Node",
