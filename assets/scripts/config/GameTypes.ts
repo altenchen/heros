@@ -75,7 +75,8 @@ export enum EffectType {
     DEBUFF = 'debuff',       // 减益
     SUMMON = 'summon',       // 召唤
     REVIVE = 'revive',       // 复活
-    DISPEL = 'dispel'        // 驱散
+    DISPEL = 'dispel',       // 驱散
+    SPECIAL = 'special'      // 特殊效果
 }
 
 /** 状态效果 */
@@ -90,7 +91,11 @@ export enum StatusEffect {
     BLESS = 'bless',         // 祝福
     BLOODLUST = 'bloodlust', // 嗜血
     SHIELD = 'shield',       // 护盾
-    AGING = 'aging'          // 衰老
+    AGING = 'aging',         // 衰老
+    ATTACK_UP = 'attack_up',      // 攻击力提升
+    ATTACK_DOWN = 'attack_down',  // 攻击力降低
+    DEFENSE_UP = 'defense_up',    // 防御力提升
+    DEFENSE_DOWN = 'defense_down' // 防御力降低
 }
 
 /** 单位状态 */

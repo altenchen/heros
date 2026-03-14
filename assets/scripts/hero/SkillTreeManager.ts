@@ -427,6 +427,29 @@ export class SkillTreeManager {
     }
 
     /**
+     * 获取所有技能树数据（用于存档）
+     */
+    getSaveData(): Record<string, HeroSkillTreeData> {
+        const result: Record<string, HeroSkillTreeData> = {};
+        this.heroSkillTrees.forEach((data, heroId) => {
+            result[heroId] = data;
+        });
+        return result;
+    }
+
+    /**
+     * 加载所有技能树数据（用于读档）
+     */
+    loadSaveData(data: Record<string, HeroSkillTreeData>): void {
+        this.heroSkillTrees.clear();
+        if (data) {
+            Object.entries(data).forEach(([heroId, heroData]) => {
+                this.heroSkillTrees.set(heroId, heroData);
+            });
+        }
+    }
+
+    /**
      * 清理
      */
     cleanup(): void {

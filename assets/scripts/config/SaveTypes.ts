@@ -97,6 +97,8 @@ export interface SaveData {
     magicBook: { heroBooks: Record<string, any> };
     /** 市场数据 */
     market: { level: number; todayTradeCount: number; lastResetTime: number; tradeRecords: any[] };
+    /** 技能树数据 */
+    skillTree: Record<string, any>;
 }
 
 /**

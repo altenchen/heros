@@ -1457,8 +1457,9 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 市场面板 | `assets/scripts/ui/components/MarketPanel.ts` |
 | 魔法书管理 | `assets/scripts/magicbook/MagicBookManager.ts` |
 | 魔法书类型 | `assets/scripts/config/MagicBookTypes.ts` |
-| 魔法书配置 | `assets/scripts/configs/magic_book.json.ts` |
+| 魔法书配置 | `assets/configs/magic_book.json.ts` |
 | 魔法书面板 | `assets/scripts/ui/components/MagicBookPanel.ts` |
+| Toast提示 | `assets/scripts/ui/components/Toast.ts` |
 
 ## 开发命令
 
@@ -1554,7 +1555,7 @@ master (主分支)
 - `BattlePanel.prefab` - 战斗面板
 - `HeroPanel.prefab` - 英雄面板
 
-**需要创建的预制体** (29个):
+**需要创建的预制体** (31个):
 
 | 预制体名称 | 组件脚本 | 层级 | 描述 |
 |-----------|---------|------|------|
@@ -1584,8 +1585,10 @@ master (主分支)
 | OnlineRewardPanel | OnlineRewardPanel.ts | PANEL | 在线奖励面板 |
 | ArtifactPanel | ArtifactPanel.ts | PANEL | 宝物面板 |
 | WarMachinePanel | WarMachinePanel.ts | PANEL | 战争机器面板 |
+| MagicBookPanel | MagicBookPanel.ts | PANEL | 魔法书面板 |
+| MarketPanel | MarketPanel.ts | PANEL | 市场面板 |
 | TutorialOverlay | TutorialOverlay.ts | TIPS | 教程遮罩 |
-| Toast | UIComponent.ts | TIPS | Toast提示 |
+| Toast | Toast.ts | TIPS | Toast提示 |
 
 **预制体创建步骤**:
 1. 在Cocos Creator中，右键点击 `assets/prefabs/ui/` 目录
