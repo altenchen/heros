@@ -22,7 +22,7 @@ export class AutoSaveManager {
     private config: AutoSaveConfig;
 
     /** 自动存档定时器 */
-    private autoSaveTimer: number | null = null;
+    private autoSaveTimer: ReturnType<typeof setInterval> | null = null;
 
     /** 上次存档时间 */
     private lastSaveTime: number = 0;
@@ -85,11 +85,18 @@ export class AutoSaveManager {
             return;
         }
 
-        this.autoSaveTimer = window.setInterval(() => {
-            this.doAutoSave();
-        }, this.config.interval);
+        // 使用兼容的方式创建定时器
+        const setIntervalFunc = typeof setInterval !== 'undefined' ? setInterval :
+            (typeof window !== 'undefined' ? window.setInterval : null);
 
-        console.log('[AutoSaveManager] 自动存档已启动');
+        if (setIntervalFunc) {
+            this.autoSaveTimer = setIntervalFunc(() => {
+                this.doAutoSave();
+            }, this.config.interval) as unknown as ReturnType<typeof setInterval>;
+            console.log('[AutoSaveManager] 自动存档已启动');
+        } else {
+            console.warn('[AutoSaveManager] 当前环境不支持 setInterval，自动存档将使用替代方案');
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 /**
  * 英雄无敌Ⅲ：传承
  * 主入口文件
+ * Cocos Creator 项目入口 - Game 组件会在场景中自动初始化
  */
 
 // 导出核心类型
@@ -18,7 +19,7 @@ export { Town, TownManager, BuildingConfigs, BuildingConfigMap } from './scripts
 export { PlayerDataManager } from './scripts/utils/PlayerDataManager';
 export { EventTarget, EventCenter, GameEvent } from './scripts/utils/EventTarget';
 export { ResourceManager, resources, ResourceType as ResType } from './scripts/utils/ResourceManager';
-export { SoundManager, soundManager } from './scripts/utils/SoundManager';
+export { SoundManager, soundManager } from './scripts/audio/SoundManager';
 
 // 导出UI模块
 export { UIManager, uiManager, UILayer, UIBase } from './scripts/ui/UIManager';
@@ -42,33 +43,5 @@ export { SkillConfigs, SkillConfigMap, SkillsByMagicSchool } from './configs/ski
 // 导出游戏主类
 export { Game, GameState, game } from './scripts/Game';
 
-// 初始化游戏
-import { Game } from './scripts/Game';
-import { SoundManager } from './scripts/utils/SoundManager';
-
-/**
- * 启动游戏
- */
-export async function startGame(): Promise<void> {
-    console.log('=================================');
-    console.log('  英雄无敌Ⅲ：传承');
-    console.log('  Heroes of Might and Magic III');
-    console.log('  Legacy Edition');
-    console.log('=================================');
-
-    // 加载音效设置
-    SoundManager.getInstance().loadSettings();
-
-    // 初始化游戏
-    const game = Game.getInstance();
-    await game.init();
-
-    console.log('游戏启动成功！');
-}
-
-// 自动启动（如果在浏览器环境中）
-if (typeof window !== 'undefined') {
-    window.addEventListener('DOMContentLoaded', () => {
-        startGame().catch(console.error);
-    });
-}
+// 注意：Cocos Creator 项目由场景中的 Game 组件自动初始化
+// 不需要在此手动调用 startGame()

@@ -97,9 +97,13 @@ export class AudioManager {
         // 加载设置
         this._loadSettings();
 
-        // 创建音频上下文
+        // 创建音频上下文（使用兼容的方式）
         try {
-            this._audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+            const AudioContextClass = typeof AudioContext !== 'undefined' ? AudioContext :
+                (typeof window !== 'undefined' ? (window as any).AudioContext || (window as any).webkitAudioContext : null);
+            if (AudioContextClass) {
+                this._audioContext = new AudioContextClass();
+            }
         } catch (e) {
             console.warn('[AudioManager] Web Audio API 不可用');
         }

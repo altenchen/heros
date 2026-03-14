@@ -58,7 +58,7 @@ export class ArenaManager {
     private _lastResetDate: string = '';
 
     /** 匹配定时器 */
-    private _matchTimer: number | null = null;
+    private _matchTimer: ReturnType<typeof setTimeout> | null = null;
 
     /** 匹配开始时间 */
     private _matchStartTime: number = 0;
@@ -254,17 +254,23 @@ export class ArenaManager {
             return { success: false, error: '无效的匹配类型' };
         }
 
-        // 设置匹配超时
-        this._matchTimer = window.setTimeout(() => {
-            this._onMatchTimeout();
-        }, matchConfig.timeout * 1000);
+        // 设置匹配超时（使用兼容的方式）
+        const setTimeoutFunc = typeof setTimeout !== 'undefined' ? setTimeout :
+            (typeof window !== 'undefined' ? window.setTimeout : null);
+        if (setTimeoutFunc) {
+            this._matchTimer = setTimeoutFunc(() => {
+                this._onMatchTimeout();
+            }, matchConfig.timeout * 1000) as unknown as ReturnType<typeof setTimeout>;
+        }
 
         // 模拟匹配延迟后找到对手
-        setTimeout(() => {
-            if (this._state === ArenaState.MATCHING) {
-                this._onMatchSuccess();
-            }
-        }, 1000 + Math.random() * 2000);
+        if (setTimeoutFunc) {
+            setTimeoutFunc(() => {
+                if (this._state === ArenaState.MATCHING) {
+                    this._onMatchSuccess();
+                }
+            }, 1000 + Math.random() * 2000);
+        }
 
         return { success: true };
     }
