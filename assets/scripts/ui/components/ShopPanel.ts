@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { shopManager } from '../shop';
-import { ShopType, ShopEventType, CurrencyType, ShopItem, ExchangeConfig } from '../config/ShopTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { shopManager } from '../../shop';
+import { ShopType, ShopEventType, CurrencyType, ShopItem, ExchangeConfig } from '../../config/ShopTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { inventoryManager } from '../inventory';
-import { InventoryType, InventoryEventType, InventoryItem, ItemRarity } from '../config/InventoryTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { inventoryManager } from '../../inventory';
+import { InventoryType, InventoryEventType, InventoryItem, ItemRarity } from '../../config/InventoryTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

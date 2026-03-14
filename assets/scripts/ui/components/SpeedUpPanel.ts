@@ -5,16 +5,16 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, ProgressBar } from 'cc';
 import { UIPanel, PanelConfig } from './UIPanel';
-import { speedUpManager } from '../utils/SpeedUpManager';
+import { speedUpManager } from '../../utils/SpeedUpManager';
 import {
     SpeedUpType,
     SpeedUpConfig,
     SpeedUpTarget,
     SpeedUpEventType
-} from '../config/SpeedUpTypes';
-import { soundManager } from '../audio';
+} from '../../config/SpeedUpTypes';
+import { soundManager } from '../../audio';
 import { UIManager } from '../UIManager';
-import { EventCenter } from '../utils/EventTarget';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

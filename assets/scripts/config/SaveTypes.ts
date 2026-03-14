@@ -83,6 +83,12 @@ export interface SaveData {
     gacha: string;
     /** 图鉴数据 */
     collection: string;
+    /** 远征数据 */
+    expedition: string;
+    /** 在线奖励数据 */
+    onlineReward: string;
+    /** 公告数据 */
+    announcement: string;
 }
 
 /**

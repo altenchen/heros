@@ -5,15 +5,15 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, UIOpacity, SpriteFrame } from 'cc';
 import { UIPanel, PanelConfig } from './UIPanel';
-import { saveManager, autoSaveManager } from '../save';
+import { saveManager, autoSaveManager } from '../../save';
 import {
     SaveSlot,
     SaveEventType,
     DEFAULT_SAVE_CONFIG
-} from '../config/SaveTypes';
-import { soundManager } from '../audio';
+} from '../../config/SaveTypes';
+import { soundManager } from '../../audio';
 import { UIManager } from '../UIManager';
-import { EventCenter } from '../utils/EventTarget';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

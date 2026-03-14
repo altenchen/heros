@@ -5,15 +5,15 @@
 
 import { _decorator, Node, Label, Button, ScrollView, Color } from 'cc';
 import { UIPanel } from './UIPanel';
-import { announcementManager, AnnouncementManager } from '../announcement/AnnouncementManager';
+import { announcementManager, AnnouncementManager } from '../../announcement/AnnouncementManager';
 import {
     AnnouncementType,
     AnnouncementPriority,
     AnnouncementEventType,
     AnnouncementPreview,
     AnnouncementConfig
-} from '../config/AnnouncementTypes';
-import { EventCenter } from '../utils/EventTarget';
+} from '../../config/AnnouncementTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

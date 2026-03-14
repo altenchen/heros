@@ -50,6 +50,10 @@
 | 离线奖励系统 | ✅ 已完成 | 离线收益计算、离线奖励领取、双倍奖励 |
 | 技能树系统 | ✅ 已完成 | 英雄技能树、技能解锁升级、分支系统 |
 | 存档面板 | ✅ 已完成 | 存档管理UI、槽位选择、导入导出 |
+| 公告系统 | ✅ 已完成 | 游戏公告、弹窗公告、已读状态 |
+| 远征系统 | ✅ 已完成 | 英雄派遣、远征奖励、星级评价 |
+| 在线奖励系统 | ✅ 已完成 | 在线时长奖励、VIP加成、每日重置 |
+| 宝物系统 | 🚧 进行中 | 神器收集、装备强化、属性加成 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -859,6 +863,164 @@ EventCenter.on(SkillTreeEventType.SKILL_UPGRADED, (data) => {
 });
 ```
 
+### 公告系统
+
+```typescript
+import { AnnouncementManager, announcementManager } from './announcement/AnnouncementManager';
+import { AnnouncementType, AnnouncementPriority, AnnouncementEventType } from './config/AnnouncementTypes';
+
+// 初始化
+announcementManager.init();
+
+// 获取公告列表
+const listData = announcementManager.getAnnouncementList();
+console.log(`未读公告: ${listData.unreadCount}封, 有弹窗: ${listData.hasPopup}`);
+
+// 获取公告详情
+const detail = announcementManager.getAnnouncementDetail('announcement_1');
+
+// 标记已读
+announcementManager.markAsRead('announcement_1');
+
+// 标记所有已读
+announcementManager.markAllAsRead();
+
+// 获取弹窗公告（登录时调用）
+const popup = announcementManager.getPopupAnnouncement();
+if (popup) {
+    // 显示弹窗
+    announcementManager.recordPopupShown(popup.id);
+}
+
+// 获取指定类型公告
+const eventAnnouncements = announcementManager.getAnnouncementsByType(AnnouncementType.EVENT);
+
+// 获取紧急公告
+const urgentAnnouncements = announcementManager.getUrgentAnnouncements();
+
+// 添加动态公告
+announcementManager.addAnnouncement({
+    id: 'announcement_dynamic_1',
+    type: AnnouncementType.EVENT,
+    priority: AnnouncementPriority.HIGH,
+    title: '紧急维护公告',
+    content: '服务器将于今晚22:00进行维护',
+    startTime: Date.now(),
+    endTime: Date.now() + 86400000
+});
+
+// 监听公告事件
+EventCenter.on(AnnouncementEventType.ANNOUNCEMENT_READ, (data) => {
+    console.log(`公告已读: ${data.announcementId}`);
+});
+```
+
+### 远征系统
+
+```typescript
+import { ExpeditionManager, expeditionManager } from './expedition/ExpeditionManager';
+import { ExpeditionState, ExpeditionDifficulty, ExpeditionEventType } from './config/ExpeditionTypes';
+
+// 初始化
+expeditionManager.init();
+
+// 获取远征列表
+const list = expeditionManager.getExpeditionList();
+console.log(`今日剩余次数: ${list.maxDailyCompletions - list.dailyCompletions}`);
+
+// 获取远征详情
+const detail = expeditionManager.getExpeditionDetail('expedition_1', playerLevel, playerPower);
+if (detail?.canStart) {
+    console.log('可以开始远征');
+}
+
+// 分配英雄
+expeditionManager.assignHero('expedition_1', 'hero_1');
+
+// 召回英雄
+expeditionManager.recallHero('expedition_1', 'hero_1');
+
+// 开始远征
+const startResult = expeditionManager.startExpedition('expedition_1', playerPower);
+if (startResult.success) {
+    console.log('远征开始');
+}
+
+// 加速远征
+expeditionManager.speedUpExpedition('expedition_1', 30); // 加速30分钟
+
+// 立即完成（使用钻石）
+expeditionManager.instantComplete('expedition_1');
+
+// 领取奖励
+const claimResult = expeditionManager.claimReward('expedition_1');
+if (claimResult?.success) {
+    console.log(`获得奖励:`, claimResult.rewards);
+    console.log(`星级: ${claimResult.starRating}星`);
+}
+
+// 获取可领取奖励数量
+const claimableCount = expeditionManager.getClaimableCount();
+
+// 每帧更新（需要游戏主循环调用）
+expeditionManager.update(deltaTime);
+
+// 监听远征事件
+EventCenter.on(ExpeditionEventType.EXPEDITION_COMPLETE, (data) => {
+    console.log(`远征完成: ${data.expeditionId}, 星级: ${data.starRating}`);
+});
+```
+
+### 在线奖励系统
+
+```typescript
+import { OnlineRewardManager, onlineRewardManager } from './onlinereward/OnlineRewardManager';
+import { OnlineRewardEventType } from './config/OnlineRewardTypes';
+
+// 初始化
+onlineRewardManager.init();
+
+// 获取在线奖励数据
+const data = onlineRewardManager.getOnlineRewardData();
+console.log(`今日在线: ${onlineRewardManager.formatOnlineTime()}`);
+console.log(`可领取: ${data.availableCount}个奖励`);
+
+// 获取奖励预览列表
+const previews = onlineRewardManager.getRewardPreviews();
+previews.forEach(preview => {
+    console.log(`${preview.config.title}: ${preview.claimed ? '已领取' : preview.available ? '可领取' : '未达成'}`);
+});
+
+// 领取奖励
+const result = onlineRewardManager.claimReward('online_reward_1', vipLevel);
+if (result.success) {
+    console.log('领取成功:', result.rewards);
+}
+
+// 一键领取所有奖励
+const allRewards = onlineRewardManager.claimAllRewards(vipLevel);
+
+// 检查是否有可领取奖励
+const hasRewards = onlineRewardManager.hasAvailableRewards();
+
+// 获取下一个奖励
+const nextReward = onlineRewardManager.getNextReward();
+if (nextReward) {
+    console.log(`下一个奖励需要在线: ${nextReward.requiredMinutes}分钟`);
+}
+
+// 每帧更新（需要游戏主循环调用）
+onlineRewardManager.update(deltaTime);
+
+// 监听在线奖励事件
+EventCenter.on(OnlineRewardEventType.REWARD_AVAILABLE, (data) => {
+    console.log(`有${data.count}个奖励可领取`);
+});
+EventCenter.on(OnlineRewardEventType.REWARD_CLAIMED, (data) => {
+    console.log(`领取奖励: ${data.rewardId}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -978,6 +1140,18 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 技能树管理 | `assets/scripts/hero/SkillTreeManager.ts` |
 | 技能树类型 | `assets/scripts/config/SkillTreeTypes.ts` |
 | 技能树面板 | `assets/scripts/ui/components/SkillTreePanel.ts` |
+| 公告管理 | `assets/scripts/announcement/AnnouncementManager.ts` |
+| 公告类型 | `assets/scripts/config/AnnouncementTypes.ts` |
+| 公告配置 | `assets/scripts/config/announcement.json.ts` |
+| 公告面板 | `assets/scripts/ui/components/AnnouncementPanel.ts` |
+| 远征管理 | `assets/scripts/expedition/ExpeditionManager.ts` |
+| 远征类型 | `assets/scripts/config/ExpeditionTypes.ts` |
+| 远征配置 | `assets/scripts/config/expedition.json.ts` |
+| 远征面板 | `assets/scripts/ui/components/ExpeditionPanel.ts` |
+| 在线奖励管理 | `assets/scripts/onlinereward/OnlineRewardManager.ts` |
+| 在线奖励类型 | `assets/scripts/config/OnlineRewardTypes.ts` |
+| 在线奖励配置 | `assets/scripts/config/online_reward.json.ts` |
+| 在线奖励面板 | `assets/scripts/ui/components/OnlineRewardPanel.ts` |
 
 ## 开发命令
 

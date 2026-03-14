@@ -6,7 +6,7 @@
 
 import { _decorator, Component, Node, Label, Sprite, Button, Color, tween, Vec3, UIOpacity } from 'cc';
 import { UIPanel, PanelConfig } from './UIPanel';
-import { dailySigninManager, getActiveSigninCycle } from '../signin';
+import { dailySigninManager, getActiveSigninCycle } from '../../signin';
 import {
     SigninState,
     SigninPreview,
@@ -14,9 +14,9 @@ import {
     RewardType,
     SigninEventType,
     SigninEventData
-} from '../config/DailySigninTypes';
-import { soundManager } from '../audio';
-import { UISoundType } from '../config/AudioTypes';
+} from '../../config/DailySigninTypes';
+import { soundManager } from '../../audio';
+import { UISoundType } from '../../config/AudioTypes';
 import { UIManager } from '../UIManager';
 
 const { ccclass, property } = _decorator;

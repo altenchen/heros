@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, ProgressBar, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { gachaManager } from '../gacha';
-import { GachaPoolType, Rarity, GachaEventType, GachaPoolConfig, GachaResult } from '../config/GachaTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { gachaManager } from '../../gacha';
+import { GachaPoolType, Rarity, GachaEventType, GachaPoolConfig, GachaResult } from '../../config/GachaTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

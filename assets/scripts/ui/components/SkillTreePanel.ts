@@ -5,16 +5,16 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, ScrollView } from 'cc';
 import { UIPanel, PanelConfig } from './UIPanel';
-import { skillTreeManager } from '../hero/SkillTreeManager';
+import { skillTreeManager } from '../../hero/SkillTreeManager';
 import {
     SkillTreeBranch,
     SkillTreeNodeConfig,
     HeroSkillNodeState,
     SkillTreeEventType
-} from '../config/SkillTreeTypes';
-import { soundManager } from '../audio';
+} from '../../config/SkillTreeTypes';
+import { soundManager } from '../../audio';
 import { UIManager } from '../UIManager';
-import { EventCenter } from '../utils/EventTarget';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

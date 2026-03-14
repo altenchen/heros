@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { collectionManager } from '../collection';
-import { CollectionType, CollectionState, CollectionEventType, CollectionEntry, CollectionProgressReward } from '../config/CollectionTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { collectionManager } from '../../collection';
+import { CollectionType, CollectionState, CollectionEventType, CollectionEntry, CollectionProgressReward } from '../../config/CollectionTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

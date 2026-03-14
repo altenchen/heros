@@ -223,6 +223,27 @@ export class UIManager {
             layer: UILayer.TIPS,
             cache: true
         });
+
+        // 远征面板
+        this.registerUI('expedition_panel', {
+            prefab: 'prefabs/ui/ExpeditionPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 在线奖励面板
+        this.registerUI('online_reward_panel', {
+            prefab: 'prefabs/ui/OnlineRewardPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 公告面板
+        this.registerUI('announcement_panel', {
+            prefab: 'prefabs/ui/AnnouncementPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
     }
 
     /**

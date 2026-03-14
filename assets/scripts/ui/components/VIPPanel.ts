@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { vipManager } from '../vip';
-import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, VIPPurchaseItem } from '../config/VIPTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { vipManager } from '../../vip';
+import { VIPPrivilegeType, VIPEventType, VIPLevelConfig, VIPPurchaseItem } from '../../config/VIPTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

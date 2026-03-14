@@ -183,6 +183,15 @@ export class Game extends Component {
         // 初始化加速系统
         speedUpManager.init();
 
+        // 初始化远征系统
+        expeditionManager.init();
+
+        // 初始化在线奖励系统
+        onlineRewardManager.init();
+
+        // 初始化公告系统
+        announcementManager.init();
+
         // 设置自动存档回调
         autoSaveManager.setSaveDataCallback(() => this.collectSaveData());
 
@@ -246,7 +255,10 @@ export class Game extends Component {
             activity: activityManager.serialize(),
             arena: arenaManager.serialize(),
             gacha: gachaManager.serialize(),
-            collection: collectionManager.serialize()
+            collection: collectionManager.serialize(),
+            expedition: expeditionManager.serialize(),
+            onlineReward: onlineRewardManager.serialize(),
+            announcement: announcementManager.serialize()
         };
     }
 
@@ -279,6 +291,9 @@ export class Game extends Component {
             arenaManager.deserialize(saveData.arena);
             gachaManager.deserialize(saveData.gacha);
             collectionManager.deserialize(saveData.collection);
+            expeditionManager.deserialize(saveData.expedition);
+            onlineRewardManager.deserialize(saveData.onlineReward);
+            announcementManager.deserialize(saveData.announcement);
         }
 
         // 显示主菜单

@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView, ProgressBar } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { activityManager } from '../activity';
-import { ActivityType, ActivityState, ActivityEventType, ActivityInfo, ActivityTask, ActivityReward } from '../config/ActivityTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { activityManager } from '../../activity';
+import { ActivityType, ActivityState, ActivityEventType, ActivityInfo, ActivityTask, ActivityReward } from '../../config/ActivityTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

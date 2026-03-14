@@ -5,15 +5,15 @@
 
 import { _decorator, Node, Label, Button, ProgressBar, Color } from 'cc';
 import { UIPanel } from './UIPanel';
-import { expeditionManager, ExpeditionManager } from '../expedition/ExpeditionManager';
+import { expeditionManager, ExpeditionManager } from '../../expedition/ExpeditionManager';
 import {
     ExpeditionState,
     ExpeditionDifficulty,
     ExpeditionEventType,
     ExpeditionData,
     ExpeditionDetail
-} from '../config/ExpeditionTypes';
-import { EventCenter } from '../utils/EventTarget';
+} from '../../config/ExpeditionTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

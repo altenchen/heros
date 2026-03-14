@@ -5,10 +5,10 @@
 
 import { _decorator, Node, Label, Button, ProgressBar, Color } from 'cc';
 import { UIPanel } from './UIPanel';
-import { onlineRewardManager, OnlineRewardManager } from '../onlinereward/OnlineRewardManager';
-import { OnlineRewardEventType, OnlineRewardPreview, OnlineRewardConfig } from '../config/OnlineRewardTypes';
-import { EventCenter } from '../utils/EventTarget';
-import { vipManager } from '../vip';
+import { onlineRewardManager, OnlineRewardManager } from '../../onlinereward/OnlineRewardManager';
+import { OnlineRewardEventType, OnlineRewardPreview, OnlineRewardConfig } from '../../config/OnlineRewardTypes';
+import { EventCenter } from '../../utils/EventTarget';
+import { vipManager } from '../../vip';
 
 const { ccclass, property } = _decorator;
 

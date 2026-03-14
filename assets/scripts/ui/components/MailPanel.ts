@@ -6,9 +6,9 @@
 
 import { _decorator, Node, Label, Button, Sprite, Color, Prefab, instantiate, ScrollView } from 'cc';
 import { UIPanel, PanelAnimationType } from './UIPanel';
-import { mailManager } from '../mail';
-import { MailType, MailState, MailEventType, MailData, MailAttachment } from '../config/MailTypes';
-import { EventCenter } from '../utils/EventTarget';
+import { mailManager } from '../../mail';
+import { MailType, MailState, MailEventType, MailData, MailAttachment } from '../../config/MailTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 
