@@ -40,7 +40,17 @@ export class BattleUnit implements IBattleUnit {
     // 临时属性修改
     private attackModifier: number = 0;
     private defenseModifier: number = 0;
-    private speedModifier: number = 0;
+    private _speedModifier: number = 0;
+
+    /** 获取速度修正值 */
+    get speedModifier(): number {
+        return this._speedModifier;
+    }
+
+    /** 修改速度修正值 */
+    modifySpeed(value: number): void {
+        this._speedModifier += value;
+    }
 
     constructor(
         id: string,
@@ -404,5 +414,13 @@ export class BattleUnit implements IBattleUnit {
             canCounter: this.canCounter,
             hasActed: this.hasActed
         };
+    }
+
+    /**
+     * 修改速度修正值
+     * @param value 修正值（可为负数）
+     */
+    modifySpeedModifier(value: number): void {
+        this.speedModifier += value;
     }
 }

@@ -551,3 +551,52 @@ interface RankItem {
     avatarUrl: string;
     score: number;
 }
+
+/**
+ * 微信适配器
+ * 整合所有微信功能
+ */
+export class WechatAdapter {
+    private static instance: WechatAdapter | null = null;
+
+    public storage: StorageManager;
+    public user: UserManager;
+    public share: ShareManager;
+    public rank: RankManager;
+    public payment: PaymentManager;
+    public antiAddiction: AntiAddictionManager;
+
+    private constructor() {
+        this.storage = StorageManager.getInstance();
+        this.user = UserManager.getInstance();
+        this.share = ShareManager.getInstance();
+        this.rank = RankManager.getInstance();
+        this.payment = PaymentManager.getInstance();
+        this.antiAddiction = AntiAddictionManager.getInstance();
+    }
+
+    static getInstance(): WechatAdapter {
+        if (!WechatAdapter.instance) {
+            WechatAdapter.instance = new WechatAdapter();
+        }
+        return WechatAdapter.instance;
+    }
+
+    /**
+     * 初始化
+     */
+    async init(): Promise<void> {
+        this.antiAddiction.startTimer();
+        console.log('WechatAdapter initialized');
+    }
+
+    /**
+     * 是否微信平台
+     */
+    isWechat(): boolean {
+        return isWechatPlatform();
+    }
+}
+
+/** 微信适配器单例 */
+export const wechatAdapter = WechatAdapter.getInstance();

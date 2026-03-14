@@ -411,3 +411,6 @@ export class TownManager {
         }
     }
 }
+
+/** 主城管理器单例 */
+export const townManager = new TownManager();

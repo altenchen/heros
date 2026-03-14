@@ -370,3 +370,6 @@ export class SkillManager {
         );
     }
 }
+
+/** 技能管理器单例 */
+export const skillManager = new SkillManager();

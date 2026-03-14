@@ -342,12 +342,14 @@ export function getContinuousBonus(cycleId: string, days: number): RewardConfig 
  */
 export function calculateMakeupCost(cycle: SigninCycleConfig, makeupCount: number): { gold: number; gems: number } {
     const baseCost = cycle.makeupCost || { gold: 500, gems: 50 };
+    const gold = baseCost.gold ?? 500;
+    const gems = baseCost.gems ?? 50;
 
     // 补签次数越多，费用越高
     const multiplier = 1 + (makeupCount * 0.5);
 
     return {
-        gold: Math.floor(baseCost.gold * multiplier),
-        gems: Math.floor(baseCost.gems * multiplier)
+        gold: Math.floor(gold * multiplier),
+        gems: Math.floor(gems * multiplier)
     };
 }

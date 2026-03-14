@@ -576,7 +576,7 @@ export class BattleManager {
 
             case 'zombie_disease':
                 // 僵尸疾病
-                target.speedModifier -= specialty.effect.value as number;
+                target.modifySpeedModifier(-(specialty.effect.value as number));
                 break;
 
             case 'medusa_stone':

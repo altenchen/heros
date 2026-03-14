@@ -2,4 +2,5 @@
  * 主城系统模块导出
  */
 
-export { TownManager, townManager } from './TownManager';
+export { TownManager } from './TownManager';
+export { BuildingConfigs } from './TownManager';
