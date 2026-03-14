@@ -17,6 +17,7 @@ import {
     MatchResult,
     DEFAULT_ARENA_SETTINGS
 } from '../config/ArenaTypes';
+import { ResourceType } from '../config/GameTypes';
 import {
     arenaTierConfigs,
     matchConfigs,

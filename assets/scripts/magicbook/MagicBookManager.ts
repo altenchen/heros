@@ -881,6 +881,29 @@ export class MagicBookManager {
             });
         }
     }
+
+    // ==================== 战斗辅助方法 ====================
+
+    /**
+     * 记录施法（用于战斗桥接器）
+     */
+    recordSpellCast(heroId: string, spellId: string): void {
+        const book = this.heroBooks.get(heroId);
+        if (!book) return;
+
+        const heroSpell = book.spells.get(spellId);
+        if (!heroSpell) return;
+
+        heroSpell.castCount++;
+        heroSpell.lastCastTime = Date.now();
+    }
+
+    /**
+     * 获取魔法强度
+     */
+    getSpellPower(heroId: string): number {
+        return this.heroBooks.get(heroId)?.spellPower || 0;
+    }
 }
 
 // 导出单例
