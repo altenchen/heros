@@ -19,3 +19,5 @@ export { SocialPanel } from './SocialPanel';
 export { TutorialOverlay } from './TutorialOverlay';
 export { SigninPanel } from './SigninPanel';
 export { FormationPanel } from './FormationPanel';
+export { RankPanel } from './RankPanel';
+export { ArenaPanel } from './ArenaPanel';

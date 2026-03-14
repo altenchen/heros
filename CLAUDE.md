@@ -41,6 +41,9 @@
 | 新手引导系统 | ✅ 已完成 | 教程触发、步骤执行、进度保存 |
 | 邮件系统 | ✅ 已完成 | 系统邮件、奖励附件、批量领取 |
 | 活动系统 | ✅ 已完成 | 限时活动、节日活动、任务进度 |
+| PVP竞技场系统 | ✅ 已完成 | 玩家匹配、段位、赛季奖励 |
+| 招募系统 | ✅ 已完成 | 抽卡、保底机制、概率配置 |
+| 图鉴系统 | ✅ 已完成 | 英雄图鉴、兵种图鉴、收集奖励 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -532,6 +535,137 @@ EventCenter.on(ActivityEventType.TASK_COMPLETE, (data) => {
 });
 ```
 
+### PVP竞技场系统
+
+```typescript
+import { ArenaManager, arenaManager } from './arena/ArenaManager';
+import { ArenaTier, MatchType, BattleResult, ArenaEventType } from './config/ArenaTypes';
+
+// 初始化
+arenaManager.init();
+
+// 获取玩家竞技场数据
+const playerData = arenaManager.getPlayerData();
+console.log(`当前段位: ${playerData.tier}, 积分: ${playerData.score}`);
+
+// 获取剩余挑战次数
+const remaining = arenaManager.getRemainingChallenges();
+
+// 开始排位匹配
+const matchResult = arenaManager.startMatch(MatchType.RANKED);
+if (matchResult.success) {
+    console.log('开始匹配...');
+}
+
+// 购买挑战次数
+const buyResult = arenaManager.buyChallengeCount();
+
+// 获取当前对手
+const opponent = arenaManager.getCurrentOpponent();
+
+// 开始战斗
+arenaManager.startBattle();
+
+// 结束战斗
+arenaManager.endBattle(BattleResult.WIN);
+
+// 获取段位配置
+const tierConfig = arenaManager.getTierConfig(ArenaTier.DIAMOND);
+
+// 领取段位奖励
+const rewardResult = arenaManager.claimTierReward(ArenaTier.GOLD);
+
+// 监听竞技场事件
+EventCenter.on(ArenaEventType.MATCH_SUCCESS, (data) => {
+    console.log(`匹配成功，对手: ${data.opponent?.playerName}`);
+});
+EventCenter.on(ArenaEventType.TIER_UP, (data) => {
+    console.log(`恭喜晋升段位: ${data.currentTier}`);
+});
+```
+
+### 招募系统
+
+```typescript
+import { GachaManager, gachaManager } from './gacha/GachaManager';
+import { GachaPoolType, Rarity, GachaEventType } from './config/GachaTypes';
+
+// 初始化
+gachaManager.init();
+
+// 获取开启中的招募池
+const pools = gachaManager.getActivePools();
+
+// 获取保底计数
+const pityCount = gachaManager.getPityCount('pool_hero_normal');
+const pityRemaining = gachaManager.getPityRemaining('pool_hero_normal');
+
+// 单抽
+const singleResult = gachaManager.singlePull('pool_hero_normal');
+if (singleResult.success) {
+    singleResult.results.forEach(result => {
+        console.log(`获得: ${result.itemId}, 稀有度: ${result.rarity}, 数量: ${result.amount}`);
+    });
+}
+
+// 十连
+const tenResult = gachaManager.tenPull('pool_hero_normal');
+
+// 获取抽卡消耗
+const cost = gachaManager.getPullCost('pool_hero_normal', 10);
+
+// 获取抽卡记录
+const records = gachaManager.getRecords(20);
+
+// 监听招募事件
+EventCenter.on(GachaEventType.GET_RARE, (data) => {
+    console.log(`获得稀有物品! 稀有度: ${data.rarity}`);
+});
+EventCenter.on(GachaEventType.PITY_TRIGGERED, (data) => {
+    console.log('触发保底!');
+});
+```
+
+### 图鉴系统
+
+```typescript
+import { CollectionManager, collectionManager } from './collection/CollectionManager';
+import { CollectionType, CollectionState, CollectionEventType } from './config/CollectionTypes';
+
+// 初始化
+collectionManager.init();
+
+// 获取收集统计
+const stats = collectionManager.getStats(CollectionType.HERO);
+console.log(`收集进度: ${stats.collected}/${stats.total}, 完成率: ${stats.completionRate}%`);
+
+// 获取指定类型的图鉴条目
+const entries = collectionManager.getEntriesByType(CollectionType.HERO);
+entries.forEach(entry => {
+    console.log(`${entry.config.name}: ${entry.data.state}, 碎片: ${entry.data.shards}/${entry.config.shardRequired}`);
+});
+
+// 添加碎片（通过目标ID）
+collectionManager.addShardsByTargetId('hero_castle_knight', 5);
+
+// 收集条目
+const collectResult = collectionManager.collect('collection_hero_castle_1');
+
+// 获取可领取的进度奖励
+const claimableRewards = collectionManager.getClaimableRewards();
+
+// 领取进度奖励
+const claimResult = collectionManager.claimProgressReward('progress_hero_5');
+
+// 监听图鉴事件
+EventCenter.on(CollectionEventType.ENTRY_COLLECTED, (data) => {
+    console.log(`收集新条目: ${data.entryId}`);
+});
+EventCenter.on(CollectionEventType.PROGRESS_REACHED, (data) => {
+    console.log(`达成收集进度: ${data.count}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -621,6 +755,15 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 活动管理 | `assets/scripts/activity/ActivityManager.ts` |
 | 活动类型 | `assets/scripts/config/ActivityTypes.ts` |
 | 活动配置 | `assets/scripts/config/activity.json.ts` |
+| 竞技场管理 | `assets/scripts/arena/ArenaManager.ts` |
+| 竞技场类型 | `assets/scripts/config/ArenaTypes.ts` |
+| 竞技场配置 | `assets/scripts/config/arena.json.ts` |
+| 招募管理 | `assets/scripts/gacha/GachaManager.ts` |
+| 招募类型 | `assets/scripts/config/GachaTypes.ts` |
+| 招募配置 | `assets/scripts/config/gacha.json.ts` |
+| 图鉴管理 | `assets/scripts/collection/CollectionManager.ts` |
+| 图鉴类型 | `assets/scripts/config/CollectionTypes.ts` |
+| 图鉴配置 | `assets/scripts/config/collection.json.ts` |
 
 ## 开发命令
 

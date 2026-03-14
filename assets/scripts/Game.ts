@@ -27,6 +27,12 @@ import { levelBattleBridge, LevelBattleEventType } from './level/LevelBattleBrid
 import { rewardManager } from './utils/RewardManager';
 import { skinManager } from './utils/SkinManager';
 import { vipManager } from './vip';
+import { rankManager } from './rank';
+import { mailManager } from './mail';
+import { activityManager } from './activity';
+import { arenaManager } from './arena';
+import { gachaManager } from './gacha';
+import { collectionManager } from './collection';
 
 const { ccclass, property } = _decorator;
 
@@ -145,6 +151,24 @@ export class Game extends Component {
 
         // 初始化VIP系统
         vipManager.init();
+
+        // 初始化排行榜系统
+        rankManager.init();
+
+        // 初始化邮件系统
+        mailManager.init();
+
+        // 初始化活动系统
+        activityManager.init();
+
+        // 初始化竞技场系统
+        arenaManager.init();
+
+        // 初始化招募系统
+        gachaManager.init();
+
+        // 初始化图鉴系统
+        collectionManager.init();
 
         // 初始化UI管理器
         if (this.canvas) {
@@ -268,6 +292,42 @@ export class Game extends Component {
         if (vipData) {
             vipManager.deserialize(vipData);
         }
+
+        // 加载排行榜数据
+        const rankData = localStorage.getItem('hmm_legacy_rank');
+        if (rankData) {
+            rankManager.deserialize(rankData);
+        }
+
+        // 加载邮件数据
+        const mailData = localStorage.getItem('hmm_legacy_mail');
+        if (mailData) {
+            mailManager.deserialize(mailData);
+        }
+
+        // 加载活动数据
+        const activityData = localStorage.getItem('hmm_legacy_activity');
+        if (activityData) {
+            activityManager.deserialize(activityData);
+        }
+
+        // 加载竞技场数据
+        const arenaData = localStorage.getItem('hmm_legacy_arena');
+        if (arenaData) {
+            arenaManager.deserialize(arenaData);
+        }
+
+        // 加载招募数据
+        const gachaData = localStorage.getItem('hmm_legacy_gacha');
+        if (gachaData) {
+            gachaManager.deserialize(gachaData);
+        }
+
+        // 加载图鉴数据
+        const collectionData = localStorage.getItem('hmm_legacy_collection');
+        if (collectionData) {
+            collectionManager.deserialize(collectionData);
+        }
     }
 
     /**
@@ -325,6 +385,24 @@ export class Game extends Component {
 
         // 保存VIP数据
         localStorage.setItem('hmm_legacy_vip', vipManager.serialize());
+
+        // 保存排行榜数据
+        localStorage.setItem('hmm_legacy_rank', rankManager.serialize());
+
+        // 保存邮件数据
+        localStorage.setItem('hmm_legacy_mail', mailManager.serialize());
+
+        // 保存活动数据
+        localStorage.setItem('hmm_legacy_activity', activityManager.serialize());
+
+        // 保存竞技场数据
+        localStorage.setItem('hmm_legacy_arena', arenaManager.serialize());
+
+        // 保存招募数据
+        localStorage.setItem('hmm_legacy_gacha', gachaManager.serialize());
+
+        // 保存图鉴数据
+        localStorage.setItem('hmm_legacy_collection', collectionManager.serialize());
 
         console.log('游戏已保存');
         EventCenter.emit(GameEvent.GAME_SAVED);
@@ -440,6 +518,48 @@ export class Game extends Component {
      */
     getVIPManager(): typeof vipManager {
         return vipManager;
+    }
+
+    /**
+     * 获取排行榜管理器
+     */
+    getRankManager(): typeof rankManager {
+        return rankManager;
+    }
+
+    /**
+     * 获取邮件管理器
+     */
+    getMailManager(): typeof mailManager {
+        return mailManager;
+    }
+
+    /**
+     * 获取活动管理器
+     */
+    getActivityManager(): typeof activityManager {
+        return activityManager;
+    }
+
+    /**
+     * 获取竞技场管理器
+     */
+    getArenaManager(): typeof arenaManager {
+        return arenaManager;
+    }
+
+    /**
+     * 获取招募管理器
+     */
+    getGachaManager(): typeof gachaManager {
+        return gachaManager;
+    }
+
+    /**
+     * 获取图鉴管理器
+     */
+    getCollectionManager(): typeof collectionManager {
+        return collectionManager;
     }
 
     /**
