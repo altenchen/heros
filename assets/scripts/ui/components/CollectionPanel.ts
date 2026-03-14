@@ -301,7 +301,8 @@ export class CollectionPanel extends UIPanel {
         const texts: Record<CollectionState, string> = {
             [CollectionState.LOCKED]: '未解锁',
             [CollectionState.UNLOCKED]: '碎片收集中',
-            [CollectionState.COLLECTED]: '已收集'
+            [CollectionState.COLLECTED]: '已收集',
+            [CollectionState.MAX_LEVEL]: '已满级'
         };
         return texts[state];
     }

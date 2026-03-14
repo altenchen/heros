@@ -170,6 +170,9 @@ export interface ShopItemConfig {
 /** 商品（类型别名） */
 export type ShopItem = ShopItemConfig;
 
+/** 兑换配置（类型别名） */
+export type ExchangeConfig = CurrencyExchangeConfig;
+
 /**
  * 商品购买记录
  */

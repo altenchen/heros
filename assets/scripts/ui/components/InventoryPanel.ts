@@ -281,9 +281,10 @@ export class InventoryPanel extends UIPanel {
 
             // 道具名称
             const nameLabel = itemNode.getChildByName('Name')?.getComponent(Label);
-            if (nameLabel) {
+            if (nameLabel && item.config) {
                 nameLabel.string = item.config.name;
-                nameLabel.color = RARITY_COLORS[item.config.rarity];
+                const rarity = item.config.rarity || ItemRarity.COMMON;
+                nameLabel.color = RARITY_COLORS[rarity];
             }
 
             // 道具数量
@@ -322,20 +323,22 @@ export class InventoryPanel extends UIPanel {
      * 显示道具详情
      */
     private _showItemDetail(item: InventoryItem): void {
-        if (!this.detailPanel) return;
+        if (!this.detailPanel || !item.config) return;
 
         this._currentInstanceId = item.instanceId;
         this._currentItem = item;
         this.detailPanel.active = true;
 
+        const rarity = item.config.rarity || ItemRarity.COMMON;
+
         if (this.itemNameLabel) {
             this.itemNameLabel.string = item.config.name;
-            this.itemNameLabel.color = RARITY_COLORS[item.config.rarity];
+            this.itemNameLabel.color = RARITY_COLORS[rarity];
         }
 
         if (this.itemRarityLabel) {
-            this.itemRarityLabel.string = RARITY_NAMES[item.config.rarity];
-            this.itemRarityLabel.color = RARITY_COLORS[item.config.rarity];
+            this.itemRarityLabel.string = RARITY_NAMES[rarity];
+            this.itemRarityLabel.color = RARITY_COLORS[rarity];
         }
 
         if (this.itemDescLabel) {
@@ -354,8 +357,8 @@ export class InventoryPanel extends UIPanel {
 
         // 出售按钮
         if (this.sellButton) {
-            this.sellButton.interactable = item.config.sellable;
-            this.sellButton.node.active = item.config.sellable;
+            this.sellButton.interactable = item.config.sellable ?? false;
+            this.sellButton.node.active = item.config.sellable ?? false;
         }
 
         if (this.sellPriceLabel && item.config.sellPrice) {

@@ -475,13 +475,13 @@ export class TutorialManager {
      */
     private _grantReward(reward: any): void {
         if (reward.gold) {
-            playerDataManager.addResource('gold', reward.gold);
+            playerDataManager.addResource(ResourceType.GOLD, reward.gold);
         }
         if (reward.gems) {
-            playerDataManager.addResource('gems', reward.gems);
+            playerDataManager.addResource(ResourceType.GEMS, reward.gems);
         }
         if (reward.stamina) {
-            playerDataManager.addResource('stamina', reward.stamina);
+            playerDataManager.addResource(ResourceType.STAMINA, reward.stamina);
         }
         if (reward.exp) {
             playerDataManager.addExperience(reward.exp);

@@ -408,9 +408,9 @@ export class ActivityPanel extends UIPanel {
     private _onClaimAllClick(): void {
         if (!this._currentActivityId) return;
 
-        const result = activityManager.claimAllRewards(this._currentActivityId);
-        if (result.success && result.results) {
-            const count = result.results.filter(r => r.success).length;
+        const results = activityManager.claimAllRewards(this._currentActivityId);
+        if (results && results.length > 0) {
+            const count = results.filter(r => r.success).length;
             this._showToast(`领取成功！共${count}个奖励`);
             // 刷新详情
             const detail = activityManager.getActivityDetail(this._currentActivityId);

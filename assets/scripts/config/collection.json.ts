@@ -18,6 +18,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     // 圣堂英雄
     {
         entryId: 'collection_hero_castle_1',
+        id: 'collection_hero_castle_1',
         type: CollectionType.HERO,
         targetId: 'hero_castle_knight',
         name: '圣堂骑士',
@@ -34,6 +35,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     },
     {
         entryId: 'collection_hero_castle_2',
+        id: 'collection_hero_castle_2',
         type: CollectionType.HERO,
         targetId: 'hero_castle_cleric',
         name: '圣堂牧师',
@@ -51,6 +53,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     // 壁垒英雄
     {
         entryId: 'collection_hero_rampart_1',
+        id: 'collection_hero_rampart_1',
         type: CollectionType.HERO,
         targetId: 'hero_rampart_ranger',
         name: '壁垒巡逻兵',
@@ -67,6 +70,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     },
     {
         entryId: 'collection_hero_rampart_2',
+        id: 'collection_hero_rampart_2',
         type: CollectionType.HERO,
         targetId: 'hero_rampart_druid',
         name: '壁垒德鲁伊',
@@ -84,6 +88,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     // 墓园英雄
     {
         entryId: 'collection_hero_necropolis_1',
+        id: 'collection_hero_necropolis_1',
         type: CollectionType.HERO,
         targetId: 'hero_necropolis_necromancer',
         name: '墓园亡灵巫师',
@@ -101,6 +106,7 @@ export const heroCollectionEntries: CollectionEntryConfig[] = [
     // 传说英雄
     {
         entryId: 'collection_hero_legendary_1',
+        id: 'collection_hero_legendary_1',
         type: CollectionType.HERO,
         targetId: 'hero_legendary_catherine',
         name: '凯瑟琳女王',
@@ -130,6 +136,7 @@ export const unitCollectionEntries: CollectionEntryConfig[] = [
     // 圣堂兵种
     {
         entryId: 'collection_unit_castle_1',
+        id: 'collection_unit_castle_1',
         type: CollectionType.UNIT,
         targetId: 'unit_castle_pikeman',
         name: '枪兵',
@@ -145,6 +152,7 @@ export const unitCollectionEntries: CollectionEntryConfig[] = [
     },
     {
         entryId: 'collection_unit_castle_2',
+        id: 'collection_unit_castle_2',
         type: CollectionType.UNIT,
         targetId: 'unit_castle_archer',
         name: '弓箭手',
@@ -160,6 +168,7 @@ export const unitCollectionEntries: CollectionEntryConfig[] = [
     },
     {
         entryId: 'collection_unit_castle_7',
+        id: 'collection_unit_castle_7',
         type: CollectionType.UNIT,
         targetId: 'unit_castle_angel',
         name: '天使',
@@ -182,6 +191,7 @@ export const unitCollectionEntries: CollectionEntryConfig[] = [
 export const itemCollectionEntries: CollectionEntryConfig[] = [
     {
         entryId: 'collection_item_potion_hp',
+        id: 'collection_item_potion_hp',
         type: CollectionType.ITEM,
         targetId: 'item_potion_hp',
         name: '生命药水',
@@ -197,6 +207,7 @@ export const itemCollectionEntries: CollectionEntryConfig[] = [
     },
     {
         entryId: 'collection_item_potion_mp',
+        id: 'collection_item_potion_mp',
         type: CollectionType.ITEM,
         targetId: 'item_potion_mp',
         name: '魔法药水',
