@@ -93,6 +93,10 @@ export interface SaveData {
     artifacts: { artifacts: any[]; heroEquipments: any[] };
     /** 战争机器数据 */
     warMachines: { machines: any[]; heroEquipments: Record<string, string[]> };
+    /** 魔法书数据 */
+    magicBook: { heroBooks: Record<string, any> };
+    /** 市场数据 */
+    market: { level: number; todayTradeCount: number; lastResetTime: number; tradeRecords: any[] };
 }
 
 /**

@@ -39,3 +39,4 @@ export { AnnouncementPanel, AnnouncementItem, AnnouncementDetailContent } from '
 export { ArtifactPanel, EquipmentSlot } from './ArtifactPanel';
 export { WarMachinePanel, WarMachineSlot, WarMachineItem, WarMachineDetailPanel } from './WarMachinePanel';
 export { MarketPanel } from './MarketPanel';
+export { MagicBookPanel } from './MagicBookPanel';
