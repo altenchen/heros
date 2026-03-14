@@ -128,7 +128,7 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_string": "英雄无敌Ⅲ：传承",
+    "_string": "\u82f1\u96c4\u65e0\u654c\u2162\uff1a\u4f20\u627f",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -163,7 +163,7 @@
     },
     "_enabled": true,
     "_cameraComponent": {
-      "__id__": 9
+      "__id__": 8
     },
     "_alignCanvasWithScreen": true,
     "_id": ""

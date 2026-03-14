@@ -89,11 +89,63 @@
         "height": 548
       },
       "scale": 1
+    },
+    "58f4a2bf-5ddd-423a-afee-a91dd513f2c3": {
+      "position": {
+        "x": 26.18390274602807,
+        "y": 26.183902746028068,
+        "z": 26.183902746028064
+      },
+      "rotation": {
+        "x": -0.27984814233312133,
+        "y": 0.3647051996310009,
+        "z": 0.11591689595929512,
+        "w": 0.8804762392171493
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1780,
+        "height": 548
+      },
+      "scale": 1
+    },
+    "b7cefe27-8af3-4ef8-a0f0-6de325c4d998": {
+      "position": {
+        "x": 17.16361089096371,
+        "y": 17.16361089096371,
+        "z": 17.163610890963703
+      },
+      "rotation": {
+        "x": -0.27984814233312133,
+        "y": 0.3647051996310009,
+        "z": 0.11591689595929512,
+        "w": 0.8804762392171493
+      },
+      "viewCenter": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "contentRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1780,
+        "height": 836
+      },
+      "scale": 1
     }
   },
   "camera-uuids": [
     "f46876e4-e81b-4931-b493-6d367be385e7",
-    "c3eb7da0-4dff-4eb6-95b4-08bb5880fdbb"
+    "c3eb7da0-4dff-4eb6-95b4-08bb5880fdbb",
+    "58f4a2bf-5ddd-423a-afee-a91dd513f2c3",
+    "b7cefe27-8af3-4ef8-a0f0-6de325c4d998"
   ],
   "camera": {
     "color": [
@@ -127,6 +179,18 @@
           "right": 10
         }
       }
+    }
+  },
+  "scene_view": {
+    "isSceneLightOn": true,
+    "output_device": "__default_design__"
+  },
+  "game-view": {
+    "devicesInfo": {
+      "name": "i18n:scene.game_view.design_resolution",
+      "type": "design",
+      "width": 1280,
+      "height": 720
     }
   }
 }
