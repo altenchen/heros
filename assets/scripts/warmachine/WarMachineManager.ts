@@ -231,6 +231,13 @@ export class WarMachineManager {
     }
 
     /**
+     * 获取英雄装备的战争机器ID列表
+     */
+    getHeroEquipment(heroId: string): string[] {
+        return this.heroEquipments.get(heroId) || [];
+    }
+
+    /**
      * 升级战争机器
      */
     upgradeMachine(instanceId: string): { success: boolean; newLevel?: number; cost?: number } {

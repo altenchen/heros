@@ -365,15 +365,15 @@ export class WarMachineDetailPanel extends UIPanel {
     }
 
     onUnequipClick(): void {
-        const result = warMachineManager.unequipMachine(this.heroId, this.instanceId);
-        if (result.success) {
+        const result = warMachineManager.unequipMachine(this.instanceId);
+        if (result) {
             this.node.active = false;
         }
     }
 
     onSellClick(): void {
-        const gold = warMachineManager.sellMachine(this.instanceId);
-        if (gold > 0) {
+        const result = warMachineManager.sellMachine(this.instanceId);
+        if (result.success && result.gold) {
             this.node.active = false;
         }
     }
@@ -552,8 +552,8 @@ export class WarMachinePanel extends UIPanel {
      * 处理装备请求
      */
     private handleEquipRequest(data: { instanceId: string }): void {
-        const result = warMachineManager.equipMachine(this.heroId, data.instanceId);
-        if (result.success) {
+        const result = warMachineManager.equipMachine(data.instanceId, this.heroId);
+        if (result) {
             this.updateSlots();
         }
     }
