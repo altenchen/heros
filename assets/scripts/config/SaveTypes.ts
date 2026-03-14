@@ -91,6 +91,8 @@ export interface SaveData {
     announcement: string;
     /** 宝物数据 */
     artifacts: { artifacts: any[]; heroEquipments: any[] };
+    /** 战争机器数据 */
+    warMachines: { machines: any[]; heroEquipments: Record<string, string[]> };
 }
 
 /**

@@ -54,6 +54,7 @@
 | 远征系统 | ✅ 已完成 | 英雄派遣、远征奖励、星级评价 |
 | 在线奖励系统 | ✅ 已完成 | 在线时长奖励、VIP加成、每日重置 |
 | 宝物系统 | ✅ 已完成 | 神器收集、装备强化、属性加成 |
+| 战争机器系统 | ✅ 已完成 | 弩车、医疗帐篷、弹药车、投石车 |
 | 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
 | 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
 
@@ -1081,6 +1082,71 @@ EventCenter.on(ArtifactEventType.ARTIFACT_EQUIPPED, (data) => {
 });
 ```
 
+### 战争机器系统
+
+```typescript
+import { WarMachineManager, warMachineManager } from './warmachine/WarMachineManager';
+import { WarMachineType, WarMachineEventType } from './config/WarMachineTypes';
+
+// 初始化
+warMachineManager.init();
+
+// 获得战争机器
+const ballista = warMachineManager.addMachine('war_machine_ballista_1', 1);
+const tent = warMachineManager.addMachine('war_machine_first_aid_tent_1', 1);
+
+// 装备到英雄
+warMachineManager.equipMachine(ballista!.instanceId, 'hero_1');
+warMachineManager.equipMachine(tent!.instanceId, 'hero_1');
+
+// 获取英雄装备的战争机器
+const heroMachines = warMachineManager.getHeroMachines('hero_1');
+
+// 获取弹药车加成
+const ammoBonus = warMachineManager.getAmmoCartBonus('hero_1');
+
+// 升级战争机器
+const upgradeResult = warMachineManager.upgradeMachine(ballista!.instanceId);
+
+// 出售战争机器
+const sellResult = warMachineManager.sellMachine(ballista!.instanceId);
+
+// 战斗中初始化状态
+const battleStates = warMachineManager.initBattleState('hero_1');
+
+// 执行弩车攻击
+const attackResult = warMachineManager.executeBallistaAttack(
+    ballista!.instanceId,
+    'enemy_unit_1',
+    10 // 英雄攻击力
+);
+
+// 执行医疗帐篷治疗
+const healResult = warMachineManager.executeFirstAidHeal(
+    tent!.instanceId,
+    'ally_unit_1',
+    5 // 英雄魔法强度
+);
+
+// 战争机器受损
+warMachineManager.damageMachine(ballista!.instanceId, 50);
+
+// 修复战争机器
+warMachineManager.repairMachine(ballista!.instanceId, 30);
+
+// 存档
+const saveData = warMachineManager.getSaveData();
+warMachineManager.loadSaveData(saveData);
+
+// 监听战争机器事件
+EventCenter.on(WarMachineEventType.OBTAINED, (data) => {
+    console.log(`获得战争机器: ${data.configId}`);
+});
+EventCenter.on(WarMachineEventType.BATTLE_ACTION, (data) => {
+    console.log(`战争机器行动: ${data.actionType}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -1217,6 +1283,9 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 宝物类型 | `assets/scripts/config/ArtifactTypes.ts` |
 | 宝物配置 | `assets/scripts/config/artifact.json.ts` |
 | 宝物面板 | `assets/scripts/ui/components/ArtifactPanel.ts` |
+| 战争机器管理 | `assets/scripts/warmachine/WarMachineManager.ts` |
+| 战争机器类型 | `assets/scripts/config/WarMachineTypes.ts` |
+| 战争机器配置 | `assets/scripts/configs/war_machine.json.ts` |
 
 ## 开发命令
 
