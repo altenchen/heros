@@ -419,7 +419,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Game",
+    "_name": "GameBootstrap",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -461,16 +461,13 @@
     "_id": ""
   },
   {
-    "__type__": "daa91f9f-308b-40b3-ad52-50fe83ac7427",
+    "__type__": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 13
     },
     "_enabled": true,
-    "canvas": {
-      "__id__": 2
-    },
     "__prefab": null,
     "_id": ""
   }
