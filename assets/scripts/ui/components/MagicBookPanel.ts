@@ -6,7 +6,7 @@
 
 import { _decorator, Node, Label, Button, ScrollView, Color, Sprite, UIOpacity } from 'cc';
 import { UIPanel } from './UIPanel';
-import { magicBookManager, MagicBookManager } from '../magicbook/MagicBookManager';
+import { magicBookManager, MagicBookManager } from '../../magicbook/MagicBookManager';
 import {
     SpellConfig,
     HeroSpell,
@@ -14,9 +14,9 @@ import {
     MagicBookEventType,
     SpellLevel,
     MagicMastery
-} from '../config/MagicBookTypes';
-import { MagicSchool } from '../config/GameTypes';
-import { EventCenter } from '../utils/EventTarget';
+} from '../../config/MagicBookTypes';
+import { MagicSchool } from '../../config/GameTypes';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 

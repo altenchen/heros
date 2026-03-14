@@ -384,6 +384,20 @@ export class UIManager {
             layer: UILayer.PANEL,
             cache: true
         });
+
+        // 魔法书面板
+        this.registerUI('magic_book_panel', {
+            prefab: 'prefabs/ui/MagicBookPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
+
+        // 市场面板
+        this.registerUI('market_panel', {
+            prefab: 'prefabs/ui/MarketPanel',
+            layer: UILayer.PANEL,
+            cache: true
+        });
     }
 
     /**
