@@ -100,7 +100,7 @@ export class Game extends Component {
         }
 
         Game.instance = this;
-        game.addPersistRootNode(this.node);
+        ccGame.addPersistRootNode(this.node);
 
         this.playerDataManager = new PlayerDataManager();
         this.uiManager = UIManager.getInstance();
