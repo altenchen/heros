@@ -40,6 +40,9 @@
     "_children": [
       {
         "__id__": 3
+      },
+      {
+        "__id__": 12
       }
     ],
     "_active": true,
@@ -128,7 +131,7 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_string": "英雄无敌Ⅲ：传承",
+    "_string": "\u82f1\u96c4\u65e0\u654c\u2162\uff1a\u4f20\u627f",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -399,5 +402,61 @@
       "_fogTop": 1.5,
       "_fogRange": 1.2
     }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "GameNode",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 13
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "5d886de6-5e56-449f-a3ba-c5b5d419abc5",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 12
+    },
+    "_enabled": true,
+    "titleLabel": {
+      "__id__": 3
+    },
+    "_id": ""
   }
 ]
