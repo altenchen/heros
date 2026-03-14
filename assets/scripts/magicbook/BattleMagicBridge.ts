@@ -196,7 +196,7 @@ export class BattleMagicBridge {
         });
 
         // 应用魔法效果
-        const result = this.applySpellEffects(spell, heroSpell, targets);
+        const result = this.applySpellEffects(spell, heroSpell!, targets);
 
         // 更新施放次数
         magicBookManager.recordSpellCast(this.heroId!, spellId);
@@ -383,9 +383,9 @@ export class BattleMagicBridge {
                 break;
 
             case EffectType.DISPEL:
-                // 驱散效果
+                // 驱散效果 - 默认驱散减益效果
                 const dispelCount = typeof effect.value === 'number' ? effect.value : 1;
-                buffManager.dispelBuffs(target.id, dispelCount, effect.type === EffectType.BUFF);
+                buffManager.dispelBuffs(target.id, dispelCount, false);
                 break;
 
             case EffectType.SUMMON:
