@@ -18,7 +18,6 @@ import { EventCenter } from '../../utils/EventTarget';
 const { ccclass, property } = _decorator;
 
 /** 远征项组件 */
-@ccclass('ExpeditionItem')
 export class ExpeditionItem extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;

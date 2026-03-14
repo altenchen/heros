@@ -43,7 +43,6 @@ const TYPE_DESCRIPTIONS: Record<WarMachineType, string> = {
 };
 
 /** 战争机器槽位组件 */
-@ccclass('WarMachineSlot')
 export class WarMachineSlot extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;

@@ -71,7 +71,6 @@ const STAT_NAMES: Record<ArtifactStatType, string> = {
 };
 
 /** 装备槽组件 */
-@ccclass('EquipmentSlot')
 export class EquipmentSlot extends UIPanel {
     @property(Label)
     slotNameLabel: Label | null = null;
@@ -143,7 +142,6 @@ export class EquipmentSlot extends UIPanel {
 }
 
 /** 背包宝物项组件 */
-@ccclass('ArtifactItem')
 export class ArtifactItem extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;
@@ -230,7 +228,6 @@ export class ArtifactItem extends UIPanel {
 }
 
 /** 宝物详情面板 */
-@ccclass('ArtifactDetailPanel')
 export class ArtifactDetailPanel extends UIPanel {
     @property(Label)
     nameLabel: Label | null = null;

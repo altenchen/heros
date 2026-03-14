@@ -13,7 +13,6 @@ import { vipManager } from '../../vip';
 const { ccclass, property } = _decorator;
 
 /** 奖励项组件 */
-@ccclass('OnlineRewardItem')
 export class OnlineRewardItem extends UIPanel {
     @property(Label)
     timeLabel: Label | null = null;

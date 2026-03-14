@@ -18,7 +18,6 @@ import { EventCenter } from '../../utils/EventTarget';
 const { ccclass, property } = _decorator;
 
 /** 公告项组件 */
-@ccclass('AnnouncementItem')
 export class AnnouncementItem extends UIPanel {
     @property(Label)
     titleLabel: Label | null = null;
@@ -107,7 +106,6 @@ export class AnnouncementItem extends UIPanel {
 }
 
 /** 公告详情面板组件 */
-@ccclass('AnnouncementDetailContent')
 export class AnnouncementDetailContent extends UIPanel {
     @property(Label)
     titleLabel: Label | null = null;
