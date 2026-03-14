@@ -393,7 +393,7 @@ export class HeroPanel extends UIPanel {
                 console.warn(`[HeroPanel] 加载兵种图标失败: ${config.id}`);
                 return;
             }
-            sprite.spriteFrame = spriteFrame;
+            sprite.spriteFrame = spriteFrame as SpriteFrame;
         });
     }
 

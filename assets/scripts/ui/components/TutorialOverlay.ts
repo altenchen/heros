@@ -99,11 +99,8 @@ export class TutorialOverlay extends UIComponent {
     protected init(): void {
         super.init();
 
-        // 设置层级最高
-        const transform = this.node.getComponent(UITransform);
-        if (transform) {
-            transform.priority = 9999;
-        }
+        // 设置层级最高（通过设置兄弟索引）
+        this.node.setSiblingIndex(9999);
     }
 
     /**
@@ -367,8 +364,9 @@ export class TutorialOverlay extends UIComponent {
             return;
         }
 
-        const width = transform.width;
-        const height = transform.height;
+        const size = transform.contentSize;
+        const width = size.width;
+        const height = size.height;
 
         this.maskGraphics.clear();
         this.maskGraphics.fillColor = MASK_COLOR;
@@ -393,8 +391,9 @@ export class TutorialOverlay extends UIComponent {
             return;
         }
 
-        const width = transform.width;
-        const height = transform.height;
+        const size = transform.contentSize;
+        const width = size.width;
+        const height = size.height;
 
         // 获取目标节点在世界坐标系中的位置
         const worldPos = target.getWorldPosition();
@@ -402,8 +401,9 @@ export class TutorialOverlay extends UIComponent {
         this.node.inverseTransformPoint(localPos, worldPos);
 
         const targetTransform = target.getComponent(UITransform);
-        const targetWidth = (targetTransform?.width || 100) + padding * 2;
-        const targetHeight = (targetTransform?.height || 50) + padding * 2;
+        const targetSize = targetTransform?.contentSize;
+        const targetWidth = (targetSize?.width || 100) + padding * 2;
+        const targetHeight = (targetSize?.height || 50) + padding * 2;
 
         this.maskGraphics.clear();
         this.maskGraphics.fillColor = MASK_COLOR;

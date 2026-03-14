@@ -472,9 +472,10 @@ declare module 'cc' {
         delay(duration: number): Tween<T>;
         call(callback: Function): Tween<T>;
         repeat(times: number, tween?: Tween<T>): Tween<T>;
-        repeatForever(tween: Tween<T>): Tween<T>;
+        repeatForever(tween?: Tween<T>): Tween<T>;
         sequence(...tweens: Tween<T>[]): Tween<T>;
         parallel(...tweens: Tween<T>[]): Tween<T>;
+        union(): Tween<T>;
         start(): Tween<T>;
         stop(): Tween<T>;
     }

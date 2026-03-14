@@ -234,11 +234,9 @@ export class TownPanel extends UIPanel {
     private _updateResources(): void {
         if (!this._playerData) return;
 
-        const resources = this._playerData.getResources();
-
         this._resourceLabels.forEach((label, type) => {
             if (label) {
-                const amount = resources[type] || 0;
+                const amount = this._playerData.getResource(type);
                 label.string = this._formatNumber(amount);
             }
         });
