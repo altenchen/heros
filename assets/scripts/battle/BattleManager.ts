@@ -22,6 +22,9 @@ import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffType
 import { TerrainEffectManager, terrainEffectManager } from './TerrainEffectManager';
 import { TerrainType } from '../config/GameTypes';
 import { EventCenter, GameEvent } from '../utils/EventTarget';
+import { battleMagicBridge, SpellTarget, BattleMagicEventType } from '../magicbook/BattleMagicBridge';
+import { battleWarMachineBridge, WarMachineBattleEventType } from '../warmachine/BattleWarMachineBridge';
+import { WarMachineType } from '../config/WarMachineTypes';
 
 /**
  * 战斗事件类型

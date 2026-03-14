@@ -94,6 +94,7 @@ export interface SpellUpgradeBonus {
     durationBonus?: number;              // 持续回合加成（每级）
     manaCostReduction?: number;          // 魔法消耗减少（每级）
     rangeBonus?: number;                 // 范围加成（每级）
+    areaRadiusBonus?: number;            // 范围半径加成（每级）
 }
 
 /** 魔法学习需求 */

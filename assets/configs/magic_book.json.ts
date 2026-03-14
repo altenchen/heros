@@ -385,6 +385,7 @@ const WaterSpells: SpellConfig[] = [
                 value: 1
             }
         ],
+        upgradeBonus: {},
         requirements: {
             heroLevel: 15,
             magicSchoolLevel: {
@@ -524,6 +525,9 @@ const EarthSpells: SpellConfig[] = [
                 value: 'spellPower * 50 + 30'
             }
         ],
+        upgradeBonus: {
+            healBonus: 25
+        },
         requirements: {
             heroLevel: 18,
             magicSchoolLevel: {
@@ -707,6 +711,7 @@ const AirSpells: SpellConfig[] = [
                 value: 1
             }
         ],
+        upgradeBonus: {},
         requirements: {
             heroLevel: 15,
             magicSchoolLevel: {
