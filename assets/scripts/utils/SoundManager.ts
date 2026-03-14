@@ -267,6 +267,54 @@ export class SoundManager {
     }
 
     /**
+     * 设置音乐启用状态
+     */
+    setMusicEnabled(enabled: boolean): void {
+        const settings = this.audioManager.getSettings();
+        if (enabled !== settings.bgmEnabled) {
+            this.audioManager.toggleBGM();
+        }
+    }
+
+    /**
+     * 设置音效启用状态
+     */
+    setSoundEnabled(enabled: boolean): void {
+        const settings = this.audioManager.getSettings();
+        if (enabled !== settings.sfxEnabled) {
+            this.audioManager.toggleSFX();
+        }
+    }
+
+    /**
+     * 设置音效音量（别名）
+     */
+    setSoundVolume(volume: number): void {
+        this.setSFXVolume(volume);
+    }
+
+    /**
+     * 获取音乐启用状态
+     */
+    isMusicEnabled(): boolean {
+        return this.audioManager.getSettings().bgmEnabled;
+    }
+
+    /**
+     * 获取音效启用状态
+     */
+    isSoundEnabled(): boolean {
+        return this.audioManager.getSettings().sfxEnabled;
+    }
+
+    /**
+     * 获取音效音量（别名）
+     */
+    getSoundVolume(): number {
+        return this.getSFXVolume();
+    }
+
+    /**
      * 保存音量设置
      */
     saveSettings(): void {

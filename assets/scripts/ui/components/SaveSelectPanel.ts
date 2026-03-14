@@ -23,7 +23,7 @@ export class SaveSelectPanel extends UIPanel {
     @property(Label)
     titleLabel: Label | null = null;
 
-    @property([Node])
+    @property({ type: Node })
     slotNodes: Node[] = [];
 
     @property(Button)

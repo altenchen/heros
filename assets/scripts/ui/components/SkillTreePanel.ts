@@ -4,7 +4,7 @@
  */
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, ScrollView } from 'cc';
-import { UIPanel, PanelConfig } from './UIPanel';
+import { UIPanel, PanelConfig, PanelAnimationType } from './UIPanel';
 import { skillTreeManager } from '../../hero/SkillTreeManager';
 import {
     SkillTreeBranch,
@@ -102,9 +102,11 @@ export class SkillTreePanel extends UIPanel {
     static getPanelConfig(): PanelConfig {
         return {
             layer: 2, // NORMAL层
-            animation: 'fade',
-            showMask: false,
-            closeOnMask: false
+            animationType: PanelAnimationType.FADE,
+            animationDuration: 0.3,
+            cache: true,
+            closeOnBackKey: true,
+            blockInput: false
         };
     }
 

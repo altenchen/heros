@@ -234,11 +234,11 @@ export class HeroPanel extends UIPanel {
                         console.warn(`[HeroPanel] 备用路径加载头像也失败: ${portraitPath}`);
                         return;
                     }
-                    this.heroPortrait!.spriteFrame = sf2;
+                    this.heroPortrait!.spriteFrame = sf2 as SpriteFrame;
                 });
                 return;
             }
-            this.heroPortrait!.spriteFrame = spriteFrame;
+            this.heroPortrait!.spriteFrame = spriteFrame as SpriteFrame;
         });
     }
 

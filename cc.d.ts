@@ -59,8 +59,9 @@ declare module 'cc' {
         static readonly TRANSPARENT: Color;
         clone(): Color;
         set(r: number, g: number, b: number, a?: number): Color;
+        fromHEX(hex: string): Color;
         toHEX(): string;
-        static fromHEX(hex: string): Color;
+        static fromHEX(out: Color, hex: string): Color;
     }
 
     export class Size {
@@ -87,6 +88,7 @@ declare module 'cc' {
         z: number;
         w: number;
         constructor(x?: number, y?: number, z?: number, w?: number);
+        clone(): Quat;
         static fromEuler(x: number, y: number, z: number): Quat;
     }
 
@@ -185,6 +187,8 @@ declare module 'cc' {
         destroy(): boolean;
         isDestroyed(): boolean;
         isValid: boolean;
+        clone(): Node;
+        removeFromParent(): void;
 
         on(type: string, callback: EventCallback, target?: unknown, useCapture?: boolean): unknown;
         on(type: string, callback: (...args: any[]) => void, target?: unknown): unknown;
@@ -226,9 +230,9 @@ declare module 'cc' {
         getComponents<T extends Component>(classConstructor: Constructor<T>): T[];
         getComponentsInChildren<T extends Component>(classConstructor: Constructor<T>): T[];
 
-        schedule(callback: () => void, interval?: number, repeat?: number, delay?: number): void;
+        schedule(callback: (dt: number) => void, interval?: number, repeat?: number, delay?: number): void;
         scheduleOnce(callback: () => void, delay?: number): void;
-        unschedule(callback: () => void): void;
+        unschedule(callback: (...args: any[]) => void): void;
         unscheduleAllCallbacks(): void;
     }
 
@@ -259,6 +263,8 @@ declare module 'cc' {
     }
 
     export class UITransform extends Component {
+        width: number;
+        height: number;
         contentSize: Size;
         anchorPoint: Vec2;
 
@@ -327,6 +333,10 @@ declare module 'cc' {
             TRIMMED: number;
             RAW: number;
         };
+    }
+
+    export class UIOpacity extends Component {
+        opacity: number;
     }
 
     export class Button extends Component {

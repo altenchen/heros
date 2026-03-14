@@ -4,7 +4,7 @@
  */
 
 import { _decorator, Node, Label, Button, Sprite, Color, tween, Vec3, ProgressBar } from 'cc';
-import { UIPanel, PanelConfig } from './UIPanel';
+import { UIPanel, PanelConfig, PanelAnimationType } from './UIPanel';
 import { speedUpManager } from '../../utils/SpeedUpManager';
 import {
     SpeedUpType,
@@ -86,9 +86,11 @@ export class SpeedUpPanel extends UIPanel {
     static getPanelConfig(): PanelConfig {
         return {
             layer: 3, // POPUP层
-            animation: 'scale',
-            showMask: true,
-            closeOnMask: true
+            animationType: PanelAnimationType.SCALE,
+            animationDuration: 0.3,
+            cache: true,
+            closeOnBackKey: true,
+            blockInput: true
         };
     }
 

@@ -261,7 +261,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 音乐开关变化
      */
-    private _onMusicToggle(toggle: Toggle): void {
+    private _onMusicToggle(): void {
+        const toggle = this.musicToggle;
+        if (!toggle) return;
+
         this._settings.musicEnabled = toggle.isChecked;
         this._saveSettings();
 
@@ -273,7 +276,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 音乐音量变化
      */
-    private _onMusicVolumeChange(slider: Slider): void {
+    private _onMusicVolumeChange(): void {
+        const slider = this.musicVolumeSlider;
+        if (!slider) return;
+
         this._settings.musicVolume = slider.progress;
         this._saveSettings();
 
@@ -285,7 +291,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 音效开关变化
      */
-    private _onSoundToggle(toggle: Toggle): void {
+    private _onSoundToggle(): void {
+        const toggle = this.soundToggle;
+        if (!toggle) return;
+
         this._settings.soundEnabled = toggle.isChecked;
         this._saveSettings();
 
@@ -297,7 +306,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 音效音量变化
      */
-    private _onSoundVolumeChange(slider: Slider): void {
+    private _onSoundVolumeChange(): void {
+        const slider = this.soundVolumeSlider;
+        if (!slider) return;
+
         this._settings.soundVolume = slider.progress;
         this._saveSettings();
 
@@ -309,7 +321,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 震动开关变化
      */
-    private _onVibrationToggle(toggle: Toggle): void {
+    private _onVibrationToggle(): void {
+        const toggle = this.vibrationToggle;
+        if (!toggle) return;
+
         this._settings.vibrationEnabled = toggle.isChecked;
         this._saveSettings();
     }
@@ -317,7 +332,10 @@ export class SettingsPanel extends UIPanel {
     /**
      * 推送开关变化
      */
-    private _onNotificationToggle(toggle: Toggle): void {
+    private _onNotificationToggle(): void {
+        const toggle = this.notificationToggle;
+        if (!toggle) return;
+
         this._settings.notificationEnabled = toggle.isChecked;
         this._saveSettings();
 

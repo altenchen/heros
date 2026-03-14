@@ -132,6 +132,34 @@ export class SoundManager {
     }
 
     /**
+     * 设置BGM开关
+     */
+    setMusicEnabled(enabled: boolean): void {
+        this.updateSettings({ bgmEnabled: enabled });
+    }
+
+    /**
+     * 设置音效开关
+     */
+    setSoundEnabled(enabled: boolean): void {
+        this.updateSettings({ sfxEnabled: enabled });
+    }
+
+    /**
+     * 设置BGM音量
+     */
+    setMusicVolume(volume: number): void {
+        this.updateSettings({ bgmVolume: volume });
+    }
+
+    /**
+     * 设置音效音量
+     */
+    setSoundVolume(volume: number): void {
+        this.updateSettings({ sfxVolume: volume });
+    }
+
+    /**
      * 应用音量变化
      */
     private _applyVolumeChanges(): void {
