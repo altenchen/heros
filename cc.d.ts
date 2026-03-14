@@ -55,6 +55,7 @@ declare module 'cc' {
         static readonly MAGENTA: Color;
         static readonly GRAY: Color;
         static readonly ORANGE: Color;
+        static readonly GOLD: Color;
         static readonly TRANSPARENT: Color;
         clone(): Color;
         set(r: number, g: number, b: number, a?: number): Color;
@@ -153,6 +154,8 @@ declare module 'cc' {
         addChild(child: Node): void;
         removeChild(child: Node): void;
         removeAllChildren(): void;
+        removeFromParent(): void;
+        clone(): Node;
         setParent(parent: Node | null, worldPositionStays?: boolean): void;
         getChildByPath(path: string): Node | null;
         getChildByName(name: string): Node | null;
@@ -182,6 +185,8 @@ declare module 'cc' {
         isValid: boolean;
 
         on(type: string, callback: EventCallback, target?: unknown, useCapture?: boolean): unknown;
+        on(type: 'toggle', callback: (toggle: Toggle) => void, target?: unknown): unknown;
+        on(type: 'slide', callback: (slider: Slider) => void, target?: unknown): unknown;
         once(type: string, callback: EventCallback, target?: unknown, useCapture?: boolean): unknown;
         off(type: string, callback?: EventCallback, target?: unknown, useCapture?: boolean): void;
 
@@ -519,6 +524,10 @@ declare module 'cc' {
         updateAlignment(): void;
     }
 
+    export class UIOpacity extends Component {
+        opacity: number;
+    }
+
     export class Mask extends Component {
         type: number;
         inverted: boolean;
@@ -834,29 +843,28 @@ declare module 'cc' {
 
     export class ActionInstant extends FiniteTimeAction {}
 
-    export namespace tween {
-        export interface Tween<T> {
-            to(duration: number, props: unknown, opts?: unknown): Tween<T>;
-            by(duration: number, props: unknown, opts?: unknown): Tween<T>;
-            set(props: unknown): Tween<T>;
-            delay(duration: number): Tween<T>;
-            call(callback: () => void): Tween<T>;
-            hide(): Tween<T>;
-            show(): Tween<T>;
-            removeSelf(): Tween<T>;
-            sequence(...actions: Tween<T>[]): Tween<T>;
-            parallel(...actions: Tween<T>[]): Tween<T>;
-            repeat(repeatTimes: number, action?: Tween<T>): Tween<T>;
-            repeatForever(action: Tween<T>): Tween<T>;
-            reverseTime(action: Tween<T>): Tween<T>;
-            start(): Tween<T>;
-            stop(): Tween<T>;
-            clone(target: T): Tween<T>;
-            union(): Tween<T>;
-        }
+    // ============ Tween ============
+    export interface Tween<T> {
+        to(duration: number, props: unknown, opts?: unknown): Tween<T>;
+        by(duration: number, props: unknown, opts?: unknown): Tween<T>;
+        set(props: unknown): Tween<T>;
+        delay(duration: number): Tween<T>;
+        call(callback: () => void): Tween<T>;
+        hide(): Tween<T>;
+        show(): Tween<T>;
+        removeSelf(): Tween<T>;
+        sequence(...actions: Tween<T>[]): Tween<T>;
+        parallel(...actions: Tween<T>[]): Tween<T>;
+        repeat(repeatTimes: number, action?: Tween<T>): Tween<T>;
+        repeatForever(action: Tween<T>): Tween<T>;
+        reverseTime(action: Tween<T>): Tween<T>;
+        start(): Tween<T>;
+        stop(): Tween<T>;
+        clone(target: T): Tween<T>;
+        union(): Tween<T>;
     }
 
-    export function tween<T>(target: T): tween.Tween<T>;
+    export function tween<T>(target: T): Tween<T>;
 
     // ============ UI Helper ============
     export function instantiate(prefab: Prefab): Node;

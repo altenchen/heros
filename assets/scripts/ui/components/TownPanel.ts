@@ -278,7 +278,11 @@ export class TownPanel extends UIPanel {
             // 从池中获取英雄头像节点
             let heroNode: Node;
             if (nodePoolManager.getPool(TownPanel.POOL_HERO_ICON)) {
-                heroNode = nodePoolManager.get(TownPanel.POOL_HERO_ICON, container);
+                const pooledNode = nodePoolManager.get(TownPanel.POOL_HERO_ICON, container);
+                heroNode = pooledNode ?? (this.heroIconPrefab ? instantiate(this.heroIconPrefab) : new Node(`Hero_${index}`));
+                if (pooledNode) {
+                    container.addChild(heroNode);
+                }
             } else {
                 heroNode = this.heroIconPrefab ? instantiate(this.heroIconPrefab) : new Node(`Hero_${index}`);
                 container.addChild(heroNode);
@@ -322,15 +326,20 @@ export class TownPanel extends UIPanel {
      * 创建建筑项
      */
     private _createBuildingItem(building: any, index: number): void {
-        if (!this.buildingContent) return;
+        const content = this.buildingContent;
+        if (!content) return;
 
         // 从池中获取建筑项节点
         let itemNode: Node;
         if (nodePoolManager.getPool(TownPanel.POOL_BUILDING_ITEM)) {
-            itemNode = nodePoolManager.get(TownPanel.POOL_BUILDING_ITEM, this.buildingContent);
+            const pooledNode = nodePoolManager.get(TownPanel.POOL_BUILDING_ITEM, content);
+            itemNode = pooledNode ?? (this.buildingItemPrefab ? instantiate(this.buildingItemPrefab) : new Node(`Building_${index}`));
+            if (pooledNode) {
+                content.addChild(itemNode);
+            }
         } else {
             itemNode = this.buildingItemPrefab ? instantiate(this.buildingItemPrefab) : new Node(`Building_${index}`);
-            this.buildingContent.addChild(itemNode);
+            content.addChild(itemNode);
         }
 
         // 设置位置

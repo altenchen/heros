@@ -257,7 +257,7 @@ export class ShopPanel extends UIPanel {
             // 商品描述
             const descLabel = itemNode.getChildByName('Desc')?.getComponent(Label);
             if (descLabel) {
-                descLabel.string = item.description;
+                descLabel.string = item.description || '';
             }
 
             // 商品价格

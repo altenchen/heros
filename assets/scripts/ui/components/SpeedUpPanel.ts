@@ -147,7 +147,7 @@ export class SpeedUpPanel extends UIPanel {
      * 加载数据
      */
     private _loadData(): void {
-        this._target = speedUpManager.getTarget(this._targetId);
+        this._target = speedUpManager.getTarget(this._targetId) ?? null;
 
         if (!this._target) {
             console.warn('[SpeedUpPanel] 目标不存在:', this._targetId);
@@ -300,7 +300,7 @@ export class SpeedUpPanel extends UIPanel {
                 this._closePanel();
             } else {
                 UIManager.getInstance().showToast(`加速成功，剩余 ${speedUpManager.formatTime(result.remainingTime!)}`);
-                this._target = speedUpManager.getTarget(this._targetId);
+                this._target = speedUpManager.getTarget(this._targetId) ?? null;
                 this._updateUI();
             }
         } else {
