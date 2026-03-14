@@ -207,9 +207,10 @@ export class MailPanel extends UIPanel {
      * 更新邮件列表
      */
     private _updateMailList(): void {
-        if (!this.mailContainer) return;
+        const container = this.mailContainer;
+        if (!container) return;
 
-        this.mailContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const result = mailManager.getMailList();
 
@@ -221,7 +222,7 @@ export class MailPanel extends UIPanel {
         result.mails.forEach((mail, index) => {
             const mailNode = this.mailItemPrefab
                 ? instantiate(this.mailItemPrefab)
-                : new Node(`Mail_${mail.id}`);
+                : new Node(`Mail_${mail.mailId}`);
 
             mailNode.setPosition(0, -index * 80, 0);
 
