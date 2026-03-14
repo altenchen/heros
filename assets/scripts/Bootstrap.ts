@@ -1,6 +1,5 @@
 /**
- * 游戏启动脚本
- * 挂载在场景中负责初始化游戏
+ * 游戏启动脚本 - 最小化版本
  */
 
 import { _decorator, Component, Node } from 'cc';
@@ -11,7 +10,7 @@ const { ccclass, property } = _decorator;
 @ccclass('Bootstrap')
 export class Bootstrap extends Component {
     
-    start() {
+    start(): void {
         console.log('=================================');
         console.log('  英雄无敌Ⅲ：传承');
         console.log('  Heroes of Might and Magic III');
@@ -28,7 +27,7 @@ export class Bootstrap extends Component {
             await game.init();
             console.log('游戏启动成功！');
         } catch (error) {
-            console.error('游戏启动失败:', error);
+            console.error('游戏初始化失败:', error);
         }
     }
 }
