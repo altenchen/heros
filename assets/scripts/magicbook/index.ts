@@ -3,7 +3,7 @@
  */
 
 export { MagicBookManager, magicBookManager } from './MagicBookManager';
-export { BattleMagicBridge, battleMagicBridge } from './BattleMagicBridge';
+export { BattleMagicBridge, battleMagicBridge, BattleMagicEventType, SpellTarget } from './BattleMagicBridge';
 export {
     SpellLevel,
     SpellType,
@@ -15,7 +15,5 @@ export {
     SpellCastResult,
     HeroSpell,
     SchoolMastery,
-    HeroMagicBook,
-    SpellTarget,
-    BattleMagicEventType
+    HeroMagicBook
 } from '../config/MagicBookTypes';
