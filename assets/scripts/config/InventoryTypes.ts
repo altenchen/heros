@@ -298,7 +298,7 @@ export interface InventorySettings {
     expandStep: number;
     /** 扩容消耗 */
     expandCost: {
-        currency: string;
+        currency: ResourceType;
         baseAmount: number;
         multiplier: number;
     };
@@ -312,7 +312,7 @@ export const DEFAULT_INVENTORY_SETTINGS: InventorySettings = {
     maxCapacity: 200,
     expandStep: 10,
     expandCost: {
-        currency: 'gems',
+        currency: ResourceType.GEMS,
         baseAmount: 50,
         multiplier: 1.5
     }

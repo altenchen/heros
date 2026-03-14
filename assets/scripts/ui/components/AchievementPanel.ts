@@ -164,10 +164,11 @@ export class AchievementPanel extends UIPanel {
      * 设置分类按钮
      */
     private _setupCategories(): void {
-        if (!this.categoryContainer) return;
+        const container = this.categoryContainer;
+        if (!container) return;
 
         // 清空现有按钮
-        this.categoryContainer.removeAllChildren();
+        container.removeAllChildren();
 
         const categories = Object.values(AchievementType);
 
@@ -185,7 +186,7 @@ export class AchievementPanel extends UIPanel {
                 this._selectCategory(type);
             });
 
-            this.categoryContainer.addChild(buttonNode);
+            container.addChild(buttonNode);
         });
     }
 

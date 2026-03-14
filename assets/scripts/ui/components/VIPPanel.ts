@@ -217,7 +217,6 @@ export class VIPPanel extends UIPanel {
         privilegeTypes.forEach(type => {
             const hasPrivilege = vipManager.hasPrivilege(type);
             const value = vipManager.getPrivilegeValue(type);
-            const config = vipManager.getPrivilegeConfig(type);
 
             const privilegeNode = this.privilegePrefab
                 ? instantiate(this.privilegePrefab)
@@ -225,12 +224,12 @@ export class VIPPanel extends UIPanel {
 
             const nameLabel = privilegeNode.getChildByName('Name')?.getComponent(Label);
             if (nameLabel) {
-                nameLabel.string = config?.name || '';
+                nameLabel.string = this._getPrivilegeName(type);
             }
 
             const descLabel = privilegeNode.getChildByName('Desc')?.getComponent(Label);
             if (descLabel) {
-                descLabel.string = config?.description || '';
+                descLabel.string = this._getPrivilegeDesc(type);
             }
 
             const valueLabel = privilegeNode.getChildByName('Value')?.getComponent(Label);
@@ -246,6 +245,44 @@ export class VIPPanel extends UIPanel {
 
             this.privilegeContainer.addChild(privilegeNode);
         });
+    }
+
+    /**
+     * 获取特权名称
+     */
+    private _getPrivilegeName(type: VIPPrivilegeType): string {
+        const names: Record<VIPPrivilegeType, string> = {
+            [VIPPrivilegeType.RESOURCE_BONUS]: '资源产出',
+            [VIPPrivilegeType.EXP_BONUS]: '经验加成',
+            [VIPPrivilegeType.BUILD_SPEEDUP]: '建造加速',
+            [VIPPrivilegeType.EXTRA_PURCHASE]: '额外购买',
+            [VIPPrivilegeType.SIGNIN_BONUS]: '签到奖励',
+            [VIPPrivilegeType.FREE_STAMINA]: '免费体力',
+            [VIPPrivilegeType.FREE_GACHA]: '免费抽卡',
+            [VIPPrivilegeType.UNLOCK_FEATURE]: '解锁功能',
+            [VIPPrivilegeType.VIP_SHOP]: 'VIP商店',
+            [VIPPrivilegeType.EXCLUSIVE_SKIN]: '专属皮肤'
+        };
+        return names[type] || '';
+    }
+
+    /**
+     * 获取特权描述
+     */
+    private _getPrivilegeDesc(type: VIPPrivilegeType): string {
+        const descs: Record<VIPPrivilegeType, string> = {
+            [VIPPrivilegeType.RESOURCE_BONUS]: '提升资源产出效率',
+            [VIPPrivilegeType.EXP_BONUS]: '增加战斗经验获取',
+            [VIPPrivilegeType.BUILD_SPEEDUP]: '减少建筑建造时间',
+            [VIPPrivilegeType.EXTRA_PURCHASE]: '增加商店购买次数',
+            [VIPPrivilegeType.SIGNIN_BONUS]: '签到额外奖励加成',
+            [VIPPrivilegeType.FREE_STAMINA]: '每日免费体力赠送',
+            [VIPPrivilegeType.FREE_GACHA]: '每日免费抽卡机会',
+            [VIPPrivilegeType.UNLOCK_FEATURE]: '解锁特殊功能',
+            [VIPPrivilegeType.VIP_SHOP]: '解锁VIP专属商店',
+            [VIPPrivilegeType.EXCLUSIVE_SKIN]: '获得专属皮肤'
+        };
+        return descs[type] || '';
     }
 
     /**

@@ -7,7 +7,7 @@ declare module 'cc' {
     // 核心装饰器
     export const _decorator: {
         ccclass: (name: string) => ClassDecorator;
-        property: PropertyDecorator;
+        property: ((type?: any) => PropertyDecorator) & PropertyDecorator;
     };
 
     // 基础类型
@@ -207,6 +207,19 @@ declare module 'cc' {
     }
 
     export class Material extends Asset {}
+
+    export class AssetManager {
+        static getBundle(name: string): AssetManager.Bundle | null;
+        loadBundle(name: string, callback: (err: Error | null, bundle: AssetManager.Bundle) => void): void;
+    }
+
+    export namespace AssetManager {
+        interface Bundle {
+            name: string;
+            load<T extends Asset>(path: string, type: new (...args: any[]) => T, callback: (err: Error | null, asset: T) => void): void;
+            release(path: string): void;
+        }
+    }
 
     // 工具函数
     export function instantiate<T extends Asset>(asset: T): T;
