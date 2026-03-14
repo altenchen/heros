@@ -33,6 +33,8 @@
 | 战斗结果界面 | ✅ 已完成 | 胜利结算、星级评价、奖励显示 |
 | 音频系统 | ✅ 已完成 | BGM切换、音效池、音量控制 |
 | 战斗特效系统 | ✅ 已完成 | 伤害飘字、技能特效、Buff图标 |
+| VIP系统 | ✅ 已完成 | VIP等级、充值、月卡、成长基金 |
+| 排行榜系统 | ✅ 已完成 | 战力榜、竞技榜、公会榜、奖励结算 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -216,6 +218,68 @@ const iconNode = effectManager.createBuffIcon({
 }, parentNode);
 ```
 
+### VIP系统
+
+```typescript
+import { VIPManager, vipManager } from './vip/VIPManager';
+import { VIPPrivilegeType } from './config/VIPTypes';
+
+// 初始化
+vipManager.init();
+
+// 获取VIP等级
+const level = vipManager.getVIPLevel();
+const progress = vipManager.getVIPProgress();
+
+// 检查特权
+const hasPrivilege = vipManager.hasPrivilege(VIPPrivilegeType.RESOURCE_BONUS);
+const bonus = vipManager.getPrivilegeValue(VIPPrivilegeType.RESOURCE_BONUS);
+
+// 充值
+const result = vipManager.purchase('gems_680');
+if (result.success) {
+    console.log(`获得 ${result.gems} 钻石, VIP经验 +${result.vipExp}`);
+}
+
+// 购买月卡
+vipManager.purchaseMonthlyCard('monthly_card_basic');
+
+// 领取月卡每日奖励
+vipManager.claimMonthlyCardDailyReward('monthly_card_basic');
+
+// 成长基金
+vipManager.purchaseGrowthFund('growth_fund_1');
+vipManager.claimGrowthFundReward('growth_fund_1', 10);
+```
+
+### 排行榜系统
+
+```typescript
+import { RankManager, rankManager, RankEventType } from './rank/RankManager';
+import { RankType, RankPeriod } from './config/RankTypes';
+
+// 初始化
+rankManager.init();
+
+// 更新玩家分数
+rankManager.updateScore('player_1', '玩家名称', 100000, RankType.POWER);
+
+// 获取排行榜数据
+const ranking = rankManager.getRanking(RankType.POWER, RankPeriod.WEEKLY, 50);
+
+// 获取玩家排名
+const playerRank = rankManager.getPlayerRank('player_1', RankType.POWER);
+const entry = rankManager.getPlayerEntry('player_1', RankType.POWER);
+
+// 获取排名范围（前后玩家）
+const range = rankManager.getMyRankRange('player_1', RankType.POWER);
+
+// 监听事件
+EventCenter.on(RankEventType.RANK_CHANGED, (data) => {
+    console.log(`排名变化: ${data.rankChange}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -281,6 +345,12 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 音频配置 | `assets/scripts/config/audio.json.ts` |
 | 特效管理 | `assets/scripts/utils/EffectManager.ts` |
 | 特效桥接 | `assets/scripts/utils/BattleEffectBridge.ts` |
+| VIP管理 | `assets/scripts/vip/VIPManager.ts` |
+| VIP类型 | `assets/scripts/config/VIPTypes.ts` |
+| VIP配置 | `assets/scripts/config/vip.json.ts` |
+| 排行榜管理 | `assets/scripts/rank/RankManager.ts` |
+| 排行榜类型 | `assets/scripts/config/RankTypes.ts` |
+| 排行榜配置 | `assets/scripts/config/rank.json.ts` |
 
 ## 开发命令
 
