@@ -265,7 +265,7 @@ export class MailPanel extends UIPanel {
                 this._showMailDetail(mail);
             });
 
-            this.mailContainer.addChild(mailNode);
+            container.addChild(mailNode);
         });
     }
 
@@ -273,14 +273,15 @@ export class MailPanel extends UIPanel {
      * 显示空状态
      */
     private _showEmptyState(): void {
-        if (!this.mailContainer) return;
+        const container = this.mailContainer;
+        if (!container) return;
 
         const emptyNode = new Node('EmptyState');
         const emptyLabel = emptyNode.addComponent(Label);
         emptyLabel.string = '暂无邮件';
         emptyLabel.fontSize = 24;
         emptyLabel.color = new Color(150, 150, 150);
-        this.mailContainer.addChild(emptyNode);
+        container.addChild(emptyNode);
     }
 
     /**
@@ -289,13 +290,13 @@ export class MailPanel extends UIPanel {
     private _showMailDetail(mail: MailData): void {
         if (!this.detailPanel) return;
 
-        this._currentMailId = mail.id;
+        this._currentMailId = mail.mailId;
         this._currentMail = mail;
         this.detailPanel.active = true;
 
         // 标记已读
         if (mail.state === MailState.UNREAD) {
-            mailManager.markAsRead(mail.id);
+            mailManager.markAsRead(mail.mailId);
         }
 
         if (this.senderLabel) {

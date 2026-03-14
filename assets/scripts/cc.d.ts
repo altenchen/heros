@@ -809,7 +809,8 @@ declare module 'cc' {
     // ==================== 查找和实例化 ====================
     export function find(path: string): Node | null;
 
-    export function instantiate(original: Prefab | null): Node;
+    export function instantiate(original: Prefab): Node;
+    export function instantiate(original: Prefab | null): Node | null;
     export function instantiate<T extends Node>(original: T): T;
 
     // ==================== 其他工具 ====================
@@ -867,4 +868,43 @@ declare module 'cc' {
 
     // ==================== 缓动系统 ====================
     export function tween<T>(target: T): tween<T>;
+}
+    // ==================== 额外类型 ====================
+    export class Quat {
+        x: number;
+        y: number;
+        z: number;
+        w: number;
+
+        static readonly IDENTITY: Quat;
+
+        constructor(x?: number, y?: number, z?: number, w?: number);
+
+        set(x: number, y: number, z: number, w: number): Quat;
+        clone(): Quat;
+
+        static fromEuler(out: Quat, x: number, y: number, z: number): Quat;
+        static toEuler(out: Vec3, q: Quat): Vec3;
+        static multiply(out: Quat, a: Quat, b: Quat): Quat;
+    }
+
+    export class ImageAsset extends Asset {
+        width: number;
+        height: number;
+    }
+
+    export class Widget extends Component {
+        isAlignTop: boolean;
+        isAlignBottom: boolean;
+        isAlignLeft: boolean;
+        isAlignRight: boolean;
+        isAlignHorizontalCenter: boolean;
+        isAlignVerticalCenter: boolean;
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+        horizontalCenter: number;
+        verticalCenter: number;
+    }
 }
