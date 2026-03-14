@@ -130,7 +130,9 @@ export enum SkinUnlockType {
     /** 英雄熟练度 */
     HERO_MASTERY = 'hero_mastery',
     /** VIP等级 */
-    VIP = 'vip'
+    VIP = 'vip',
+    /** 玩家等级 */
+    PLAYER_LEVEL = 'player_level'
 }
 
 /**

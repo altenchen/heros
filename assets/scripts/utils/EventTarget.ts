@@ -51,10 +51,14 @@ export class EventTarget {
     /**
      * 只监听一次
      */
-    once(eventName: string, callback: Function): void {
+    once(eventName: string, callback: Function, context?: any): void {
         const wrapper = (...args: any[]) => {
             this.off(eventName, wrapper);
-            callback(...args);
+            if (context) {
+                callback.call(context, ...args);
+            } else {
+                callback(...args);
+            }
         };
         this.on(eventName, wrapper);
     }
@@ -114,8 +118,8 @@ export class EventCenter {
     /**
      * 只监听一次
      */
-    static once(eventName: string, callback: Function): void {
-        EventCenter.getInstance().eventTarget.once(eventName, callback);
+    static once(eventName: string, callback: Function, context?: any): void {
+        EventCenter.getInstance().eventTarget.once(eventName, callback, context);
     }
 }
 

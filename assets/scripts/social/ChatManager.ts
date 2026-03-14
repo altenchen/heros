@@ -317,6 +317,7 @@ export class ChatManager {
             messageId: `sys_${Date.now()}`,
             senderId: 'system',
             senderName: '系统',
+            senderLevel: 0,
             channel,
             type: MessageType.SYSTEM,
             content,

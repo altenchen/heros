@@ -133,7 +133,8 @@ export enum ResourceType {
     CRYSTAL = 'crystal',   // 水晶
     GEM = 'gem',           // 宝石
     SULFUR = 'sulfur',     // 硫磺
-    MERCURY = 'mercury'    // 水银
+    MERCURY = 'mercury',   // 水银
+    STAMINA = 'stamina'    // 体力
 }
 
 // ==================== 接口定义 ====================

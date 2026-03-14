@@ -4,14 +4,13 @@
  */
 
 import {
-    BattleState,
-    BattleUnit as IBattleUnit,
     Hex,
     UnitState,
     INITIAL_FOCUS_POINTS,
     MAX_FOCUS_POINTS,
     MAX_BATTLE_TURNS,
-    StatusEffect
+    StatusEffect,
+    TerrainType
 } from '../config/GameTypes';
 import { HexGrid, HexCell } from './HexGrid';
 import { BattleUnit } from './BattleUnit';
@@ -20,7 +19,6 @@ import { battlePoolManager, PooledBuffData } from '../utils/pool';
 import { BuffManager, buffManager } from './BuffManager';
 import { BuffEventType, BuffEffectType, AttributeType } from '../config/BuffTypes';
 import { TerrainEffectManager, terrainEffectManager } from './TerrainEffectManager';
-import { TerrainType } from '../config/GameTypes';
 import { EventCenter, GameEvent } from '../utils/EventTarget';
 import { battleMagicBridge, SpellTarget, BattleMagicEventType } from '../magicbook/BattleMagicBridge';
 import { battleWarMachineBridge, WarMachineBattleEventType } from '../warmachine/BattleWarMachineBridge';
@@ -50,6 +48,25 @@ export interface BattleEvent {
     type: BattleEventType;
     data: any;
     timestamp: number;
+}
+
+/**
+ * 战斗单位接口（用于类型兼容）
+ */
+type IBattleUnit = BattleUnit;
+
+/**
+ * 战斗状态（使用 BattleUnit 类类型）
+ */
+interface LocalBattleState {
+    turn: number;
+    phase: 'preparation' | 'battle' | 'end';
+    focusPoints: number;
+    maxFocusPoints: number;
+    units: BattleUnit[];
+    currentUnit: BattleUnit | null;
+    terrain: TerrainType[][];
+    winner: 'player' | 'enemy' | null;
 }
 
 /**

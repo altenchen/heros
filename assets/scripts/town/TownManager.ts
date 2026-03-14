@@ -283,7 +283,7 @@ export class Town {
     recruitUnit(unitId: string, count: number, resources: Partial<Record<ResourceType, number>>): { success: boolean; armySlot?: ArmySlot; cost: Partial<Record<ResourceType, number>> } {
         const recruitable = this.getRecruitableUnits().find(u => u.config.id === unitId);
         if (!recruitable) {
-            return { success: false };
+            return { success: false, cost: {} };
         }
 
         const actualCount = Math.min(count, recruitable.available);
@@ -299,7 +299,7 @@ export class Town {
         for (const [resource, amount] of Object.entries(cost)) {
             const available = resources[resource as ResourceType] || 0;
             if (available < amount) {
-                return { success: false };
+                return { success: false, cost: {} };
             }
         }
 
