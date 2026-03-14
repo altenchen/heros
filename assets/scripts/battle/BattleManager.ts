@@ -10,7 +10,8 @@ import {
     MAX_FOCUS_POINTS,
     MAX_BATTLE_TURNS,
     StatusEffect,
-    TerrainType
+    TerrainType,
+    BattleUnit as BattleUnitData
 } from '../config/GameTypes';
 import { HexGrid, HexCell } from './HexGrid';
 import { BattleUnit } from './BattleUnit';
@@ -865,7 +866,7 @@ export class BattleManager {
     /**
      * 获取战斗状态
      */
-    getState(): BattleState {
+    getState(): LocalBattleState {
         return this.state;
     }
 
