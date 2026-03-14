@@ -318,8 +318,8 @@ export class BattleWarMachineBridge {
 
             // 找血量最低的友军
             const woundedUnit = playerUnits.reduce((min, u) => {
-                const hpPercent = u.currentHp / u.getMaxHp();
-                const minPercent = min ? min.currentHp / min.getMaxHp() : 1;
+                const hpPercent = u.currentHp / u.maxHp;
+                const minPercent = min ? min.currentHp / min.maxHp : 1;
                 return hpPercent < minPercent && hpPercent < 0.8 ? u : min;
             }, null as BattleUnit | null);
 
