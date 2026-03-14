@@ -705,8 +705,11 @@ export class BattleManager {
             return false;
         }
 
+        // 类型断言：state.currentUnit 实际是 BattleUnit 类实例
+        const currentUnit = this.state.currentUnit as BattleUnit;
+
         // 创建技能实例
-        const skill = this.skillManager.createSkill(skillId, this.state.currentUnit);
+        const skill = this.skillManager.createSkill(skillId, currentUnit);
         if (!skill) {
             return false;
         }
@@ -714,7 +717,7 @@ export class BattleManager {
         // 执行技能
         const success = this.skillManager.castSkill(
             skill,
-            this.state.currentUnit,
+            currentUnit,
             target,
             this.grid
         );

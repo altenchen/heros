@@ -121,6 +121,8 @@ export interface ItemConfig {
     type: ItemType;
     /** 道具品质 */
     quality: ItemQuality;
+    /** 道具稀有度（别名，与 quality 兼容） */
+    rarity?: ItemRarity;
     /** 图标路径 */
     icon: string;
     /** 最大堆叠数 */
@@ -209,7 +211,11 @@ export enum InventoryType {
     /** 材料背包 */
     MATERIAL = 'material',
     /** 碎片背包 */
-    SHARD = 'shard'
+    SHARD = 'shard',
+    /** 英雄背包 */
+    HERO = 'hero',
+    /** 皮肤背包 */
+    SKIN = 'skin'
 }
 
 /**
@@ -252,6 +258,8 @@ export enum InventoryEventType {
     ITEM_ADD = 'inventory_item_add',
     /** 物品移除 */
     ITEM_REMOVE = 'inventory_item_remove',
+    /** 物品更新 */
+    ITEM_UPDATE = 'inventory_item_update',
     /** 物品使用 */
     ITEM_USE = 'inventory_item_use',
     /** 物品过期 */

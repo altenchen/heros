@@ -469,13 +469,13 @@ export class ShopManager {
         // 发放目标货币
         const contents: ShopItemContent[] = [];
         if (config.toCurrency === CurrencyType.GOLD) {
-            playerDataManager.addResource('gold', config.toAmount);
+            playerDataManager.addResource(ResourceType.GOLD, config.toAmount);
             contents.push({ type: 'resource' as any, itemId: 'gold', amount: config.toAmount });
         } else if (config.toCurrency === CurrencyType.GEMS) {
-            playerDataManager.addResource('gems', config.toAmount);
+            playerDataManager.addResource(ResourceType.GEMS, config.toAmount);
             contents.push({ type: 'resource' as any, itemId: 'gems', amount: config.toAmount });
         } else if (config.toCurrency === CurrencyType.STAMINA) {
-            playerDataManager.addResource('stamina', config.toAmount);
+            playerDataManager.addResource(ResourceType.STAMINA, config.toAmount);
             contents.push({ type: 'resource' as any, itemId: 'stamina', amount: config.toAmount });
         }
 

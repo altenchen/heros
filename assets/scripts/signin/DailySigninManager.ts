@@ -16,6 +16,7 @@ import {
     SigninRewardConfig,
     SigninCycleConfig
 } from '../config/DailySigninTypes';
+import { ResourceType } from '../config/GameTypes';
 import {
     signinCycles,
     getActiveSigninCycle,

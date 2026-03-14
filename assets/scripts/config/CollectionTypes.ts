@@ -51,6 +51,8 @@ export enum CollectionRewardState {
 export interface CollectionEntryConfig {
     /** 条目ID */
     entryId: string;
+    /** ID（别名） */
+    id: string;
     /** 图鉴类型 */
     type: CollectionType;
     /** 关联ID（英雄ID/兵种ID/物品ID） */
@@ -113,10 +115,14 @@ export interface CollectionEntryData {
 export interface CollectionProgressReward {
     /** 奖励ID */
     rewardId: string;
+    /** ID（别名） */
+    id: string;
     /** 图鉴类型 */
     type: CollectionType;
     /** 所需收集数量 */
     requiredCount: number;
+    /** 收集数量（别名） */
+    count: number;
     /** 奖励内容 */
     rewards: CollectionReward[];
 }
