@@ -531,7 +531,7 @@ export class InventoryManager {
         this._removeItem(instanceId, count, itemType);
 
         // 发放货币
-        playerDataManager.addResource(sellPrice.currency, totalAmount);
+        playerDataManager.addResource(sellPrice.currency as ResourceType, totalAmount);
 
         console.log(`[InventoryManager] 出售道具：${item.itemId} x${count}, 获得${totalAmount}${sellPrice.currency}`);
 
@@ -630,7 +630,7 @@ export class InventoryManager {
         );
 
         // 检查货币
-        const currency = this._settings.expandCost.currency;
+        const currency = this._settings.expandCost.currency as ResourceType;
         const currentAmount = playerDataManager.getResource(currency);
         if (currentAmount < cost) {
             console.warn('[InventoryManager] 资源不足');

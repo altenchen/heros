@@ -344,10 +344,10 @@ export class CollectionPanel extends UIPanel {
 
             const claimBtn = rewardNode.getChildByName('ClaimBtn')?.getComponent(Button);
             if (claimBtn) {
-                const isClaimable = claimableRewards.some(r => r.id === config.id);
+                const isClaimable = claimableRewards.some(r => r.rewardId === config.rewardId);
                 claimBtn.interactable = isClaimable;
                 claimBtn.node.on(Button.EventType.CLICK, () => {
-                    this._claimProgressReward(config.id);
+                    this._claimProgressReward(config.rewardId);
                 });
             }
 

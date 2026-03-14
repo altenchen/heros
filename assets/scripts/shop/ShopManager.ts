@@ -148,7 +148,7 @@ export class ShopManager {
         if (item.buyLimit && purchaseCount >= item.buyLimit) {
             return ShopItemState.SOLD_OUT;
         }
-        if (item.dailyLimit && progress.dailyPurchaseCount.get(item.itemId) >= item.dailyLimit) {
+        if (item.dailyLimit && (progress.dailyPurchaseCount.get(item.itemId) || 0) >= item.dailyLimit) {
             return ShopItemState.SOLD_OUT;
         }
         if (item.weeklyLimit) {
