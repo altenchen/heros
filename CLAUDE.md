@@ -48,6 +48,8 @@
 | 存档系统 | ✅ 已完成 | 多存档槽位、自动存档、存档导入导出 |
 | 加速系统 | ✅ 已完成 | 建造加速、道具加速、钻石加速 |
 | 离线奖励系统 | ✅ 已完成 | 离线收益计算、离线奖励领取、双倍奖励 |
+| 技能树系统 | ✅ 已完成 | 英雄技能树、技能解锁升级、分支系统 |
+| 存档面板 | ✅ 已完成 | 存档管理UI、槽位选择、导入导出 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -799,6 +801,64 @@ uiManager.showUI('offline_reward_panel', {
 });
 ```
 
+### 技能树系统
+
+```typescript
+import { SkillTreeManager, skillTreeManager } from './hero/SkillTreeManager';
+import { SkillTreeBranch, SkillTreeEventType } from './config/SkillTreeTypes';
+
+// 初始化
+skillTreeManager.init();
+
+// 初始化英雄技能树
+skillTreeManager.initHeroSkillTree('hero_1');
+
+// 获取技能点
+const skillPoints = skillTreeManager.getSkillPoints('hero_1');
+
+// 添加技能点
+skillTreeManager.addSkillPoints('hero_1', 5);
+
+// 获取分支节点
+const fireNodes = skillTreeManager.getBranchNodes(SkillTreeBranch.FIRE);
+
+// 检查是否可以解锁技能
+const checkResult = skillTreeManager.canUnlockSkill('hero_1', 'fire_1_1');
+
+// 解锁技能
+const unlockResult = skillTreeManager.unlockSkill('hero_1', 'fire_1_1');
+
+// 检查是否可以升级技能
+const upgradeCheck = skillTreeManager.canUpgradeSkill('hero_1', 'fire_1_1');
+
+// 升级技能
+const upgradeResult = skillTreeManager.upgradeSkill('hero_1', 'fire_1_1');
+
+// 获取技能等级
+const level = skillTreeManager.getSkillLevel('hero_1', 'fire_1_1');
+
+// 检查技能是否已解锁
+const isUnlocked = skillTreeManager.isSkillUnlocked('hero_1', 'fire_1_1');
+
+// 获取英雄已解锁的技能ID列表
+const skillIds = skillTreeManager.getUnlockedSkillIds('hero_1');
+
+// 获取分支进度
+const progress = skillTreeManager.getBranchProgress('hero_1', SkillTreeBranch.FIRE);
+console.log(`进度: ${progress.unlocked}/${progress.total}, 完成: ${progress.completed}`);
+
+// 重置技能树
+const refundedPoints = skillTreeManager.resetSkillTree('hero_1');
+
+// 监听技能树事件
+EventCenter.on(SkillTreeEventType.SKILL_UNLOCKED, (data) => {
+    console.log(`技能解锁: ${data.nodeId}`);
+});
+EventCenter.on(SkillTreeEventType.SKILL_UPGRADED, (data) => {
+    console.log(`技能升级: ${data.nodeId} -> Lv.${data.level}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -914,6 +974,10 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 加速管理 | `assets/scripts/utils/SpeedUpManager.ts` |
 | 加速类型 | `assets/scripts/config/SpeedUpTypes.ts` |
 | 加速面板 | `assets/scripts/ui/components/SpeedUpPanel.ts` |
+| 存档面板 | `assets/scripts/ui/components/SavePanel.ts` |
+| 技能树管理 | `assets/scripts/hero/SkillTreeManager.ts` |
+| 技能树类型 | `assets/scripts/config/SkillTreeTypes.ts` |
+| 技能树面板 | `assets/scripts/ui/components/SkillTreePanel.ts` |
 
 ## 开发命令
 

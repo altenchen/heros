@@ -16,10 +16,9 @@ import {
     TerrainEffectConfigs,
     getTerrainEffectConfig,
     isTerrainWalkable
-} from './config/TerrainTypes';
-import { HexGrid, HexCell } from './battle/HexGrid';
-import { BattleUnit } from './battle/BattleUnit';
-import { Hex } from './config/GameTypes';
+} from '../config/TerrainTypes';
+import { HexGrid, HexCell } from './HexGrid';
+import { BattleUnit } from './BattleUnit';
 
 /**
  * 地形效果管理器

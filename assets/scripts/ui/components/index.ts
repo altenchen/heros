@@ -30,3 +30,6 @@ export { InventoryPanel } from './InventoryPanel';
 export { ShopPanel } from './ShopPanel';
 export { OfflineRewardPanel } from './OfflineRewardPanel';
 export { SaveSelectPanel } from './SaveSelectPanel';
+export { SavePanel } from './SavePanel';
+export { SpeedUpPanel } from './SpeedUpPanel';
+export { SkillTreePanel } from './SkillTreePanel';

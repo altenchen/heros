@@ -7,11 +7,11 @@
 import {
     ResourceType,
     HeroData
-} from './config/GameTypes';
-import { InventoryManager } from './inventory/InventoryManager';
-import { playerDataManager } from './utils/PlayerDataManager';
-import { EventCenter } from './utils/EventTarget';
-import { skinManager } from './utils/SkinManager';
+} from '../config/GameTypes';
+import { InventoryManager } from '../inventory/InventoryManager';
+import { playerDataManager } from './PlayerDataManager';
+import { EventCenter } from './EventTarget';
+import { skinManager } from './SkinManager';
 
 /**
  * 奖励类型
