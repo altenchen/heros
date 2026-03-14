@@ -238,7 +238,7 @@ export interface SkillConfig {
 /** 效果配置 */
 export interface EffectConfig {
     type: EffectType;
-    value: number | string;
+    value?: number | string;
     duration?: number;
     status?: StatusEffect;
 }

@@ -3,7 +3,7 @@
  * 英雄无敌III经典系统：弩车、医疗帐篷、弹药车、投石车
  */
 
-import { WarMachineConfig, WarMachineType, WarMachineRarity } from '../scripts/config/WarMachineTypes';
+import { WarMachineConfig, WarMachineType, WarMachineRarity } from '../config/WarMachineTypes';
 
 /**
  * 战争机器配置列表

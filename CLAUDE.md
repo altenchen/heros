@@ -20,7 +20,7 @@
 | 技能系统 | ✅ 已完成 | 魔法技能、被动技能 |
 | 主城系统 | ✅ 已完成 | 建筑、招募、资源 |
 | UI系统 | ✅ 已完成 | 管理器、组件、面板 |
-| 预制体 | ✅ 已完成 | 7个UI预制体 |
+| 预制体 | ✅ 已完成 | 38个UI预制体 |
 | UI面板扩展 | ✅ 已完成 | 竞技场、招募、图鉴、邮件、活动、VIP、背包、商店面板 |
 | 对象池 | ✅ 已完成 | 通用池、节点池、战斗池 |
 | 成就任务 | ✅ 已完成 | 33个成就、12个任务 |
@@ -61,7 +61,7 @@
 | 战争机器战斗集成 | ✅ 已完成 | 战争机器与战斗系统集成 |
 | 随机事件系统 | ✅ 已完成 | 随机事件触发、选项选择、效果应用 |
 | 预制体注册 | ✅ 已完成 | UIManager已注册所有UI面板 |
-| 编辑器集成 | 🚧 进行中 | 需创建预制体文件、绑定组件 |
+| 编辑器集成 | ✅ 已完成 | 38个UI预制体文件已创建 |
 
 ## 项目结构
 
@@ -1526,6 +1526,8 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 魔法书类型 | `assets/scripts/config/MagicBookTypes.ts` |
 | 魔法书配置 | `assets/configs/magic_book.json.ts` |
 | 魔法书面板 | `assets/scripts/ui/components/MagicBookPanel.ts` |
+| 战斗魔法桥接 | `assets/scripts/magicbook/BattleMagicBridge.ts` |
+| 战争机器战斗桥接 | `assets/scripts/warmachine/BattleWarMachineBridge.ts` |
 | 随机事件管理 | `assets/scripts/randomevent/RandomEventManager.ts` |
 | 随机事件类型 | `assets/scripts/config/RandomEventTypes.ts` |
 | 随机事件配置 | `assets/scripts/configs/random_events.json.ts` |

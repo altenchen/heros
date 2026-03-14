@@ -5,7 +5,7 @@
 
 import { _decorator, Node, Label, Button, ScrollView, Color, Sprite } from 'cc';
 import { UIPanel } from './UIPanel';
-import { artifactManager } from '../artifact/ArtifactManager';
+import { artifactManager } from '../../artifact/ArtifactManager';
 import {
     ArtifactSlot,
     ArtifactRarity,
@@ -15,9 +15,9 @@ import {
     ArtifactData,
     ArtifactConfig,
     ArtifactStat
-} from '../config/ArtifactTypes';
-import { getArtifactConfig } from '../config/artifact.json';
-import { EventCenter } from '../utils/EventTarget';
+} from '../../config/ArtifactTypes';
+import { getArtifactConfig } from '../../config/artifact.json';
+import { EventCenter } from '../../utils/EventTarget';
 
 const { ccclass, property } = _decorator;
 
