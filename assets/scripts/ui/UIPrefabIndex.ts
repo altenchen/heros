@@ -385,6 +385,17 @@ export const UI_PREFABS: PrefabConfig[] = [
         cache: true,
         preload: false,
         description: '宝物/神器面板'
+    },
+
+    // ==================== 战争机器系统 ====================
+    {
+        name: 'WarMachinePanel',
+        path: 'prefabs/ui/WarMachinePanel',
+        component: 'scripts/ui/components/WarMachinePanel',
+        layer: 'PANEL',
+        cache: true,
+        preload: false,
+        description: '战争机器面板(弩车/医疗帐篷/弹药车/投石车)'
     }
 ];
 

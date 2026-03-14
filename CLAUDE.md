@@ -1286,6 +1286,7 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 战争机器管理 | `assets/scripts/warmachine/WarMachineManager.ts` |
 | 战争机器类型 | `assets/scripts/config/WarMachineTypes.ts` |
 | 战争机器配置 | `assets/scripts/configs/war_machine.json.ts` |
+| 战争机器面板 | `assets/scripts/ui/components/WarMachinePanel.ts` |
 
 ## 开发命令
 
