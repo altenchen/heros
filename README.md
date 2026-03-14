@@ -399,6 +399,15 @@ town.recruitUnit('castle_tier1_pikeman', 10, resources);
 - [x] RankPanel 排行榜面板
 - [x] 个人排名显示
 
+### Phase 3.19: 随机事件系统 ✅
+- [x] 随机事件类型定义 (RandomEventTypes)
+- [x] 随机事件配置（宝箱、商人、奇遇等）
+- [x] RandomEventManager 事件管理器
+- [x] 触发场景与概率系统
+- [x] 选项选择与效果应用
+- [x] RandomEventPanel 事件面板
+- [x] 事件冷却与历史记录
+
 ### Phase 4: 编辑器集成 🚧
 - [ ] 绑定组件到预制体
 - [ ] 添加美术资源

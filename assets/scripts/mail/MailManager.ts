@@ -161,15 +161,15 @@ export class MailManager {
      * 删除最旧的已读邮件
      */
     private _deleteOldestReadMail(): void {
-        let oldestMail: MailData | null = null;
+        let oldestMail: MailData | undefined;
 
-        this._mails.forEach(mail => {
+        for (const mail of this._mails.values()) {
             if (mail.state === MailState.READ || mail.state === MailState.CLAIMED) {
                 if (!oldestMail || mail.sendTime < oldestMail.sendTime) {
                     oldestMail = mail;
                 }
             }
-        });
+        }
 
         if (oldestMail) {
             this._mails.delete(oldestMail.mailId);

@@ -16,7 +16,7 @@ import {
     GEMS_PER_MINUTE,
     FREE_SPEEDUP_THRESHOLD
 } from '../config/SpeedUpTypes';
-import { ResourceType } from './GameTypes';
+import { ResourceType } from '../config/GameTypes';
 
 /**
  * 加速管理器类

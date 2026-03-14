@@ -25,7 +25,7 @@ import {
 } from '../config/signin.json';
 import { EventCenter } from '../utils/EventTarget';
 import { playerDataManager } from '../utils/PlayerDataManager';
-import { rewardManager, RewardConfig } from '../utils/RewardManager';
+import { rewardManager } from '../utils/RewardManager';
 
 /**
  * 签到管理器
