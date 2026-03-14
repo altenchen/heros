@@ -27,7 +27,6 @@ export const MARKET_LEVELS: MarketLevelConfig[] = [
             [ResourceType.SULFUR]: 0,
             [ResourceType.MERCURY]: 0,
         },
-        rateBonus: 0,
         dailyTradeLimit: 10,
         unlockedResources: [
             ResourceType.WOOD,

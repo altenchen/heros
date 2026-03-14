@@ -14,10 +14,11 @@
     "_children": [
       { "__id__": 2 },
       { "__id__": 5 },
-      { "__id__": 8 }
+      { "__id__": 8 },
+      { "__id__": 11 }
     ],
     "_active": true,
-    "_components": [ { "__id__": 11 }, { "__id__": 12 } ],
+    "_components": [ { "__id__": 14 }, { "__id__": 15 } ],
     "_prefab": null,
     "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": 0, "z": 0 },
     "_layer": 33554432
@@ -61,7 +62,7 @@
     "_active": true,
     "_components": [ { "__id__": 6 }, { "__id__": 7 } ],
     "_prefab": null,
-    "_lpos": { "__type__": "cc.Vec3", "x": -300, "y": 0, "z": 0 },
+    "_lpos": { "__type__": "cc.Vec3", "x": -250, "y": 0, "z": 0 },
     "_layer": 33554432
   },
   {
@@ -70,7 +71,7 @@
     "_objFlags": 0,
     "node": { "__id__": 5 },
     "_enabled": true,
-    "_contentSize": { "__type__": "cc.Size", "width": 250, "height": 500 }
+    "_contentSize": { "__type__": "cc.Size", "width": 350, "height": 500 }
   },
   {
     "__type__": "cc.Sprite",
@@ -98,7 +99,7 @@
     "_objFlags": 0,
     "node": { "__id__": 8 },
     "_enabled": true,
-    "_contentSize": { "__type__": "cc.Size", "width": 550, "height": 500 }
+    "_contentSize": { "__type__": "cc.Size", "width": 450, "height": 500 }
   },
   {
     "__type__": "cc.Sprite",
@@ -107,6 +108,36 @@
     "node": { "__id__": 8 },
     "_enabled": true,
     "_color": { "__type__": "cc.Color", "r": 40, "g": 30, "b": 40, "a": 200 }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "EquipBtn",
+    "_objFlags": 0,
+    "_parent": { "__id__": 1 },
+    "_children": [],
+    "_active": true,
+    "_components": [ { "__id__": 12 }, { "__id__": 13 } ],
+    "_prefab": null,
+    "_lpos": { "__type__": "cc.Vec3", "x": 0, "y": -250, "z": 0 },
+    "_layer": 33554432
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_contentSize": { "__type__": "cc.Size", "width": 200, "height": 50 }
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": { "__id__": 11 },
+    "_enabled": true,
+    "_string": "装备",
+    "_fontSize": 28,
+    "_color": { "__type__": "cc.Color", "r": 0, "g": 255, "b": 100, "a": 255 }
   },
   {
     "__type__": "cc.UITransform",

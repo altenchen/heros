@@ -11,7 +11,8 @@ import {
     StepType,
     HighlightShape,
     DialogPosition,
-    WaitActionType
+    WaitActionType,
+    ConditionType
 } from './TutorialTypes';
 
 /**
@@ -173,7 +174,7 @@ export const tutorials: TutorialConfig[] = [
         trigger: {
             type: TriggerType.TUTORIAL_COMPLETE,
             condition: {
-                type: 6, // ConditionType.TUTORIAL_COMPLETED
+                type: ConditionType.TUTORIAL_COMPLETED, // ConditionType.TUTORIAL_COMPLETED
                 params: { tutorialId: 'tutorial_town' }
             }
         },
@@ -369,7 +370,7 @@ export const tutorials: TutorialConfig[] = [
         trigger: {
             type: TriggerType.LEVEL_REACH,
             condition: {
-                type: 1, // ConditionType.PLAYER_LEVEL
+                type: ConditionType.PLAYER_LEVEL, // ConditionType.PLAYER_LEVEL
                 params: { level: 5 }
             }
         },
@@ -443,7 +444,7 @@ export const tutorials: TutorialConfig[] = [
         trigger: {
             type: TriggerType.LEVEL_REACH,
             condition: {
-                type: 1, // ConditionType.PLAYER_LEVEL
+                type: ConditionType.PLAYER_LEVEL, // ConditionType.PLAYER_LEVEL
                 params: { level: 3 }
             }
         },
@@ -523,7 +524,7 @@ export const tutorials: TutorialConfig[] = [
         trigger: {
             type: TriggerType.MANUAL,
             condition: {
-                type: 2, // ConditionType.RESOURCE
+                type: ConditionType.RESOURCE, // ConditionType.RESOURCE
                 params: { resourceId: 'gold', minValue: 0, maxValue: 100 }
             }
         },
