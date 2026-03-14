@@ -4,5 +4,5 @@
  */
 
 export * from '../config/AnnouncementTypes';
-export { AnnouncementManager, announcementManager, AnnouncementEventType } from './AnnouncementManager';
+export { AnnouncementManager, announcementManager } from './AnnouncementManager';
 export { announcementConfigs, announcementConfigMap, getActiveAnnouncements, getPopupAnnouncements, getAnnouncementsByType } from '../config/announcement.json';
