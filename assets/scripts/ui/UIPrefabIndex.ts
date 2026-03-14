@@ -466,35 +466,17 @@ export function getPreloadPrefabs(): PrefabConfig[] {
 export function printPrefabGuide(): void {
     console.log('=== UI预制体创建指南 ===\n');
 
-    console.log('已创建的预制体 (在 assets/prefabs/ui/ 目录):');
-    console.log('- MainMenu.prefab');
-    console.log('- LoadingPanel.prefab');
-    console.log('- AlertDialog.prefab');
-    console.log('- SettingsPanel.prefab');
-    console.log('- TownPanel.prefab');
-    console.log('- BattlePanel.prefab');
-    console.log('- HeroPanel.prefab\n');
-
-    console.log('需要创建的预制体:');
-    const existingPrefabs = [
-        'MainMenu', 'LoadingPanel', 'AlertDialog', 'SettingsPanel',
-        'TownPanel', 'BattlePanel', 'HeroPanel'
-    ];
-
+    console.log('所有预制体已创建完成 (在 assets/prefabs/ui/ 目录):');
     UI_PREFABS.forEach(prefab => {
-        if (!existingPrefabs.includes(prefab.name)) {
-            console.log(`- ${prefab.name}.prefab`);
-            console.log(`  组件: ${prefab.component}`);
-            console.log(`  层级: ${prefab.layer}`);
-            console.log(`  描述: ${prefab.description}\n`);
-        }
+        console.log(`- ${prefab.name}.prefab (${prefab.description})`);
     });
 
-    console.log('=== 创建步骤 ===');
-    console.log('1. 在Cocos Creator中，右键点击 assets/prefabs/ui/ 目录');
-    console.log('2. 选择 "创建" -> "Node" 创建空节点');
-    console.log('3. 将节点重命名为预制体名称 (如 "SaveSelectPanel")');
-    console.log('4. 将对应的组件脚本拖拽到节点上');
-    console.log('5. 设置组件属性和添加子节点');
-    console.log('6. 将节点拖拽到 assets/prefabs/ui/ 目录下生成预制体');
+    console.log('\n=== 编辑器集成步骤 ===');
+    console.log('1. 在Cocos Creator中打开项目');
+    console.log('2. 打开 assets/prefabs/ui/ 目录下的预制体文件');
+    console.log('3. 将对应的组件脚本拖拽到预制体根节点上');
+    console.log('4. 设置组件属性引用（如按钮、标签、滚动视图等）');
+    console.log('5. 添加必要的子节点和UI元素');
+    console.log('6. 配置按钮点击事件和UI交互');
+    console.log('7. 替换美术资源（背景图、图标等）');
 }

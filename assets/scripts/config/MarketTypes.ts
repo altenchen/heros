@@ -95,6 +95,8 @@ export interface MarketData {
     lastResetTime: number;
     /** 交易记录 */
     tradeRecords: TradeRecord[];
+    /** 资源交换状态 */
+    exchanges?: ResourceExchange[];
 }
 
 /**

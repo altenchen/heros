@@ -934,3 +934,6 @@ export class BattleManager {
         });
     }
 }
+
+/** 战斗管理器单例 */
+export const battleManager = new BattleManager();

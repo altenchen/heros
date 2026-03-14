@@ -413,13 +413,13 @@ export class MarketManager {
 
         // 发送事件
         this.emitEvent(MarketEventType.MARKET_UPGRADED, {
-            newLevel,
+            newLevel: nextLevel,
             oldLevel,
         });
 
         return {
             success: true,
-            newLevel,
+            newLevel: nextLevel,
         };
     }
 

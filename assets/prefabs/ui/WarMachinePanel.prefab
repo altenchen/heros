@@ -22,15 +22,21 @@
       },
       {
         "__id__": 8
+      },
+      {
+        "__id__": 11
+      },
+      {
+        "__id__": 14
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 11
+        "__id__": 17
       },
       {
-        "__id__": 12
+        "__id__": 18
       }
     ],
     "_prefab": null,
@@ -102,7 +108,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "MachineList",
+    "_name": "SlotsContainer",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -120,8 +126,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -200,
-      "y": 0,
+      "x": 0,
+      "y": 150,
       "z": 0
     },
     "_layer": 33554432
@@ -136,8 +142,8 @@
     "_enabled": true,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 350,
-      "height": 500
+      "width": 800,
+      "height": 120
     }
   },
   {
@@ -150,15 +156,15 @@
     "_enabled": true,
     "_color": {
       "__type__": "cc.Color",
-      "r": 40,
-      "g": 40,
-      "b": 50,
+      "r": 50,
+      "g": 50,
+      "b": 60,
       "a": 200
     }
   },
   {
     "__type__": "cc.Node",
-    "_name": "MachineDetail",
+    "_name": "MachineList",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -176,8 +182,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 200,
-      "y": 0,
+      "x": 0,
+      "y": -20,
       "z": 0
     },
     "_layer": 33554432
@@ -192,8 +198,8 @@
     "_enabled": true,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
-      "height": 500
+      "width": 800,
+      "height": 350
     }
   },
   {
@@ -206,10 +212,122 @@
     "_enabled": true,
     "_color": {
       "__type__": "cc.Color",
-      "r": 30,
-      "g": 30,
-      "b": 40,
+      "r": 40,
+      "g": 40,
+      "b": 50,
       "a": 200
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "DetailPanel",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": false,
+    "_components": [
+      {
+        "__id__": 12
+      },
+      {
+        "__id__": 13
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 300,
+      "y": 0,
+      "z": 0
+    },
+    "_layer": 33554432
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 11
+    },
+    "_enabled": true,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 300,
+      "height": 400
+    }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 11
+    },
+    "_enabled": true,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 35,
+      "g": 35,
+      "b": 45,
+      "a": 240
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "CloseBtn",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 15
+      },
+      {
+        "__id__": 16
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 420,
+      "y": 280,
+      "z": 0
+    },
+    "_layer": 33554432
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 14
+    },
+    "_enabled": true,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    }
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 14
+    },
+    "_enabled": true,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 150,
+      "g": 50,
+      "b": 50,
+      "a": 255
     }
   },
   {
