@@ -398,6 +398,13 @@ export class UIManager {
             layer: UILayer.PANEL,
             cache: true
         });
+
+        // 随机事件面板
+        this.registerUI('random_event_panel', {
+            prefab: 'prefabs/ui/RandomEventPanel',
+            layer: UILayer.POPUP,
+            cache: true
+        });
     }
 
     /**
