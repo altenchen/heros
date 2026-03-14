@@ -35,6 +35,12 @@
 | 战斗特效系统 | ✅ 已完成 | 伤害飘字、技能特效、Buff图标 |
 | VIP系统 | ✅ 已完成 | VIP等级、充值、月卡、成长基金 |
 | 排行榜系统 | ✅ 已完成 | 战力榜、竞技榜、公会榜、奖励结算 |
+| 每日签到系统 | ✅ 已完成 | 签到、补签、连续签到奖励 |
+| 背包系统 | ✅ 已完成 | 道具存储、使用、出售、扩容 |
+| 商店系统 | ✅ 已完成 | 商品购买、货币兑换、商店刷新 |
+| 新手引导系统 | ✅ 已完成 | 教程触发、步骤执行、进度保存 |
+| 邮件系统 | ✅ 已完成 | 系统邮件、奖励附件、批量领取 |
+| 活动系统 | ✅ 已完成 | 限时活动、节日活动、任务进度 |
 | 编辑器集成 | 🚧 进行中 | 需绑定组件、替换美术 |
 
 ## 项目结构
@@ -280,6 +286,252 @@ EventCenter.on(RankEventType.RANK_CHANGED, (data) => {
 });
 ```
 
+### 每日签到系统
+
+```typescript
+import { DailySigninManager, dailySigninManager } from './signin/DailySigninManager';
+import { SigninEventType } from './config/DailySigninTypes';
+
+// 初始化
+dailySigninManager.init();
+
+// 获取签到预览
+const preview = dailySigninManager.getSigninPreview();
+console.log(`今日状态: ${preview.todayState}, 已签到: ${preview.progress.signedDays}天`);
+
+// 签到
+const result = dailySigninManager.signin();
+if (result.success) {
+    console.log(`签到成功: 第${result.day}天`);
+    console.log(`获得奖励:`, result.rewards);
+}
+
+// 补签
+const makeupResult = dailySigninManager.makeup(3); // 补签第3天
+
+// 检查今日是否已签到
+const isSigned = dailySigninManager.isTodaySigned();
+
+// 获取连续签到天数
+const continuousDays = dailySigninManager.getContinuousDays();
+
+// 获取剩余补签次数
+const remainingMakeup = dailySigninManager.getRemainingMakeupCount();
+```
+
+### 背包系统
+
+```typescript
+import { InventoryManager, inventoryManager } from './inventory/InventoryManager';
+import { InventoryType, InventoryEventType } from './config/InventoryTypes';
+
+// 初始化
+inventoryManager.init();
+
+// 添加道具
+inventoryManager.addItem('item_potion_hp', 10);
+
+// 使用道具
+const useResult = inventoryManager.useItem(instanceId, 1);
+if (useResult.success) {
+    console.log(`使用成功，剩余: ${useResult.remainingCount}`);
+}
+
+// 出售道具
+const sellResult = inventoryManager.sellItem(instanceId, 5);
+if (sellResult.success) {
+    console.log(`出售获得: ${sellResult.amount} ${sellResult.currency}`);
+}
+
+// 获取道具数量
+const count = inventoryManager.getItemCount('item_potion_hp');
+
+// 检查是否有道具
+const hasItem = inventoryManager.hasItem('item_key_gold', 3);
+
+// 获取背包所有道具
+const items = inventoryManager.getAllItems(InventoryType.MAIN);
+
+// 扩容背包
+inventoryManager.expandInventory(InventoryType.MAIN);
+
+// 监听事件
+EventCenter.on(InventoryEventType.ITEM_ADD, (data) => {
+    console.log(`获得道具: ${data.itemId} x${data.count}`);
+});
+```
+
+### 商店系统
+
+```typescript
+import { ShopManager, shopManager } from './shop/ShopManager';
+import { ShopType, ShopEventType, CurrencyType } from './config/ShopTypes';
+
+// 初始化
+shopManager.init();
+
+// 获取商店商品
+const items = shopManager.getShopItems(ShopType.NORMAL);
+
+// 购买商品
+const result = shopManager.purchase('item_potion_mp_10', 1);
+if (result.success) {
+    console.log(`购买成功，剩余购买次数: ${result.remainingCount}`);
+}
+
+// 获取商品状态
+const state = shopManager.getItemState('item_potion_mp_10');
+
+// 获取剩余购买次数
+const remaining = shopManager.getRemainingPurchaseCount('item_potion_mp_10');
+
+// 货币兑换
+const exchangeResult = shopManager.exchange('gems_to_gold_100');
+
+// 监听购买事件
+EventCenter.on(ShopEventType.PURCHASE_SUCCESS, (data) => {
+    console.log(`购买成功: ${data.itemId} x${data.quantity}`);
+});
+```
+
+### 新手引导系统
+
+```typescript
+import { TutorialManager, tutorialManager } from './tutorial/TutorialManager';
+import { TutorialEventType, TriggerType, TutorialState } from './config/TutorialTypes';
+
+// 初始化
+tutorialManager.init();
+
+// 检查并触发教程
+tutorialManager.checkAndTrigger(TriggerType.GAME_START);
+tutorialManager.checkAndTrigger(TriggerType.FIRST_BATTLE, { levelId: 'level_1_1' });
+
+// 获取当前教程
+const activeTutorial = tutorialManager.getActiveTutorial();
+const currentStep = tutorialManager.getCurrentStep();
+
+// 步骤完成（由UI层调用）
+tutorialManager.stepComplete();
+
+// 跳过教程
+tutorialManager.skipTutorial();
+
+// 暂停/恢复教程
+tutorialManager.pauseTutorial();
+tutorialManager.resumeTutorial();
+
+// 检查教程是否完成
+const isCompleted = tutorialManager.isTutorialCompleted('tutorial_battle_basic');
+
+// 获取已完成的教程ID列表
+const completedIds = tutorialManager.getCompletedTutorialIds();
+
+// 监听教程事件
+EventCenter.on(TutorialEventType.TUTORIAL_START, (data) => {
+    console.log(`开始教程: ${data.tutorialId}`);
+});
+EventCenter.on(TutorialEventType.TUTORIAL_COMPLETE, (data) => {
+    console.log(`完成教程: ${data.tutorialId}`);
+});
+```
+
+### 邮件系统
+
+```typescript
+import { MailManager, mailManager } from './mail/MailManager';
+import { MailType, MailEventType } from './config/MailTypes';
+
+// 初始化
+mailManager.init();
+
+// 发送邮件
+mailManager.sendMail({
+    type: MailType.REWARD,
+    sender: '系统',
+    title: '每日奖励',
+    content: '恭喜您获得每日登录奖励！',
+    attachments: [
+        { type: 'resource', itemId: 'gold', amount: 1000 },
+        { type: 'resource', itemId: 'gems', amount: 100 }
+    ]
+});
+
+// 发送欢迎邮件
+mailManager.sendWelcomeMail();
+
+// 获取邮件列表
+const result = mailManager.getMailList();
+console.log(`未读邮件: ${result.unreadCount}封`);
+
+// 标记已读
+mailManager.markAsRead('mail_xxx');
+
+// 批量标记已读
+mailManager.markAllAsRead();
+
+// 领取附件
+const claimResult = mailManager.claimAttachment('mail_xxx');
+
+// 一键领取所有附件
+mailManager.claimAllAttachments();
+
+// 删除邮件
+mailManager.deleteMail('mail_xxx');
+
+// 获取未读数量
+const unreadCount = mailManager.getUnreadCount();
+
+// 监听邮件事件
+EventCenter.on(MailEventType.MAIL_RECEIVED, (data) => {
+    console.log(`收到新邮件: ${data.mail?.title}`);
+});
+```
+
+### 活动系统
+
+```typescript
+import { ActivityManager, activityManager } from './activity/ActivityManager';
+import { ActivityType, ActivityEventType } from './config/ActivityTypes';
+
+// 初始化
+activityManager.init();
+
+// 获取活动列表
+const list = activityManager.getActivityList();
+console.log(`进行中: ${list.activeCount}, 预告中: ${list.previewCount}`);
+
+// 获取活动详情
+const detail = activityManager.getActivityDetail('daily_signin');
+
+// 检查活动是否开启
+const isActive = activityManager.isActivityActive('limited_battle');
+
+// 更新任务进度
+activityManager.updateProgress('signin_count', 1);
+activityManager.updateProgress('limited_battle_count', 1);
+
+// 领取任务奖励
+const result = activityManager.claimReward('daily_signin', 'signin_1');
+
+// 一键领取所有奖励
+activityManager.claimAllRewards('daily_signin');
+
+// 检查是否有可领取奖励
+const hasClaimable = activityManager.hasClaimableRewards('daily_signin');
+
+// 获取所有有可领取奖励的活动
+const activities = activityManager.getActivitiesWithClaimableRewards();
+
+// 监听活动事件
+EventCenter.on(ActivityEventType.ACTIVITY_START, (data) => {
+    console.log(`活动开始: ${data.activity?.name}`);
+});
+EventCenter.on(ActivityEventType.TASK_COMPLETE, (data) => {
+    console.log(`任务完成: ${data.taskId}`);
+});
+```
+
 ## 代码规范
 
 ### 命名约定
@@ -351,6 +603,24 @@ EventCenter.emit(GameEvent.RESOURCE_CHANGED, { type: 'gold', amount: 100 });
 | 排行榜管理 | `assets/scripts/rank/RankManager.ts` |
 | 排行榜类型 | `assets/scripts/config/RankTypes.ts` |
 | 排行榜配置 | `assets/scripts/config/rank.json.ts` |
+| 每日签到管理 | `assets/scripts/signin/DailySigninManager.ts` |
+| 签到类型 | `assets/scripts/config/DailySigninTypes.ts` |
+| 签到配置 | `assets/scripts/config/signin.json.ts` |
+| 背包管理 | `assets/scripts/inventory/InventoryManager.ts` |
+| 背包类型 | `assets/scripts/config/InventoryTypes.ts` |
+| 物品配置 | `assets/scripts/config/items.json.ts` |
+| 商店管理 | `assets/scripts/shop/ShopManager.ts` |
+| 商店类型 | `assets/scripts/config/ShopTypes.ts` |
+| 商店配置 | `assets/scripts/config/shop.json.ts` |
+| 新手引导管理 | `assets/scripts/tutorial/TutorialManager.ts` |
+| 新手引导类型 | `assets/scripts/config/TutorialTypes.ts` |
+| 新手引导配置 | `assets/scripts/config/tutorials.json.ts` |
+| 邮件管理 | `assets/scripts/mail/MailManager.ts` |
+| 邮件类型 | `assets/scripts/config/MailTypes.ts` |
+| 邮件配置 | `assets/scripts/config/mail.json.ts` |
+| 活动管理 | `assets/scripts/activity/ActivityManager.ts` |
+| 活动类型 | `assets/scripts/config/ActivityTypes.ts` |
+| 活动配置 | `assets/scripts/config/activity.json.ts` |
 
 ## 开发命令
 
